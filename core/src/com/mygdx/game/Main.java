@@ -21,7 +21,7 @@ public class Main extends Game {
 
 	@Override
 	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		super.render();
 	}
 	
