@@ -10,31 +10,25 @@ import com.badlogic.gdx.utils.Array;
  * @author Nahum Rosillo
  */
 
-public class QuadTree
-{
-    //  --- Configuration
+public class QuadTree {
+
     private static final int MAX_OBJECTS_BY_NODE = 10;
     private static final int MAX_LEVEL = 6;
-    //  ---
-
     private final int level;
     private final Array<Rectangle> objects;
     private final Rectangle bounds;
     private final QuadTree[] nodes;
 
-    public QuadTree(int level, Rectangle bounds)
-    {
+    public QuadTree(int level, Rectangle bounds) {
         this.level = level;
         this.bounds = bounds;
         objects = new Array<>();
         nodes = new QuadTree[4];
     }
 
-    public void getZones(Array<Rectangle> allZones)
-    {
+    public void getZones(Array<Rectangle> allZones) {
         allZones.add(bounds);
-        if (nodes[0] != null)
-        {
+        if (nodes[0] != null) {
             nodes[0].getZones(allZones);
             nodes[1].getZones(allZones);
             nodes[2].getZones(allZones);
@@ -42,79 +36,56 @@ public class QuadTree
         }
     }
 
-    public void clear()
-    {
+    public void clear() {
         objects.clear();
-        for (int i = 0; i < nodes.length; i++)
-        {
-            if (nodes[i] != null)
-            {
+        for (int i = 0; i < nodes.length; i++) {
+            if (nodes[i] != null) {
                 nodes[i].clear();
                 nodes[i] = null;
             }
         }
     }
 
-    public void insert(Rectangle rect)
-    {
-        if (nodes[0] != null)
-        {
+    public void insert(Rectangle rect) {
+        if (nodes[0] != null) {
             int index = getIndex(rect);
-            if (index != -1)
-            {
+            if (index != -1) {
                 nodes[index].insert(rect);
                 return;
             }
         }
 
         objects.add(rect);
-
-        if (objects.size > MAX_OBJECTS_BY_NODE && level < MAX_LEVEL)
-        {
-            if (nodes[0] == null)
-                split();
+        if (objects.size > MAX_OBJECTS_BY_NODE && level < MAX_LEVEL) {
+            if (nodes[0] == null) split();
 
             int i = 0;
-            while(i < objects.size)
-            {
+            while(i < objects.size) {
                 int index = getIndex(objects.get(i));
-
-                if (index != -1)
-                    nodes[index].insert(objects.removeIndex(i));
-                else
-                    i++;
+                if (index != -1) nodes[index].insert(objects.removeIndex(i));
+                else i++;
             }
         }
     }
 
-    public Array<Rectangle> retrieve(Array<Rectangle> list, Rectangle area)
-    {
+    public Array<Rectangle> retrieve(Array<Rectangle> list, Rectangle area) {
         int index = getIndex(area);
-
-        if (index != -1 & nodes[0] != null)
-            nodes[index].retrieve(list, area);
-
+        if (index != -1 & nodes[0] != null) nodes[index].retrieve(list, area);
         list.addAll(objects);
-
         return list;
     }
 
-    public Array<Rectangle> retrieveFast(Array<Rectangle> list, Rectangle area)
-    {
+    public Array<Rectangle> retrieveFast(Array<Rectangle> list, Rectangle area) {
         int index = getIndex(area);
-
-        if (index != -1 & nodes[0] != null)
-            nodes[index].retrieveFast(list, area);
+        if (index != -1 & nodes[0] != null) nodes[index].retrieveFast(list, area);
 
         //  This if(..) is configurable: only process elements in MAX_LEVEL and MAX_LEVEL-1
-        if (level == MAX_LEVEL || level == MAX_LEVEL-1)
-            list.addAll(objects);
+        if (level == MAX_LEVEL || level == MAX_LEVEL-1) list.addAll(objects);
 
         return list;
     }
 
-    private void split()
-    {
+    private void split() {
         float subWidth =  (bounds.getWidth() * 0.5f);
         float subHeight = (bounds.getHeight() * 0.5f);
         float x = bounds.getX();
@@ -127,28 +98,22 @@ public class QuadTree
 
     }
 
-    private int getIndex(Rectangle pRect)
-    {
+    private int getIndex(Rectangle pRect) {
         int index = -1;
         float verticalMidpoint = bounds.getX() + (bounds.getWidth() * 0.5f);
         float horizontalMidpoint = bounds.getY() + (bounds.getHeight() * 0.5f);
 
-        boolean topQuadrant = (pRect.getY() < horizontalMidpoint && pRect.getY() + pRect.getHeight() < horizontalMidpoint);
-        boolean bottomQuadrant = (pRect.getY() > horizontalMidpoint);
+        boolean topQuadrant = pRect.getY() < horizontalMidpoint
+                && pRect.getY() + pRect.getHeight() < horizontalMidpoint;
+        boolean bottomQuadrant = pRect.getY() > horizontalMidpoint;
 
-        if (pRect.getX() < verticalMidpoint && pRect.getX() + pRect.getWidth() < verticalMidpoint)
-        {
-            if (topQuadrant)
-                index = 1;
-            else if (bottomQuadrant)
-                index = 2;
+        if (pRect.getX() < verticalMidpoint && pRect.getX() + pRect.getWidth() < verticalMidpoint) {
+            if (topQuadrant) index = 1;
+            else if (bottomQuadrant) index = 2;
         }
-        else if (pRect.getX() > verticalMidpoint)
-        {
-            if (topQuadrant)
-                index = 0;
-            else if (bottomQuadrant)
-                index = 3;
+        else if (pRect.getX() > verticalMidpoint) {
+            if (topQuadrant) index = 0;
+            else if (bottomQuadrant) index = 3;
         }
 
         return index;

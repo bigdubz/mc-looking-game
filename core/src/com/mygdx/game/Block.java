@@ -29,6 +29,10 @@ public class Block extends Actor {
         image.draw(batch);
     }
 
+    public Rectangle getRectangle() {
+        return this.rectangle;
+    }
+
     void dispose() {
         image.getTexture().dispose();
     }

@@ -14,6 +14,9 @@ public class Main extends Game {
 	ShapeRenderer sr;
 	GameScreen gameScreen;
 	int BLOCK_SIZE = 100;
+	int MAP_WIDTH = 64;  // blocks
+	int MAP_HEIGHT = 64;
+
 
 	@Override
 	public void create() {
@@ -21,6 +24,7 @@ public class Main extends Game {
 		batch = new SpriteBatch();
 		sr = new ShapeRenderer();
 		sr.setAutoShapeType(true);
+		gameScreen.load();
 		setScreen(gameScreen);
 	}
 
