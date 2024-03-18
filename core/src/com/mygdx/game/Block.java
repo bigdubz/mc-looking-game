@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Block extends Actor {
@@ -11,13 +12,16 @@ public class Block extends Actor {
 
     Main main;
     Sprite image;
+    Rectangle rectangle;
     boolean solid;
 
     public Block(Main m, int x, int y, String img, boolean solid) {
         main = m;
         image = new Sprite(new Texture(Gdx.files.internal(img)));
-        image.setBounds(x, y, image.getWidth()*3.75f, image.getHeight()*3.75f);
         this.solid = solid;
+        setBounds(x, y, main.BLOCK_SIZE, main.BLOCK_SIZE);
+        image.setBounds(x, y, getWidth(), getHeight());
+        rectangle = new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override

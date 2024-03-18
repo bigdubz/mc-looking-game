@@ -15,7 +15,7 @@ public class GameScreen implements Screen {
     GameScreen(Main m) {
         main = m;
         test = new Human(main);
-        bTest = new Block(main, 500, 500, "Blocks/A.png", true);
+        bTest = new Block(main, 200, 200, "Blocks/A.png", true);
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         stage.addActor(bTest);
@@ -31,6 +31,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         stage.getCamera().position.x = test.getX();
         stage.getCamera().position.y = test.getY();
+        main.sr.setProjectionMatrix(stage.getCamera().combined);
         stage.draw();
         stage.act(delta);
     }
