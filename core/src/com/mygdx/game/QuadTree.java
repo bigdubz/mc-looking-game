@@ -4,18 +4,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 
-/**
- * PR QuadTree implementation for LibGDX
- *
- * @author Nahum Rosillo
- */
-
 public class QuadTree {
 
-    private static final int MAX_OBJECTS_BY_NODE = 10;
+    private static final int MAX_OBJECTS_BY_NODE = 20;
     private static final int MAX_LEVEL = 6;
     private final int level;
-    private final Array<Rectangle> objects;
+    private final Array<Block> objects;
     private final Rectangle bounds;
     private final QuadTree[] nodes;
 
@@ -24,16 +18,6 @@ public class QuadTree {
         this.bounds = bounds;
         objects = new Array<>();
         nodes = new QuadTree[4];
-    }
-
-    public void getZones(Array<Rectangle> allZones) {
-        allZones.add(bounds);
-        if (nodes[0] != null) {
-            nodes[0].getZones(allZones);
-            nodes[1].getZones(allZones);
-            nodes[2].getZones(allZones);
-            nodes[3].getZones(allZones);
-        }
     }
 
     public void clear() {
@@ -46,43 +30,42 @@ public class QuadTree {
         }
     }
 
-    public void insert(Rectangle rect) {
+    public void insert(Block block) {
+        Rectangle rect = block.getRectangle();
         if (nodes[0] != null) {
             int index = getIndex(rect);
             if (index != -1) {
-                nodes[index].insert(rect);
+                nodes[index].insert(block);
                 return;
             }
         }
 
-        objects.add(rect);
+        objects.add(block);
         if (objects.size > MAX_OBJECTS_BY_NODE && level < MAX_LEVEL) {
             if (nodes[0] == null) split();
 
             int i = 0;
             while(i < objects.size) {
-                int index = getIndex(objects.get(i));
+                int index = getIndex(objects.get(i).getRectangle());
                 if (index != -1) nodes[index].insert(objects.removeIndex(i));
                 else i++;
             }
         }
     }
 
-    public Array<Rectangle> retrieve(Array<Rectangle> list, Rectangle area) {
+    public void retrieve(Array<Block> list, Rectangle area) {
         int index = getIndex(area);
         if (index != -1 & nodes[0] != null) nodes[index].retrieve(list, area);
         list.addAll(objects);
-        return list;
     }
 
-    public Array<Rectangle> retrieveFast(Array<Rectangle> list, Rectangle area) {
+    public void retrieveFast(Array<Block> list, Rectangle area) {
         int index = getIndex(area);
         if (index != -1 & nodes[0] != null) nodes[index].retrieveFast(list, area);
 
         //  This if(..) is configurable: only process elements in MAX_LEVEL and MAX_LEVEL-1
-        if (level == MAX_LEVEL || level == MAX_LEVEL-1) list.addAll(objects);
+        if (level == MAX_LEVEL || level == MAX_LEVEL-1 || level == MAX_LEVEL-2) list.addAll(objects);
 
-        return list;
     }
 
     private void split() {

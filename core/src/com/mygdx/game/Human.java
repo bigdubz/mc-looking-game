@@ -21,7 +21,7 @@ public class Human extends Actor {
 
     // quad tree
     Rectangle nearbyRegion;
-    Array<Rectangle> nearbyRects;
+    Array<Block> nearbyBlocks;
     QuadTree tree;
     /*
      Animation<TextureRegion> walkUp;
@@ -34,8 +34,9 @@ public class Human extends Actor {
         main = m;
         image = new Sprite(new Texture(Gdx.files.internal("Player/down1.png")));
         rectangle = image.getBoundingRectangle();
+        setX(getX() - 50);
         tempRect = new Rectangle(rectangle);
-        nearbyRects = new Array<>();
+        nearbyBlocks = new Array<>();
         nearbyRegion = new Rectangle(rectangle);
         setTouchable(Touchable.enabled);
         tree = new QuadTree(0, new Rectangle(0, 0,
@@ -65,16 +66,17 @@ public class Human extends Actor {
         }
 
         tree.clear();
-        for (Rectangle r : main.gameScreen.allRectangles)
+        for (Block r : main.gameScreen.allBlocks)
             tree.insert(r);
 
-        nearbyRects.clear();
-        nearbyRegion.set(getX() - 50, getY() - 50, getWidth() + 100, getHeight() + 100);
-        tree.retrieve(nearbyRects, nearbyRegion);
+        nearbyBlocks.clear();
+        tree.retrieve(nearbyBlocks, rectangle);
 
         boolean collidedX = false;
         boolean collidedY = false;
-        for (Rectangle r : nearbyRects) {
+        System.out.println(nearbyBlocks.size);
+        for (Block r : nearbyBlocks) {
+            if (!r.solid) continue;
             if (!collidedX && collideX(horz, r)) collidedX = true;
             if (!collidedY && collideY(vert, r)) collidedY = true;
         }
@@ -88,16 +90,16 @@ public class Human extends Actor {
         }
     }
 
-    boolean collideX(float dx, Rectangle block) {
+    boolean collideX(float dx, Block block) {
         tempRect.setX(getX() + dx);
-        boolean collided = tempRect.overlaps(block);
+        boolean collided = tempRect.overlaps(block.getRectangle());
         tempRect.setX(getX());
         return collided;
     }
 
-    boolean collideY(float dy, Rectangle block) {
+    boolean collideY(float dy, Block block) {
         tempRect.setY(getY() + dy);
-        boolean collided = tempRect.overlaps(block);
+        boolean collided = tempRect.overlaps(block.getRectangle());
         tempRect.setY(getY());
         return collided;
     }

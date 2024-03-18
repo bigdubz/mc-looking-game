@@ -12,14 +12,14 @@ public class GameScreen implements Screen {
     Main main;
     Stage stage;
     Human human;
-    Array<Rectangle> allRectangles;
+    Array<Block> allBlocks;
 
     GameScreen(Main m) {
         main = m;
         human = new Human(main);
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        allRectangles = new Array<>();
+        allBlocks = new Array<>();
         stage.addActor(human);
     }
 
@@ -27,9 +27,9 @@ public class GameScreen implements Screen {
         human.load();
         for (int y = 0; y < main.MAP_HEIGHT; y++) {
             for (int x = 0; x < main.MAP_WIDTH; x++) {
-                Block block = new Block(main, x*main.BLOCK_SIZE, y*main.BLOCK_SIZE, "Blocks/A.png", false);
+                Block block = new Block(main, x*main.BLOCK_SIZE, y*main.BLOCK_SIZE, "Blocks/A.png", true);
                 stage.addActor(block);
-                allRectangles.add(block.getRectangle());
+                allBlocks.add(block);
             }
         }
     }
