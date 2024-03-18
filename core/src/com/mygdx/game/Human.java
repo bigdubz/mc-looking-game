@@ -3,40 +3,51 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public class Human extends Actor {
 
-    Sprite image;
+    Texture image;
     Main main;
+    Animation<TextureRegion> walkUp;
+    Animation<TextureRegion> walkDown;
+    Animation<TextureRegion> walkRight;
+    Animation<TextureRegion> walkLeft;
 
     Human(Main m) {
         main = m;
-        image = new Sprite(new Texture(Gdx.files.internal("Player/down1.png")));
+        image = new Texture(Gdx.files.internal("Player/down1.png"));
         setTouchable(Touchable.enabled);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        image.draw(batch);
+        batch.draw(image, getX(), getY());
     }
 
-    void update(float delta) {
+    public void act(float delta) {
         float vert = 0;
         float horz = 0;
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) vert += 100 * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) vert -= 100 * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) horz -= 100 * delta;
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) horz += 100 * delta;
+        float speed = 300 * delta;
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) vert += speed;
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) vert -= speed;
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) horz += speed;
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) horz -= speed;
 
         if (horz * vert != 0) {
             horz /= (float) Math.sqrt(2);
             vert /= (float) Math.sqrt(2);
         }
-        image.setY(image.getY() + vert);
-        image.setX(image.getX() + horz);
+        setY(getY() + vert);
+        setX(getX() + horz);
+    }
+
+    void dispose() {
+        image.dispose();
     }
 }

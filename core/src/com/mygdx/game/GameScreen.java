@@ -10,12 +10,15 @@ public class GameScreen implements Screen {
     Main main;
     Stage stage;
     Human test;
+    Block bTest;
 
     GameScreen(Main m) {
         main = m;
         test = new Human(main);
+        bTest = new Block(main, 500, 500, "Blocks/A.png", true);
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+        stage.addActor(bTest);
         stage.addActor(test);
     }
 
@@ -26,8 +29,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        stage.getCamera().position.x = test.getX();
+        stage.getCamera().position.y = test.getY();
         stage.draw();
-        test.update(delta);
+        stage.act(delta);
     }
 
     @Override
@@ -52,6 +57,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        bTest.dispose();
+        test.dispose();
     }
 }
