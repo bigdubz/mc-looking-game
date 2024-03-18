@@ -3,9 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
+// import com.badlogic.gdx.graphics.g2d.Animation;
+// import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -16,10 +16,12 @@ public class Human extends Actor {
     Main main;
     Rectangle rectangle;
     Rectangle tempRect;
-    Animation<TextureRegion> walkUp;
-    Animation<TextureRegion> walkDown;
-    Animation<TextureRegion> walkRight;
-    Animation<TextureRegion> walkLeft;
+    /*
+     Animation<TextureRegion> walkUp;
+     Animation<TextureRegion> walkDown;
+     Animation<TextureRegion> walkRight;
+     Animation<TextureRegion> walkLeft;
+    */
 
     Human(Main m) {
         main = m;
@@ -58,14 +60,14 @@ public class Human extends Actor {
         }
     }
 
-    boolean collideX(float dx) {
+    boolean collideX(float dx/*, Block block*/) {
         tempRect.setX(getX() + dx);
         boolean collided = tempRect.overlaps(main.gameScreen.bTest.rectangle);
         tempRect.setX(getX());
         return collided;
     }
 
-    boolean collideY(float dy) {
+    boolean collideY(float dy/*, Block block*/) {
         tempRect.setY(getY() + dy);
         boolean collided = tempRect.overlaps(main.gameScreen.bTest.rectangle);
         tempRect.setY(getY());
