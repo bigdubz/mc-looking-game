@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 // import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -67,7 +68,7 @@ public class Human extends Actor {
 
         tree.clear();
         for (Block r : main.gameScreen.allBlocks)
-            tree.insert(r);
+            if (r.solid) tree.insert(r);
 
         nearbyBlocks.clear();
         tree.retrieve(nearbyBlocks, rectangle);
@@ -76,7 +77,6 @@ public class Human extends Actor {
         boolean collidedY = false;
         System.out.println(nearbyBlocks.size);
         for (Block r : nearbyBlocks) {
-            if (!r.solid) continue;
             if (!collidedX && collideX(horz, r)) collidedX = true;
             if (!collidedY && collideY(vert, r)) collidedY = true;
         }
