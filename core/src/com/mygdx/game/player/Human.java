@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,27 +11,15 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Block;
+import com.mygdx.game.Main;
+import com.mygdx.game.QuadTree;
 
-public class Human extends Actor {
+public class Human extends Player {
 
-    Sprite image;
-    Main main;
-    Rectangle rectangle;
-    Rectangle tempRect;
 
-    // quad tree
-    Rectangle nearbyRegion;
-    Array<Block> nearbyBlocks;
-    QuadTree tree;
-    /*
-     Animation<TextureRegion> walkUp;
-     Animation<TextureRegion> walkDown;
-     Animation<TextureRegion> walkRight;
-     Animation<TextureRegion> walkLeft;
-    */
-
-    Human(Main m) {
-        main = m;
+    public Human(Main m) {
+        super(m);
         image = new Sprite(new Texture(Gdx.files.internal("Player/down1.png")));
         rectangle = image.getBoundingRectangle();
         setX(getX() - 50);
@@ -43,6 +31,7 @@ public class Human extends Actor {
                 main.BLOCK_SIZE * main.MAP_WIDTH, main.BLOCK_SIZE * main.MAP_HEIGHT));
     }
 
+    @Override
     public void load() {
     }
 
@@ -65,45 +54,11 @@ public class Human extends Actor {
             vert /= (float) Math.sqrt(2);
         }
 
-        tree.clear();
-        for (Block r : main.gameScreen.allBlocks)
-            if (r.solid) tree.insert(r);
-
-        nearbyBlocks.clear();
-        tree.retrieve(nearbyBlocks, rectangle);
-
-        boolean collidedX = false;
-        boolean collidedY = false;
-        System.out.println(nearbyBlocks.size);
-        for (Block r : nearbyBlocks) {
-            if (!collidedX && collideX(horz, r)) collidedX = true;
-            if (!collidedY && collideY(vert, r)) collidedY = true;
-        }
-        if (!collidedX) {
-            setX(getX() + horz);
-            rectangle.setX(getX());
-        }
-        if (!collidedY) {
-            setY(getY() + vert);
-            rectangle.setY(getY());
-        }
+        checkCollisionAndMove(horz, vert);
     }
 
-    boolean collideX(float dx, Block block) {
-        tempRect.setX(getX() + dx);
-        boolean collided = tempRect.overlaps(block.getRectangle());
-        tempRect.setX(getX());
-        return collided;
-    }
 
-    boolean collideY(float dy, Block block) {
-        tempRect.setY(getY() + dy);
-        boolean collided = tempRect.overlaps(block.getRectangle());
-        tempRect.setY(getY());
-        return collided;
-    }
-
-    void dispose() {
+    public void dispose() {
         image.getTexture().dispose();
     }
 }

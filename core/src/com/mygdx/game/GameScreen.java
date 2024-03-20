@@ -2,17 +2,17 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.player.Human;
 
 public class GameScreen implements Screen {
 
     Main main;
     Stage stage;
     Human human;
-    Array<Block> allBlocks;
+    public Array<Block> allBlocks;
 
     GameScreen(Main m) {
         main = m;

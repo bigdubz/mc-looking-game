@@ -10,12 +10,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Main extends Game {
 
-	SpriteBatch batch;
+	public SpriteBatch batch;
 	ShapeRenderer sr;
-	GameScreen gameScreen;
-	int BLOCK_SIZE = 100;
-	int MAP_WIDTH = 64;  // blocks
-	int MAP_HEIGHT = 64;
+	public GameScreen gameScreen;
+	public final int BLOCK_SIZE = 100;  // pixels
+	public final int MAP_WIDTH = 64;  // blocks
+	public final int MAP_HEIGHT = 64;
 
 
 	@Override
@@ -39,5 +39,6 @@ public class Main extends Game {
 	public void dispose () {
 		gameScreen.dispose();
 		batch.dispose();
+		sr.dispose();
 	}
 }

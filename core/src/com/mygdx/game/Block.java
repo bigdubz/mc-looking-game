@@ -12,8 +12,8 @@ public class Block extends Actor {
 
     Main main;
     Sprite image;
-    Rectangle rectangle;
-    boolean solid;
+    public Rectangle rectangle;
+    public boolean solid;
 
     public Block(Main m, int x, int y, String img, boolean solid) {
         main = m;
