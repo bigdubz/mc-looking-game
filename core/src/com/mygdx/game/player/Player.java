@@ -4,10 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Block;
 import com.mygdx.game.Main;
-import com.mygdx.game.QuadTree;
 
 public abstract class Player extends Actor {
 
@@ -16,7 +14,6 @@ public abstract class Player extends Actor {
     Rectangle rectangle;
     Rectangle tempRect;
 
-    // quad tree
     /*
      Animation<TextureRegion> walkUp;
      Animation<TextureRegion> walkDown;

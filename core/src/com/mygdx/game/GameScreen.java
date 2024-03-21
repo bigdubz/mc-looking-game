@@ -80,5 +80,9 @@ public class GameScreen implements Screen {
     public void dispose() {
         stage.dispose();
         human.dispose();
+        for (Block block : allBlocks) block.dispose();
+        allBlocks.clear();
+        tree.clear();
+        nearbyBlocks.clear();
     }
 }
