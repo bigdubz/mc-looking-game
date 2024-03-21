@@ -29,7 +29,6 @@ public class GameScreen implements Screen {
         nearbyBlocks = new Array<>();
         human = new Human(main);
         stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
         allBlocks = new Array<>();
         stage.addActor(human);
     }
@@ -47,7 +46,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
