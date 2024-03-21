@@ -72,4 +72,8 @@ public abstract class Player extends Actor {
         tempRect.setY(getY());
         return collided;
     }
+
+    public void dispose() {
+        image.getTexture().dispose();
+    }
 }

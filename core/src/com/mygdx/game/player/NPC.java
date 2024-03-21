@@ -15,10 +15,12 @@ public class NPC extends Player {
 
     }
 
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(image, getX(), getY());
     }
 
+    @Override
     public void act(float delta) {
     }
 }

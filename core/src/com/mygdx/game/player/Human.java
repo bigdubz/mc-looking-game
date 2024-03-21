@@ -30,6 +30,7 @@ public class Human extends Player {
         batch.draw(image, getX(), getY());
     }
 
+    @Override
     public void act(float delta) {
         float vert = 0;
         float horz = 0;
@@ -45,10 +46,5 @@ public class Human extends Player {
         }
 
         checkCollisionAndMove(horz, vert);
-    }
-
-
-    public void dispose() {
-        image.getTexture().dispose();
     }
 }
