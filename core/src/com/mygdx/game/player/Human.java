@@ -8,12 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Block;
 import com.mygdx.game.Main;
-import com.mygdx.game.QuadTree;
 
 public class Human extends Player {
 
@@ -24,11 +19,6 @@ public class Human extends Player {
         rectangle = image.getBoundingRectangle();
         setX(getX() - 50);
         tempRect = new Rectangle(rectangle);
-        nearbyBlocks = new Array<>();
-        nearbyRegion = new Rectangle(rectangle);
-        setTouchable(Touchable.enabled);
-        tree = new QuadTree(0, new Rectangle(0, 0,
-                main.BLOCK_SIZE * main.MAP_WIDTH, main.BLOCK_SIZE * main.MAP_HEIGHT));
     }
 
     @Override

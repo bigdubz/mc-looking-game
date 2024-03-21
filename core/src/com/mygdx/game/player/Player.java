@@ -3,6 +3,7 @@ package com.mygdx.game.player;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Block;
 import com.mygdx.game.Main;
@@ -16,9 +17,6 @@ public abstract class Player extends Actor {
     Rectangle tempRect;
 
     // quad tree
-    QuadTree tree;
-    Rectangle nearbyRegion;
-    Array<Block> nearbyBlocks;
     /*
      Animation<TextureRegion> walkUp;
      Animation<TextureRegion> walkDown;
@@ -29,6 +27,7 @@ public abstract class Player extends Actor {
 
     public Player(Main m) {
         main = m;
+        setTouchable(Touchable.enabled);
     }
 
     public abstract void load();
@@ -36,16 +35,16 @@ public abstract class Player extends Actor {
 
     void checkCollisionAndMove(float horz, float vert) {
 
-        tree.clear();
+        main.gameScreen.tree.clear();
         for (Block r : main.gameScreen.allBlocks)
-            if (r.solid) tree.insert(r);
+            if (r.solid) main.gameScreen.tree.insert(r);
 
-        nearbyBlocks.clear();
-        tree.retrieve(nearbyBlocks, rectangle);
+        main.gameScreen.nearbyBlocks.clear();
+        main.gameScreen.tree.retrieve(main.gameScreen.nearbyBlocks, rectangle);
 
         boolean collidedX = false;
         boolean collidedY = false;
-        for (Block r : nearbyBlocks) {
+        for (Block r : main.gameScreen.nearbyBlocks) {
             if (!collidedX && collideX(horz, tempRect, r)) collidedX = true;
             if (!collidedY && collideY(vert, tempRect, r)) collidedY = true;
         }

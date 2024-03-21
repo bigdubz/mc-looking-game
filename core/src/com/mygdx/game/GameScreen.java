@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -12,10 +13,17 @@ public class GameScreen implements Screen {
     Main main;
     Stage stage;
     Human human;
+
+    // quadtree
+    public QuadTree tree;
+    public Array<Block> nearbyBlocks;
     public Array<Block> allBlocks;
 
     GameScreen(Main m) {
         main = m;
+        tree = new QuadTree(0, new Rectangle(0, 0,
+                main.BLOCK_SIZE * main.MAP_WIDTH, main.BLOCK_SIZE * main.MAP_HEIGHT));
+        nearbyBlocks = new Array<>();
         human = new Human(main);
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
