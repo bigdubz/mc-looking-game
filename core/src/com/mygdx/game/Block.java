@@ -33,7 +33,7 @@ public class Block extends Actor {
         return this.rectangle;
     }
 
-    void dispose() {
+    public void dispose() {
         image.getTexture().dispose();
     }
 }

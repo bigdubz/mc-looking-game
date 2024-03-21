@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.screen.GameScreen;
+import com.mygdx.game.screen.MenuScreen;
 
 
 public class Main extends Game {
@@ -13,6 +15,7 @@ public class Main extends Game {
 	public SpriteBatch batch;
 	ShapeRenderer sr;
 	public GameScreen gameScreen;
+	public MenuScreen menuScreen;
 	public final int BLOCK_SIZE = 100;  // pixels
 	public final int MAP_WIDTH = 64;  // blocks
 	public final int MAP_HEIGHT = 64;
@@ -21,11 +24,12 @@ public class Main extends Game {
 	@Override
 	public void create() {
 		gameScreen = new GameScreen(this);
+		menuScreen = new MenuScreen(this);
 		batch = new SpriteBatch();
 		sr = new ShapeRenderer();
 		sr.setAutoShapeType(true);
 		gameScreen.load();
-		setScreen(gameScreen);
+		setScreen(menuScreen);
 	}
 
 	@Override

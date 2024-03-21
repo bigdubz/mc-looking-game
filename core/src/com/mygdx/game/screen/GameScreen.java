@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -6,6 +6,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.Block;
+import com.mygdx.game.Main;
+import com.mygdx.game.QuadTree;
 import com.mygdx.game.player.Human;
 
 public class GameScreen implements Screen {
@@ -19,7 +22,7 @@ public class GameScreen implements Screen {
     public Array<Block> nearbyBlocks;
     public Array<Block> allBlocks;
 
-    GameScreen(Main m) {
+    public GameScreen(Main m) {
         main = m;
         tree = new QuadTree(0, new Rectangle(0, 0,
                 main.BLOCK_SIZE * main.MAP_WIDTH, main.BLOCK_SIZE * main.MAP_HEIGHT));
@@ -51,7 +54,6 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         stage.getCamera().position.x = human.getX();
         stage.getCamera().position.y = human.getY();
-        main.sr.setProjectionMatrix(stage.getCamera().combined);
         stage.draw();
         stage.act(delta);
     }
