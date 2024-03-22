@@ -2,6 +2,10 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -16,6 +20,9 @@ public class GameScreen implements Screen {
     Main main;
     Stage stage;
     Human human;
+    OrthogonalTiledMapRenderer renderer;
+    float unitScale = 2;
+    TiledMap map;
 
     // quadtree
     public QuadTree tree;
@@ -35,13 +42,8 @@ public class GameScreen implements Screen {
 
     public void load() {
         human.load();
-        for (int y = 0; y < main.MAP_HEIGHT; y++) {
-            for (int x = 0; x < main.MAP_WIDTH; x++) {
-                Block block = new Block(main, x*main.BLOCK_SIZE, y*main.BLOCK_SIZE, "Blocks/A.png", true);
-                stage.addActor(block);
-                allBlocks.add(block);
-            }
-        }
+        map = new TmxMapLoader().load("tileset/MyMap.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map, unitScale);
     }
 
     @Override
@@ -53,6 +55,8 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         stage.getCamera().position.x = human.getX();
         stage.getCamera().position.y = human.getY();
+        renderer.setView((OrthographicCamera) stage.getCamera());
+        renderer.render();
         stage.draw();
         stage.act(delta);
     }
@@ -85,5 +89,6 @@ public class GameScreen implements Screen {
         allBlocks.clear();
         tree.clear();
         nearbyBlocks.clear();
+        map.dispose();
     }
 }
