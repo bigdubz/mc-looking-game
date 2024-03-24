@@ -42,7 +42,7 @@ public class GameScreen implements Screen {
 
     public void load() {
         human.load();
-        map = new TmxMapLoader().load("tileset/MyMap.tmx");
+        map = new TmxMapLoader().load("tileset/myProject.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
     }
 
