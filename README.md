@@ -4,4 +4,4 @@
 
 ### Credits:
 1. Development: [Me](https://github.com/bigdubz)
-2. Tiled Map: [@shireenzahran](https://github.com/shireenzahran)
+2. Tiled Map: [shireenzahran](https://github.com/shireenzahran)
