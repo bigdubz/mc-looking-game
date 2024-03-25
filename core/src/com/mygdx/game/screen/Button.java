@@ -6,10 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 public class Button {
 
     TextButton button;
-    MenuScreen screen;
 
-    Button(MenuScreen screen, Skin skin, String text) {
-        this.screen = screen;
+    Button(Skin skin, String text) {
         button = new TextButton(text, skin);
     }
 }

@@ -1,4 +1,4 @@
-package com.mygdx.game.player;
+package com.mygdx.game.collidable.player;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Main;

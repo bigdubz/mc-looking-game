@@ -1,4 +1,4 @@
-package com.mygdx.game.player;
+package com.mygdx.game.collidable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
@@ -7,20 +7,19 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.Block;
 import com.mygdx.game.Main;
 
-public abstract class Player extends Actor {
+public abstract class Collidable extends Actor {
 
-    Sprite image;
-    Main main;
-    Rectangle rectangle;
-    Rectangle tempRect;
+    protected Main main;
+    protected Sprite image;
+    protected Rectangle tempRect;
+    public Rectangle rectangle;
 
-
-    public Player(Main m) {
+    protected Collidable(Main m) {
         main = m;
         setTouchable(Touchable.enabled);
     }
 
-    void checkCollisionAndMove(float horz, float vert) {
+    protected void checkCollisionAndMove(float horz, float vert) {
 
         main.gameScreen.tree.clear();
         for (Block r : main.gameScreen.allBlocks)
@@ -44,7 +43,6 @@ public abstract class Player extends Actor {
             rectangle.setY(getY());
         }
     }
-
 
     boolean collideX(float dx, Rectangle tempRect, Block block) {
         tempRect.setX(getX() + dx);

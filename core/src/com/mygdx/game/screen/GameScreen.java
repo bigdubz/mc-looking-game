@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Block;
 import com.mygdx.game.Main;
 import com.mygdx.game.QuadTree;
-import com.mygdx.game.player.Human;
+import com.mygdx.game.collidable.player.Human;
 
 public class GameScreen extends BaseScreen {
 

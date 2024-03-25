@@ -7,15 +7,14 @@ import com.mygdx.game.Main;
 
 public class MenuScreen extends BaseScreen {
 
-
     public MenuScreen(Main m) {
         super(m);
     }
 
     void init() {
-        Button playButton = new Button(this, main.skin, "Play");
-        Button optionsButton = new Button(this, main.skin, "Options");
-        Button exitButton = new Button(this, main.skin, "Exit");
+        Button playButton = new Button(main.skin, "Play");
+        Button optionsButton = new Button(main.skin, "Options");
+        Button exitButton = new Button(main.skin, "Exit");
         table.add(playButton.button);
         table.row();
         table.add(optionsButton.button);
@@ -29,6 +28,12 @@ public class MenuScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 main.setScreen(main.gameScreen);
+            }
+        });
+        optionsButton.button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                main.setScreen(main.optionsScreen);
             }
         });
         exitButton.button.addListener(new ClickListener() {

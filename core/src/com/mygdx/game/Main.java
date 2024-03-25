@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.screen.LoadingScreen;
 import com.mygdx.game.screen.MenuScreen;
+import com.mygdx.game.screen.OptionsScreen;
 
 public class Main extends Game {
 
@@ -26,6 +27,7 @@ public class Main extends Game {
 	public SpriteBatch batch;
 	public GameScreen gameScreen;
 	public MenuScreen menuScreen;
+	public OptionsScreen optionsScreen;
 	public AssetManager assets;
 	public Skin skin;
 	public TiledMap mainMap;
@@ -61,6 +63,7 @@ public class Main extends Game {
 		loaded = true;
 		menuScreen = new MenuScreen(this);
 		gameScreen = new GameScreen(this);
+		optionsScreen = new OptionsScreen(this);
 		mainMap = assets.get("Map/myProject.tmx");
 		mapRenderer = new OrthogonalTiledMapRenderer(mainMap, mapScale);
 		setScreen(menuScreen);
