@@ -2,6 +2,7 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Main;
 
@@ -12,31 +13,31 @@ public class MenuScreen extends BaseScreen {
     }
 
     void init() {
-        Button playButton = new Button(main.skin, "Play");
-        Button optionsButton = new Button(main.skin, "Options");
-        Button exitButton = new Button(main.skin, "Exit");
-        table.add(playButton.button);
+        TextButton playButton = new TextButton("Play", main.skin);
+        TextButton optionsButton = new TextButton("Options", main.skin);
+        TextButton exitButton = new TextButton("Exit", main.skin);
+        table.add(playButton);
         table.row();
-        table.add(optionsButton.button);
+        table.add(optionsButton);
         table.row();
-        table.add(exitButton.button);
+        table.add(exitButton);
         table.setPosition(
                 (Gdx.graphics.getWidth()-table.getWidth())/2f,
                 (Gdx.graphics.getHeight()-table.getHeight())/2f
         );
-        playButton.button.addListener(new ClickListener() {
+        playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 main.setScreen(main.gameScreen);
             }
         });
-        optionsButton.button.addListener(new ClickListener() {
+        optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 main.setScreen(main.optionsScreen);
             }
         });
-        exitButton.button.addListener(new ClickListener() {
+        exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
