@@ -14,21 +14,11 @@ public abstract class Player extends Actor {
     Rectangle rectangle;
     Rectangle tempRect;
 
-    /*
-     Animation<TextureRegion> walkUp;
-     Animation<TextureRegion> walkDown;
-     Animation<TextureRegion> walkRight;
-     Animation<TextureRegion> walkLeft;
-    */
-
 
     public Player(Main m) {
         main = m;
         setTouchable(Touchable.enabled);
     }
-
-    public abstract void load();
-
 
     void checkCollisionAndMove(float horz, float vert) {
 

@@ -11,11 +11,6 @@ public class NPC extends Player {
     }
 
     @Override
-    public void load() {
-
-    }
-
-    @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(image, getX(), getY());
     }

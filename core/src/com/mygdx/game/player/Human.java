@@ -13,14 +13,13 @@ public class Human extends Player {
 
     public Human(Main m) {
         super(m);
-        image = new Sprite(new Texture(Gdx.files.internal("Player/down1.png")));
+        image = new Sprite(main.assets.get("Player/down1.png", Texture.class));
         rectangle = image.getBoundingRectangle();
-        setX(getX() - 50);
-        tempRect = new Rectangle(rectangle);
-    }
 
-    @Override
-    public void load() {
+        // The middle of the map, temporarily
+        setX(3200*main.mapScale);
+        setY(3200*main.mapScale);
+        tempRect = new Rectangle();
     }
 
     @Override
