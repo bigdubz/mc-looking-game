@@ -13,7 +13,7 @@ public class GameScreen extends BaseScreen {
     Human human;
 
     public QuadTree tree;
-    public Array<Block> nearbyBlocks;
+    public Array<Rectangle> nearbyBlocks;
     public Array<Block> allBlocks;
 
     public GameScreen(Main m) {

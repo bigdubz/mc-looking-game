@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -31,6 +33,7 @@ public class Main extends Game {
 	public AssetManager assets;
 	public Skin skin;
 	public TiledMap mainMap;
+	public MapObjects solidBlocks;
 	public OrthogonalTiledMapRenderer mapRenderer;
 	public float mapScale = 2;
 	boolean loaded = false;
@@ -65,6 +68,8 @@ public class Main extends Game {
 		gameScreen = new GameScreen(this);
 		optionsScreen = new OptionsScreen(this);
 		mainMap = assets.get("Map/myProject.tmx");
+		TiledMapTileLayer layer = (TiledMapTileLayer) mainMap.getLayers().get(4);
+		solidBlocks = layer.getObjects(); // count is 0 for some reason
 		mapRenderer = new OrthogonalTiledMapRenderer(mainMap, mapScale);
 		setScreen(menuScreen);
 	}

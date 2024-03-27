@@ -1,6 +1,7 @@
 package com.mygdx.game.collidable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -22,15 +23,18 @@ public abstract class Collidable extends Actor {
     protected void checkCollisionAndMove(float horz, float vert) {
 
         main.gameScreen.tree.clear();
-        for (Block r : main.gameScreen.allBlocks)
-            if (r.solid) main.gameScreen.tree.insert(r);
+//        for (Block r : main.gameScreen.allBlocks)
+//            if (r.solid) main.gameScreen.tree.insert(r);
+
+        for (RectangleMapObject rect : main.solidBlocks.getByType(RectangleMapObject.class))
+            main.gameScreen.tree.insert(rect.getRectangle());
 
         main.gameScreen.nearbyBlocks.clear();
         main.gameScreen.tree.retrieve(main.gameScreen.nearbyBlocks, rectangle);
 
         boolean collidedX = false;
         boolean collidedY = false;
-        for (Block r : main.gameScreen.nearbyBlocks) {
+        for (Rectangle r : main.gameScreen.nearbyBlocks) {
             if (!collidedX && collideX(horz, tempRect, r)) collidedX = true;
             if (!collidedY && collideY(vert, tempRect, r)) collidedY = true;
         }
@@ -44,16 +48,16 @@ public abstract class Collidable extends Actor {
         }
     }
 
-    boolean collideX(float dx, Rectangle tempRect, Block block) {
+    boolean collideX(float dx, Rectangle tempRect, Rectangle block) {
         tempRect.setX(getX() + dx);
-        boolean collided = tempRect.overlaps(block.getRectangle());
+        boolean collided = tempRect.overlaps(block);
         tempRect.setX(getX());
         return collided;
     }
 
-    boolean collideY(float dy, Rectangle tempRect, Block block) {
+    boolean collideY(float dy, Rectangle tempRect, Rectangle block) {
         tempRect.setY(getY() + dy);
-        boolean collided = tempRect.overlaps(block.getRectangle());
+        boolean collided = tempRect.overlaps(block);
         tempRect.setY(getY());
         return collided;
     }

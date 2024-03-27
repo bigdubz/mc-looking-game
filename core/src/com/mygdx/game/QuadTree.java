@@ -9,7 +9,7 @@ public class QuadTree {
     private static final int MAX_OBJECTS_BY_NODE = 20;
     private static final int MAX_LEVEL = 6;
     private final int level;
-    private final Array<Block> objects;
+    private final Array<Rectangle> objects;
     private final Rectangle bounds;
     private final QuadTree[] nodes;
 
@@ -30,36 +30,35 @@ public class QuadTree {
         }
     }
 
-    public void insert(Block block) {
-        Rectangle rect = block.getRectangle();
+    public void insert(Rectangle rect) {
         if (nodes[0] != null) {
             int index = getIndex(rect);
             if (index != -1) {
-                nodes[index].insert(block);
+                nodes[index].insert(rect);
                 return;
             }
         }
 
-        objects.add(block);
+        objects.add(rect);
         if (objects.size > MAX_OBJECTS_BY_NODE && level < MAX_LEVEL) {
             if (nodes[0] == null) split();
 
             int i = 0;
             while(i < objects.size) {
-                int index = getIndex(objects.get(i).getRectangle());
+                int index = getIndex(objects.get(i));
                 if (index != -1) nodes[index].insert(objects.removeIndex(i));
                 else i++;
             }
         }
     }
 
-    public void retrieve(Array<Block> list, Rectangle area) {
+    public void retrieve(Array<Rectangle> list, Rectangle area) {
         int index = getIndex(area);
         if (index != -1 & nodes[0] != null) nodes[index].retrieve(list, area);
         list.addAll(objects);
     }
 
-    public void retrieveFast(Array<Block> list, Rectangle area) {
+    public void retrieveFast(Array<Rectangle> list, Rectangle area) {
         int index = getIndex(area);
         if (index != -1 & nodes[0] != null) nodes[index].retrieveFast(list, area);
 
