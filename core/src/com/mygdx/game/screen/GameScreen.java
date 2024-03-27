@@ -1,6 +1,8 @@
 package com.mygdx.game.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Block;
@@ -37,9 +39,20 @@ public class GameScreen extends BaseScreen {
     public void render(float delta) {
         stage.getCamera().position.x = human.getX();
         stage.getCamera().position.y = human.getY();
+        main.sr.setProjectionMatrix(stage.getCamera().combined);
         main.mapRenderer.setView((OrthographicCamera) stage.getCamera());
         main.mapRenderer.render();
         stage.draw();
+        main.sr.begin();
+        for (RectangleMapObject rect : main.solidBlocks.getByType(RectangleMapObject.class)) {
+            Rectangle q = rect.getRectangle();
+            Rectangle s = new Rectangle(q.getX()*main.mapScale, q.getY()*main.mapScale,
+                    q.getWidth()*main.mapScale, q.getHeight()*main.mapScale);
+            main.sr.rect(s.x, s.y, s.width, s.height);
+        }
+        Rectangle r = human.rectangle;
+        main.sr.rect(r.getX(), r.getY(), r.getWidth(), r.getHeight());
+        main.sr.end();
         stage.act(delta);
     }
 

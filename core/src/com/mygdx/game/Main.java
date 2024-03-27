@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -27,6 +28,7 @@ public class Main extends Game {
 	public final int MAP_HEIGHT = 64;
 
 	public SpriteBatch batch;
+	public ShapeRenderer sr;
 	public GameScreen gameScreen;
 	public MenuScreen menuScreen;
 	public OptionsScreen optionsScreen;
@@ -47,6 +49,8 @@ public class Main extends Game {
 		skin.addRegions(new TextureAtlas("Skin/pixthulhu-ui.atlas"));
 		skin.load(Gdx.files.internal("Skin/pixthulhu-ui.json"));
 		batch = new SpriteBatch();
+		sr = new ShapeRenderer();
+		sr.setAutoShapeType(true);
 
 		// Load asset manager
 		assets = new AssetManager();
@@ -68,9 +72,9 @@ public class Main extends Game {
 		gameScreen = new GameScreen(this);
 		optionsScreen = new OptionsScreen(this);
 		mainMap = assets.get("Map/myProject.tmx");
-		TiledMapTileLayer layer = (TiledMapTileLayer) mainMap.getLayers().get(4);
-		solidBlocks = layer.getObjects(); // count is 0 for some reason
 		mapRenderer = new OrthogonalTiledMapRenderer(mainMap, mapScale);
+		solidBlocks = mainMap.getLayers().get("collision").getObjects();
+
 		setScreen(menuScreen);
 	}
 

@@ -1,7 +1,10 @@
 package com.mygdx.game.collidable;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -26,8 +29,14 @@ public abstract class Collidable extends Actor {
 //        for (Block r : main.gameScreen.allBlocks)
 //            if (r.solid) main.gameScreen.tree.insert(r);
 
-        for (RectangleMapObject rect : main.solidBlocks.getByType(RectangleMapObject.class))
-            main.gameScreen.tree.insert(rect.getRectangle());
+        for (RectangleMapObject rect : main.solidBlocks.getByType(RectangleMapObject.class)) {
+            Rectangle q = rect.getRectangle();
+            Rectangle s = new Rectangle(q.getX()*main.mapScale, q.getY()*main.mapScale,
+                    q.getWidth()*main.mapScale, q.getHeight()*main.mapScale);
+            Gdx.app.log("Rectangle Test", this.rectangle.overlaps(s) ? "Overlapping" : "Not overlapping");
+            // Stopped here
+            main.gameScreen.tree.insert(s);
+        }
 
         main.gameScreen.nearbyBlocks.clear();
         main.gameScreen.tree.retrieve(main.gameScreen.nearbyBlocks, rectangle);
