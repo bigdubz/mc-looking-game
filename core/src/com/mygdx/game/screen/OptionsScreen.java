@@ -8,28 +8,28 @@ import com.mygdx.game.Main;
 
 public class OptionsScreen extends BaseScreen {
 
-    public OptionsScreen(Main m) {
-        super(m);
-    }
+  public OptionsScreen(Main m) {
+    super(m);
+  }
 
-    @Override
-    void init() {
-        TextButton exitButton = new TextButton("Exit", main.skin);
-        table.add(exitButton);
-        table.setPosition(
-                (Gdx.graphics.getWidth()-table.getWidth())/2f,
-                (Gdx.graphics.getHeight()-table.getHeight())/2f
-        );
-        exitButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                main.setScreen(main.menuScreen);
-            }
+  @Override
+  void init() {
+    TextButton exitButton = new TextButton("Exit", main.skin);
+    table.add(exitButton);
+    table.setPosition(
+        (Gdx.graphics.getWidth() - table.getWidth()) / 2f,
+        (Gdx.graphics.getHeight() - table.getHeight()) / 2f);
+    exitButton.addListener(
+        new ClickListener() {
+          @Override
+          public void clicked(InputEvent event, float x, float y) {
+            main.setScreen(main.menuScreen);
+          }
         });
-    }
+  }
 
-    @Override
-    public void render(float delta) {
-        stage.draw();
-    }
+  @Override
+  public void render(float delta) {
+    stage.draw();
+  }
 }

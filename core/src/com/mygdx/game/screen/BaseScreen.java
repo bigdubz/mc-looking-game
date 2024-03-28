@@ -9,48 +9,41 @@ import com.mygdx.game.Main;
 
 public abstract class BaseScreen implements Screen {
 
-    Main main;
-    Table table;
-    Stage stage;
+  Main main;
+  Table table;
+  Stage stage;
 
-    BaseScreen(Main m) {
-        main = m;
-        table = new Table(main.skin);
-        stage = new Stage(new ScreenViewport());
-        stage.addActor(table);
-        init();
-    }
+  BaseScreen(Main m) {
+    main = m;
+    table = new Table(main.skin);
+    stage = new Stage(new ScreenViewport());
+    stage.addActor(table);
+    init();
+  }
 
-    abstract void init();
+  abstract void init();
 
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-    }
+  @Override
+  public void show() {
+    Gdx.input.setInputProcessor(stage);
+  }
 
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height);
-    }
+  @Override
+  public void resize(int width, int height) {
+    stage.getViewport().update(width, height);
+  }
 
-    @Override
-    public void pause() {
+  @Override
+  public void pause() {}
 
-    }
+  @Override
+  public void resume() {}
 
-    @Override
-    public void resume() {
+  @Override
+  public void hide() {}
 
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-
-    }
+  @Override
+  public void dispose() {
+    stage.dispose();
+  }
 }

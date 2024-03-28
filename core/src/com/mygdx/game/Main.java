@@ -21,79 +21,78 @@ import com.mygdx.game.screen.OptionsScreen;
 
 public class Main extends Game {
 
-	// MARKED FOR REMOVAL DUE TO NEW USAGE OF TILEDMAP
-	public final int BLOCK_SIZE = 100;  // pixels
-	public final int MAP_WIDTH = 64;  // blocks
-	public final int MAP_HEIGHT = 64;
+  // MARKED FOR REMOVAL DUE TO NEW USAGE OF TILEDMAP
+  public final int BLOCK_SIZE = 100; // pixels
+  public final int MAP_WIDTH = 64; // blocks
+  public final int MAP_HEIGHT = 64;
 
-	public SpriteBatch batch;
-	public ShapeRenderer sr;
-	public GameScreen gameScreen;
-	public MenuScreen menuScreen;
-	public OptionsScreen optionsScreen;
-	public AssetManager assets;
-	public Skin skin;
-	public TiledMap mainMap;
-	public MapObjects solidBlocks;
-	public OrthogonalTiledMapRenderer mapRenderer;
-	public float mapScale = 2;
-	boolean loaded = false;
+  public SpriteBatch batch;
+  public ShapeRenderer sr;
+  public GameScreen gameScreen;
+  public MenuScreen menuScreen;
+  public OptionsScreen optionsScreen;
+  public AssetManager assets;
+  public Skin skin;
+  public TiledMap mainMap;
+  public MapObjects solidBlocks;
+  public OrthogonalTiledMapRenderer mapRenderer;
+  public float mapScale = 2;
+  boolean loaded = false;
 
+  @Override
+  public void create() {
 
-	@Override
-	public void create() {
+    // Load skin (Loaded this first for the Label on loading screen)
+    skin = new Skin();
+    skin.addRegions(new TextureAtlas("Skin/pixthulhu-ui.atlas"));
+    skin.load(Gdx.files.internal("Skin/pixthulhu-ui.json"));
+    batch = new SpriteBatch();
+    sr = new ShapeRenderer();
+    sr.setAutoShapeType(true);
 
-		// Load skin (Loaded this first for the Label on loading screen)
-		skin = new Skin();
-		skin.addRegions(new TextureAtlas("Skin/pixthulhu-ui.atlas"));
-		skin.load(Gdx.files.internal("Skin/pixthulhu-ui.json"));
-		batch = new SpriteBatch();
-		sr = new ShapeRenderer();
-		sr.setAutoShapeType(true);
+    // Load asset manager
+    assets = new AssetManager();
+    assets.setLoader(TiledMap.class, new TmxMapLoader());
 
-		// Load asset manager
-		assets = new AssetManager();
-		assets.setLoader(TiledMap.class, new TmxMapLoader());
-
-		// Queue loading then show loading screen
-		load();
-		setScreen(new LoadingScreen(this, skin));
-	}
+    // Queue loading then show loading screen
+    load();
+    setScreen(new LoadingScreen(this, skin));
+  }
 
 	void load() {
-		assets.load("Map/myProject.tmx", TiledMap.class);
-		assets.load("Player/down1.png", Texture.class);
-	}
+    assets.load("Map/myProject.tmx", TiledMap.class);
+    assets.load("Player/down1.png", Texture.class);
+  }
 
-	void start() {
-		loaded = true;
-		menuScreen = new MenuScreen(this);
-		gameScreen = new GameScreen(this);
-		optionsScreen = new OptionsScreen(this);
-		mainMap = assets.get("Map/myProject.tmx");
-		mapRenderer = new OrthogonalTiledMapRenderer(mainMap, mapScale);
-		solidBlocks = mainMap.getLayers().get("collision").getObjects();
+  void start() {
+    loaded = true;
+    menuScreen = new MenuScreen(this);
+    gameScreen = new GameScreen(this);
+    optionsScreen = new OptionsScreen(this);
+    mainMap = assets.get("Map/myProject.tmx");
+    mapRenderer = new OrthogonalTiledMapRenderer(mainMap, mapScale);
+    solidBlocks = mainMap.getLayers().get("collision").getObjects();
 
-		setScreen(menuScreen);
-	}
+    setScreen(menuScreen);
+  }
 
-	@Override
-	public void render () {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		super.render();
-		if (assets.update() && !loaded) {
-			start();
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
-	}
-	
-	@Override
-	public void dispose () {
-		gameScreen.dispose();
-		batch.dispose();
-		skin.dispose();
-		mainMap.dispose();
-		mapRenderer.dispose();
-		assets.dispose();
-	}
+  @Override
+  public void render() {
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    super.render();
+    if (assets.update() && !loaded) {
+      start();
+    }
+    if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
+  }
+
+  @Override
+  public void dispose() {
+    gameScreen.dispose();
+    batch.dispose();
+    skin.dispose();
+    mainMap.dispose();
+    mapRenderer.dispose();
+    assets.dispose();
+  }
 }

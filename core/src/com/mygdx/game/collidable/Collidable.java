@@ -10,65 +10,66 @@ import com.mygdx.game.Main;
 
 public abstract class Collidable extends Actor {
 
-    protected Main main;
-    protected Sprite image;
-    protected Rectangle tempRect;
-    public Rectangle rectangle;
+  protected Main main;
+  protected Sprite image;
+  protected Rectangle tempRect;
+  private final Rectangle tempRectMapObject;
+  private final Rectangle tempScaledRectMapObject;
+  public Rectangle rectangle;
 
-    protected Collidable(Main m) {
-        main = m;
-        setTouchable(Touchable.enabled);
+  protected Collidable(Main m) {
+    main = m;
+    setTouchable(Touchable.enabled);
+    tempScaledRectMapObject = new Rectangle();
+    tempRectMapObject = new Rectangle();
+  }
+
+  protected void checkCollisionAndMove(float horz, float vert) {
+    main.gameScreen.tree.clear();
+    for (RectangleMapObject rectMapObject : main.solidBlocks.getByType(RectangleMapObject.class)) {
+      tempRectMapObject.set(rectMapObject.getRectangle());
+      tempScaledRectMapObject.set(
+          tempRectMapObject.getX() * main.mapScale,
+          tempRectMapObject.getY() * main.mapScale,
+          tempRectMapObject.getWidth() * main.mapScale,
+          tempRectMapObject.getHeight() * main.mapScale);
+      main.gameScreen.tree.insert(tempScaledRectMapObject);
     }
 
-    protected void checkCollisionAndMove(float horz, float vert) {
+    main.gameScreen.nearbyBlocks.clear();
+    main.gameScreen.tree.retrieve(main.gameScreen.nearbyBlocks, rectangle);
 
-        main.gameScreen.tree.clear();
-//        for (Block r : main.gameScreen.allBlocks)
-//            if (r.solid) main.gameScreen.tree.insert(r);
-
-        for (RectangleMapObject rect : main.solidBlocks.getByType(RectangleMapObject.class)) {
-            Rectangle q = rect.getRectangle();
-            Rectangle s = new Rectangle(q.getX()*main.mapScale, q.getY()*main.mapScale,
-                    q.getWidth()*main.mapScale, q.getHeight()*main.mapScale);
-            Gdx.app.log("Rectangle Test", this.rectangle.overlaps(s) ? "Overlapping" : "Not overlapping");
-            // Stopped here
-            main.gameScreen.tree.insert(s);
-        }
-
-        main.gameScreen.nearbyBlocks.clear();
-        main.gameScreen.tree.retrieve(main.gameScreen.nearbyBlocks, rectangle);
-
-        boolean collidedX = false;
-        boolean collidedY = false;
-        for (Rectangle r : main.gameScreen.nearbyBlocks) {
-            if (!collidedX && collideX(horz, tempRect, r)) collidedX = true;
-            if (!collidedY && collideY(vert, tempRect, r)) collidedY = true;
-        }
-        if (!collidedX) {
-            setX(getX() + horz);
-            rectangle.setX(getX());
-        }
-        if (!collidedY) {
-            setY(getY() + vert);
-            rectangle.setY(getY());
-        }
+    boolean collidedX = false;
+    boolean collidedY = false;
+    for (Rectangle r : main.gameScreen.nearbyBlocks) {
+      if (!collidedX && collideX(horz, r)) collidedX = true;
+      if (!collidedY && collideY(vert, r)) collidedY = true;
     }
-
-    boolean collideX(float dx, Rectangle tempRect, Rectangle block) {
-        tempRect.setX(getX() + dx);
-        boolean collided = tempRect.overlaps(block);
-        tempRect.setX(getX());
-        return collided;
+    if (!collidedX) {
+      setX(getX() + horz);
+      rectangle.setX(getX());
     }
-
-    boolean collideY(float dy, Rectangle tempRect, Rectangle block) {
-        tempRect.setY(getY() + dy);
-        boolean collided = tempRect.overlaps(block);
-        tempRect.setY(getY());
-        return collided;
+    if (!collidedY) {
+      setY(getY() + vert);
+      rectangle.setY(getY());
     }
+  }
 
-    public void dispose() {
-        image.getTexture().dispose();
-    }
+  boolean collideX(float dx, Rectangle block) {
+    tempRect.setX(getX() + dx);
+    boolean collided = rectangle.overlaps(block);
+    tempRect.setX(getX());
+    return collided;
+  }
+
+  boolean collideY(float dy, Rectangle block) {
+    tempRect.setY(getY() + dy);
+    boolean collided = rectangle.overlaps(block);
+    tempRect.setY(getY());
+    return collided;
+  }
+
+  public void dispose() {
+    image.getTexture().dispose();
+  }
 }
