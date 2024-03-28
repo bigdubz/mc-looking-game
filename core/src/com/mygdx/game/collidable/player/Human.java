@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Main;
 
 public class Human extends Player {
@@ -16,8 +15,8 @@ public class Human extends Player {
     rectangle = image.getBoundingRectangle();
 
     // The middle of the map, temporarily
-    setX(3200 * main.mapScale);
-    setY(3200 * main.mapScale);
+    setX(3200 * main.MAP_SCALE);
+    setY(3200 * main.MAP_SCALE);
     tempRect = rectangle;
   }
 

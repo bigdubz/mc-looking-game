@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.screen.LoadingScreen;
 import com.mygdx.game.screen.MenuScreen;
@@ -22,9 +24,10 @@ import com.mygdx.game.screen.OptionsScreen;
 public class Main extends Game {
 
   // MARKED FOR REMOVAL DUE TO NEW USAGE OF TILEDMAP
-  public final int BLOCK_SIZE = 100; // pixels
-  public final int MAP_WIDTH = 64; // blocks
-  public final int MAP_HEIGHT = 64;
+  public final float MAP_SCALE = 2;
+  public final float BLOCK_SIZE = 32 * MAP_SCALE; // pixels
+  public final int MAP_WIDTH = 200; // blocks
+  public final int MAP_HEIGHT = 200;
 
   public SpriteBatch batch;
   public ShapeRenderer sr;
@@ -34,9 +37,8 @@ public class Main extends Game {
   public AssetManager assets;
   public Skin skin;
   public TiledMap mainMap;
-  public MapObjects solidBlocks;
+  public Array<Rectangle> solidBlocks;
   public OrthogonalTiledMapRenderer mapRenderer;
-  public float mapScale = 2;
   boolean loaded = false;
 
   @Override
@@ -47,8 +49,6 @@ public class Main extends Game {
     skin.addRegions(new TextureAtlas("Skin/pixthulhu-ui.atlas"));
     skin.load(Gdx.files.internal("Skin/pixthulhu-ui.json"));
     batch = new SpriteBatch();
-    sr = new ShapeRenderer();
-    sr.setAutoShapeType(true);
 
     // Load asset manager
     assets = new AssetManager();
@@ -59,20 +59,30 @@ public class Main extends Game {
     setScreen(new LoadingScreen(this, skin));
   }
 
-	void load() {
+  void load() {
     assets.load("Map/myProject.tmx", TiledMap.class);
     assets.load("Player/down1.png", Texture.class);
   }
 
   void start() {
     loaded = true;
+    sr = new ShapeRenderer();
+    sr.setAutoShapeType(true);
     menuScreen = new MenuScreen(this);
     gameScreen = new GameScreen(this);
     optionsScreen = new OptionsScreen(this);
     mainMap = assets.get("Map/myProject.tmx");
-    mapRenderer = new OrthogonalTiledMapRenderer(mainMap, mapScale);
-    solidBlocks = mainMap.getLayers().get("collision").getObjects();
-
+    mapRenderer = new OrthogonalTiledMapRenderer(mainMap, MAP_SCALE);
+    solidBlocks = new Array<>();
+    for (RectangleMapObject rectMapObject :
+        mainMap.getLayers().get("collision").getObjects().getByType(RectangleMapObject.class)) {
+      solidBlocks.add(
+          new Rectangle(
+              rectMapObject.getRectangle().x * MAP_SCALE,
+              rectMapObject.getRectangle().y * MAP_SCALE,
+              rectMapObject.getRectangle().width * MAP_SCALE,
+              rectMapObject.getRectangle().height * MAP_SCALE));
+    }
     setScreen(menuScreen);
   }
 
@@ -80,7 +90,7 @@ public class Main extends Game {
   public void render() {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     super.render();
-    if (assets.update() && !loaded) {
+    if (!loaded && assets.update()) {
       start();
     }
     if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
