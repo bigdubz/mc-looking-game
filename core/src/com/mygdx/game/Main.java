@@ -23,9 +23,9 @@ import com.mygdx.game.screen.OptionsScreen;
 
 public class Main extends Game {
 
-  // MARKED FOR REMOVAL DUE TO NEW USAGE OF TILEDMAP
   public final float MAP_SCALE = 2;
   public final float BLOCK_SIZE = 32 * MAP_SCALE; // pixels
+  public final float INVERSE_BLOCK_SIZE = 1 / BLOCK_SIZE; // pixels
   public final int MAP_WIDTH = 200; // blocks
   public final int MAP_HEIGHT = 200;
 
@@ -90,10 +90,10 @@ public class Main extends Game {
   public void render() {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     super.render();
+    if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
     if (!loaded && assets.update()) {
       start();
     }
-    if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
   }
 
   @Override
