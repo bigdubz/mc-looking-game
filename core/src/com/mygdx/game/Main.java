@@ -60,7 +60,8 @@ public class Main extends Game {
   }
 
   void load() {
-    assets.load("Map/myProject.tmx", TiledMap.class);
+    //    assets.load("Map/myProject.tmx", TiledMap.class);
+    assets.load("Map/extruded_test.tmx", TiledMap.class);
     assets.load("Player/down1.png", Texture.class);
   }
 
@@ -71,7 +72,8 @@ public class Main extends Game {
     menuScreen = new MenuScreen(this);
     gameScreen = new GameScreen(this);
     optionsScreen = new OptionsScreen(this);
-    mainMap = assets.get("Map/myProject.tmx");
+    //    mainMap = assets.get("Map/myProject.tmx");
+    mainMap = assets.get("Map/extruded_test.tmx");
     mapRenderer = new OrthogonalTiledMapRenderer(mainMap, MAP_SCALE);
     solidBlocks = new Array<>();
     for (RectangleMapObject rectMapObject :
@@ -80,8 +82,8 @@ public class Main extends Game {
           new Rectangle(
               rectMapObject.getRectangle().x * MAP_SCALE,
               rectMapObject.getRectangle().y * MAP_SCALE,
-              rectMapObject.getRectangle().width * MAP_SCALE,
-              rectMapObject.getRectangle().height * MAP_SCALE));
+              (rectMapObject.getRectangle().width + 2) * MAP_SCALE,
+              (rectMapObject.getRectangle().height + 2) * MAP_SCALE));
     }
     setScreen(menuScreen);
   }
