@@ -5,10 +5,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Main;
 import com.mygdx.game.collidable.player.Human;
+import com.mygdx.game.collidable.player.NPC;
 
 public class GameScreen extends BaseScreen {
 
-  Human human;
+  public Human human;
+  public NPC npc;
   public Array<Rectangle> nearbyBlocks;
 
   // Testing
@@ -24,7 +26,9 @@ public class GameScreen extends BaseScreen {
 
     nearbyBlocks = new Array<>();
     human = new Human(main);
+    npc = new NPC(main);
     stage.addActor(human);
+    stage.addActor(npc);
   }
 
   @Override

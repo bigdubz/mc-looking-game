@@ -16,9 +16,10 @@ public class Human extends Player {
     tempRect = rectangle;
 
     // The middle of the map, temporarily
-    setX(3200 * main.MAP_SCALE);
-    setY(3200 * main.MAP_SCALE);
-    setBounds(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE, rectangle.getWidth(), rectangle.getHeight());
+    //    setX(3200 * main.MAP_SCALE);
+    //    setY(3200 * main.MAP_SCALE);
+    setBounds(
+        3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE, rectangle.getWidth(), rectangle.getHeight());
     halfWidth = getWidth() * 0.5f;
     halfHeight = getHeight() * 0.5f;
   }
@@ -39,8 +40,8 @@ public class Human extends Player {
     if (Gdx.input.isKeyPressed(Input.Keys.A)) horz -= speed;
 
     if (horz * vert != 0) {
-      horz /= (float) Math.sqrt(2);
-      vert /= (float) Math.sqrt(2);
+      horz *= main.INVERSE_SQRT_2;
+      vert *= main.INVERSE_SQRT_2;
     }
 
     checkCollisionAndMove(horz, vert);
