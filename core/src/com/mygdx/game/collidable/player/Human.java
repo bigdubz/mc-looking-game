@@ -10,10 +10,7 @@ import com.mygdx.game.Main;
 public class Human extends Player {
 
   public Human(Main m) {
-    super(m);
-    image = new Sprite(main.assets.get("Player/down1.png", Texture.class));
-    rectangle = image.getBoundingRectangle();
-    tempRect = rectangle;
+    super(m, "Player/down1.png");
 
     // The middle of the map, temporarily
     //    setX(3200 * main.MAP_SCALE);

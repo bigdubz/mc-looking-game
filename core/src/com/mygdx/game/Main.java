@@ -66,6 +66,7 @@ public class Main extends Game {
     //    assets.load("Map/myProject.tmx", TiledMap.class);
     assets.load("Map/extruded_test.tmx", TiledMap.class);
     assets.load("Player/down1.png", Texture.class);
+    assets.load("Player/Skeleton/npcWalk1.png", Texture.class);
   }
 
   void start() {

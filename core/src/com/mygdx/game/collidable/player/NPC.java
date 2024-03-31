@@ -9,10 +9,7 @@ import com.mygdx.game.Main;
 public class NPC extends Player {
 
   public NPC(Main m) {
-    super(m);
-    image = new Sprite(main.assets.get("Player/down1.png", Texture.class));
-    rectangle = image.getBoundingRectangle();
-    tempRect = rectangle;
+    super(m, "Player/Skeleton/npcWalk1.png");
 
     // The middle of the map, temporarily
     setBounds(
@@ -37,11 +34,10 @@ public class NPC extends Player {
     float speed = 300 * delta;
     float dx = p.getX() - getX() > 0 ? speed : -speed;
     float dy = p.getY() - getY() > 0 ? speed : -speed;
-    if (Math.abs(p.getX() - getX()) < 0.5*main.BLOCK_SIZE) {
+    if (Math.abs(p.getX() - getX()) < 0.5 * main.BLOCK_SIZE) {
       dx = 0;
-      Gdx.app.log("Are we here", "");
     }
-    if (Math.abs(p.getY() - getY()) < 0.5*main.BLOCK_SIZE) {
+    if (Math.abs(p.getY() - getY()) < 0.5 * main.BLOCK_SIZE) {
       dy = 0;
     }
     if (dx != 0 && dy != 0) {

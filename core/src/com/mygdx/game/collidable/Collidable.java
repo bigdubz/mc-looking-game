@@ -1,5 +1,6 @@
 package com.mygdx.game.collidable;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,8 +16,11 @@ public abstract class Collidable extends Actor {
   public float halfWidth;
   public float halfHeight;
 
-  protected Collidable(Main m) {
+  protected Collidable(Main m, String imagePath) {
     main = m;
+    image = new Sprite(main.assets.get(imagePath, Texture.class));
+    rectangle = image.getBoundingRectangle();
+    tempRect = rectangle;
     setTouchable(Touchable.enabled);
   }
 
