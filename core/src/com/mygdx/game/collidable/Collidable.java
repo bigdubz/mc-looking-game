@@ -28,17 +28,13 @@ public abstract class Collidable extends Actor {
   protected void checkCollisionAndMove(float dx, float dy) {
     boolean collidedX = false;
     boolean collidedY = false;
-    //    int count = 0;
     for (Rectangle rect : main.solidBlocks) {
-      int rectCol = (int) (rect.getX() * main.INVERSE_BLOCK_SIZE);
-      int rectRow = (int) (rect.getY() * main.INVERSE_BLOCK_SIZE);
-      if (Math.abs(rectRow - getRow()) > rect.getHeight() * main.INVERSE_BLOCK_SIZE
-          || Math.abs(rectCol - getCol()) > rect.getWidth() * main.INVERSE_BLOCK_SIZE) continue;
-      //      count++;
-      if (!collidedX && collideX(dx, rect)) collidedX = true;
-      if (!collidedY && collideY(dy, rect)) collidedY = true;
+      if (Math.abs(getRow(rect) - getRow()) <= rect.getHeight() * main.INVERSE_BLOCK_SIZE
+          && Math.abs(getCol(rect) - getCol()) <= rect.getWidth() * main.INVERSE_BLOCK_SIZE) {
+        if (!collidedX && collideX(dx, rect)) collidedX = true;
+        if (!collidedY && collideY(dy, rect)) collidedY = true;
+      }
     }
-    //    Gdx.app.log("Objects being checked", "" + count);
     if (!collidedX) {
       setX(getX() + dx);
       rectangle.setX(getX());
@@ -49,14 +45,14 @@ public abstract class Collidable extends Actor {
     }
   }
 
-  boolean collideX(float dx, Rectangle block) {
+  protected boolean collideX(float dx, Rectangle block) {
     tempRect.setX(getX() + dx);
     boolean collided = rectangle.overlaps(block);
     tempRect.setX(getX());
     return collided;
   }
 
-  boolean collideY(float dy, Rectangle block) {
+  protected boolean collideY(float dy, Rectangle block) {
     tempRect.setY(getY() + dy);
     boolean collided = rectangle.overlaps(block);
     tempRect.setY(getY());
@@ -69,6 +65,22 @@ public abstract class Collidable extends Actor {
 
   public int getRow() {
     return (int) (getY() * main.INVERSE_BLOCK_SIZE);
+  }
+
+  public int getCol(Rectangle rect) {
+    return (int) (rect.getX() * main.INVERSE_BLOCK_SIZE);
+  }
+
+  public int getRow(Rectangle rect) {
+    return (int) (rect.getY() * main.INVERSE_BLOCK_SIZE);
+  }
+
+  public int getCol(Collidable object) {
+    return (int) (object.getX() * main.INVERSE_BLOCK_SIZE);
+  }
+
+  public int getRow(Collidable object) {
+    return (int) (object.getY() * main.INVERSE_BLOCK_SIZE);
   }
 
   public float getHalfWidth() {

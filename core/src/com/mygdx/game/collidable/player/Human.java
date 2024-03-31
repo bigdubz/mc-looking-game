@@ -11,8 +11,6 @@ public class Human extends Player {
     super(m, "Player/down1.png");
 
     // The middle of the map, temporarily
-    //    setX(3200 * main.MAP_SCALE);
-    //    setY(3200 * main.MAP_SCALE);
     setBounds(
         3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE, rectangle.getWidth(), rectangle.getHeight());
     halfWidth = getWidth() * 0.5f;
@@ -26,6 +24,11 @@ public class Human extends Player {
 
   @Override
   public void act(float delta) {
+    move(delta);
+    if (Gdx.input.isButtonJustPressed(0)) shootProjectile();
+  }
+
+  private void move(float delta) {
     float vert = 0;
     float horz = 0;
     float speed = 300 * delta;
@@ -41,6 +44,4 @@ public class Human extends Player {
 
     checkCollisionAndMove(horz, vert);
   }
-
-  void shootProjectile() {}
 }
