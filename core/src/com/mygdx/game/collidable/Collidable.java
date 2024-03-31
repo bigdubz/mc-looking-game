@@ -22,6 +22,7 @@ public abstract class Collidable extends Actor {
     rectangle = image.getBoundingRectangle();
     tempRect = rectangle;
     setTouchable(Touchable.enabled);
+    main.gameScreen.stage.addActor(this);
   }
 
   protected void checkCollisionAndMove(float dx, float dy) {

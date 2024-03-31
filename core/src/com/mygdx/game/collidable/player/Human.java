@@ -2,9 +2,7 @@ package com.mygdx.game.collidable.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Main;
 
 public class Human extends Player {
@@ -43,4 +41,6 @@ public class Human extends Player {
 
     checkCollisionAndMove(horz, vert);
   }
+
+  void shootProjectile() {}
 }

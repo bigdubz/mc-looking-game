@@ -11,14 +11,13 @@ public abstract class BaseScreen implements Screen {
 
   Main main;
   Table table;
-  Stage stage;
+  public Stage stage;
 
   BaseScreen(Main m) {
     main = m;
     table = new Table(main.skin);
     stage = new Stage(new ScreenViewport());
     stage.addActor(table);
-    init();
   }
 
   abstract void init();

@@ -22,13 +22,10 @@ public class GameScreen extends BaseScreen {
   }
 
   @Override
-  void init() {
-
+  public void init() {
     nearbyBlocks = new Array<>();
     human = new Human(main);
     npc = new NPC(main);
-    stage.addActor(human);
-    stage.addActor(npc);
   }
 
   @Override

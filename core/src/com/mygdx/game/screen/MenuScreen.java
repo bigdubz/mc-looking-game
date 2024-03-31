@@ -10,6 +10,7 @@ public class MenuScreen extends BaseScreen {
 
   public MenuScreen(Main m) {
     super(m);
+    init();
   }
 
   void init() {
@@ -28,6 +29,7 @@ public class MenuScreen extends BaseScreen {
         new ClickListener() {
           @Override
           public void clicked(InputEvent event, float x, float y) {
+            main.gameScreen.init();
             main.setScreen(main.gameScreen);
           }
         });
