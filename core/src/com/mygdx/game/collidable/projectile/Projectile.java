@@ -1,6 +1,7 @@
 package com.mygdx.game.collidable.projectile;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Main;
 import com.mygdx.game.collidable.Collidable;
 
@@ -23,6 +24,7 @@ public abstract class Projectile extends Collidable {
     setX(x);
     setY(y);
     image.setRotation(rotation);
+    this.setRotation(rotation);
   }
 
   public Collidable getOwner() {

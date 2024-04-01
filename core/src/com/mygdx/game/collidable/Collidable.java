@@ -28,13 +28,23 @@ public abstract class Collidable extends Actor {
   protected void checkCollisionAndMove(float dx, float dy) {
     boolean collidedX = false;
     boolean collidedY = false;
+    //    int count = 0;
     for (Rectangle rect : main.solidBlocks) {
-      if (Math.abs(getRow(rect) - getRow()) <= rect.getHeight() * main.INVERSE_BLOCK_SIZE
-          && Math.abs(getCol(rect) - getCol()) <= rect.getWidth() * main.INVERSE_BLOCK_SIZE) {
-        if (!collidedX && collideX(dx, rect)) collidedX = true;
-        if (!collidedY && collideY(dy, rect)) collidedY = true;
+      if (Math.abs(rect.getY() - getY()) <= rect.getHeight() + main.BLOCK_SIZE
+          && Math.abs(rect.getX() - getX()) <= rect.getWidth() + main.BLOCK_SIZE) {
+        //        count++;
+        if (!collidedX && collideX(dx, rect)) {
+          collidedX = true;
+        }
+        if (!collidedY && collideY(dy, rect)) {
+          collidedY = true;
+        }
+      }
+      if (collidedX && collidedY) {
+        break;
       }
     }
+    //    Gdx.app.log("count", "" + count);
     if (!collidedX) {
       setX(getX() + dx);
       rectangle.setX(getX());
@@ -83,16 +93,16 @@ public abstract class Collidable extends Actor {
     return (int) (object.getY() * main.INVERSE_BLOCK_SIZE);
   }
 
+  public Rectangle getRectangle() {
+    return this.rectangle;
+  }
+
   public float getHalfWidth() {
     return this.halfWidth;
   }
 
   public float getHalfHeight() {
     return this.halfHeight;
-  }
-
-  public Rectangle getRectangle() {
-    return this.rectangle;
   }
 
   public void dispose() {

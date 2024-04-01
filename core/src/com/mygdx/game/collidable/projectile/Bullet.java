@@ -12,6 +12,7 @@ public class Bullet extends Projectile {
   }
 
   public void draw(Batch batch, float parentAlpha) {
+    // figure out rotation
     batch.draw(image, getX(), getY());
   }
 
@@ -28,29 +29,21 @@ public class Bullet extends Projectile {
 
   @Override
   protected void checkCollisionAndMove(float dx, float dy) {
-    boolean collidedX = false;
-    boolean collidedY = false;
     for (Rectangle rect : main.solidBlocks) {
-      if (Math.abs(getRow(rect) - getRow()) <= rect.getHeight() * main.INVERSE_BLOCK_SIZE
-          && Math.abs(getCol(rect) - getCol()) <= rect.getWidth() * main.INVERSE_BLOCK_SIZE) {
-        if (collideX(dx, rect)) {
-          collidedX = true;
-          break;
-        }
-        if (collideY(dy, rect)) {
-          collidedY = true;
+      if (Math.abs(rect.getY() - getY()) <= rect.getHeight() + main.BLOCK_SIZE
+          && Math.abs(rect.getX() - getX()) <= rect.getWidth() + main.BLOCK_SIZE) {
+        if (collideX(dx, rect) || collideY(dy, rect)) {
+          this.collided = true;
           break;
         }
       }
     }
-    collided = collidedX || collidedY;
-    if (!collidedX) {
-      setX(getX() + dx);
-      rectangle.setX(getX());
+    if (this.collided) {
+      return;
     }
-    if (!collidedY) {
-      setY(getY() + dy);
-      rectangle.setY(getY());
-    }
+    setX(getX() + dx);
+    rectangle.setX(getX());
+    setY(getY() + dy);
+    rectangle.setY(getY());
   }
 }
