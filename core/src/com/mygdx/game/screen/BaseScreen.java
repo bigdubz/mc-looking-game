@@ -10,7 +10,7 @@ import com.mygdx.game.Main;
 public abstract class BaseScreen implements Screen {
 
   Main main;
-  Table table;
+  public Table table;
   public Stage stage;
 
   BaseScreen(Main m) {

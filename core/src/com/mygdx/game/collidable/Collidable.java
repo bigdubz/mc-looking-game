@@ -28,8 +28,6 @@ public abstract class Collidable extends Actor {
 
   @Override
   public void draw(Batch batch, float parentAlpha) {
-//    sprite
-//    batch.draw(sprite, getX(), getY());
     sprite.draw(batch);
   }
 
