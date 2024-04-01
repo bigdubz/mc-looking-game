@@ -8,8 +8,7 @@ public class NPC extends Player {
     super(m, "Player/Skeleton/npcWalk1.png");
 
     // The middle of the map, temporarily
-    setBounds(
-        3100 * main.MAP_SCALE, 3100 * main.MAP_SCALE, rectangle.getWidth(), rectangle.getHeight());
+    setPosition(3100 * main.MAP_SCALE, 3100 * main.MAP_SCALE);
     halfWidth = getWidth() * 0.5f;
     halfHeight = getHeight() * 0.5f;
   }
@@ -31,7 +30,7 @@ public class NPC extends Player {
     if (Math.abs(p.getY() - getY()) < 0.5 * main.BLOCK_SIZE) {
       dy = 0;
     }
-    if (dx != 0 && dy != 0) {
+    if (!(dx == 0 || dy == 0)) {
       dx *= main.INVERSE_SQRT_2;
       dy *= main.INVERSE_SQRT_2;
     }

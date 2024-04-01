@@ -51,7 +51,7 @@ public abstract class Projectile extends Collidable {
 
   boolean checkCollisionWithActors(float dx, float dy) {
     for (Actor actor : main.gameScreen.stage.getActors()) {
-      if (actor instanceof Collidable && actor != owner && actor != this) {
+      if (!(!(actor instanceof Collidable) || actor == owner || actor instanceof Projectile)) {
         if (collideX(dx, ((Collidable) actor).getRectangle())
             || collideY(dy, ((Collidable) actor).getRectangle())) {
           return true;

@@ -45,4 +45,12 @@ public abstract class BaseScreen implements Screen {
   public void dispose() {
     stage.dispose();
   }
+
+  public Stage getStage() {
+    return this.stage;
+  }
+
+  public Table getTable() {
+    return this.table;
+  }
 }

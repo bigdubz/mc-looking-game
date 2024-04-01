@@ -28,7 +28,7 @@ public class Main extends Game {
   public final float INVERSE_BLOCK_SIZE = 1 / BLOCK_SIZE; // pixels
   public final float INVERSE_SQRT_2 = 1 / (float) Math.sqrt(2); // pixels
 
-  // might be pointless
+  //  might be pointless
   //  public final int MAP_WIDTH = 200; // blocks
   //  public final int MAP_HEIGHT = 200;
 
@@ -90,6 +90,7 @@ public class Main extends Game {
               (rectMapObject.getRectangle().width + 2) * MAP_SCALE,
               (rectMapObject.getRectangle().height + 2) * MAP_SCALE));
     }
+    gameScreen.init();
     setScreen(menuScreen);
   }
 
@@ -98,7 +99,7 @@ public class Main extends Game {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     super.render();
     if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
-    if (!loaded && assets.update()) {
+    if (!(loaded || !assets.update())) {
       start();
     }
   }

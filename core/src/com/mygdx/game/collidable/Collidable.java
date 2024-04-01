@@ -1,5 +1,6 @@
 package com.mygdx.game.collidable;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,13 +23,17 @@ public abstract class Collidable extends Actor {
     sprite = new Sprite(main.assets.get(imagePath, Texture.class));
     rectangle = sprite.getBoundingRectangle();
     tempRect = rectangle;
+    setWidth(rectangle.getWidth());
+    setHeight(rectangle.getHeight());
     setTouchable(Touchable.enabled);
     main.gameScreen.stage.addActor(this);
   }
 
   @Override
   public void draw(Batch batch, float parentAlpha) {
-    sprite.draw(batch);
+    if (!getOutOfBounds(this)) {
+      sprite.draw(batch);
+    }
   }
 
   protected void checkCollisionAndMove(float dx, float dy) {
@@ -36,17 +41,17 @@ public abstract class Collidable extends Actor {
     boolean collidedY = false;
     //    int count = 0;
     for (Rectangle rect : main.solidBlocks) {
-      if (Math.abs(rect.getY() - getY()) <= rect.getHeight() + main.BLOCK_SIZE
-          && Math.abs(rect.getX() - getX()) <= rect.getWidth() + main.BLOCK_SIZE) {
+      if (!(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE
+          || Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)) {
         //        count++;
-        if (!collidedX && collideX(dx, rect)) {
+        if (!(collidedX || !collideX(dx, rect))) {
           collidedX = true;
         }
-        if (!collidedY && collideY(dy, rect)) {
+        if (!(collidedY || !collideY(dy, rect))) {
           collidedY = true;
         }
       }
-      if (collidedX && collidedY) {
+      if (!(!collidedX || !collidedY)) {
         break;
       }
     }
@@ -63,8 +68,10 @@ public abstract class Collidable extends Actor {
     }
   }
 
+  // what in the fuck is going on here?
   protected boolean collideX(float dx, Rectangle block) {
     tempRect.setX(getX() + dx);
+    // comparing with `rectangle` without using `tempRect` breaks shit I don't really understand
     boolean collided = rectangle.overlaps(block);
     tempRect.setX(getX());
     return collided;
@@ -75,6 +82,17 @@ public abstract class Collidable extends Actor {
     boolean collided = rectangle.overlaps(block);
     tempRect.setY(getY());
     return collided;
+  }
+
+  public boolean getOutOfBounds(Collidable object) {
+    return object.getX() + object.getWidth()
+            < main.gameScreen.getStage().getCamera().position.x - Gdx.graphics.getWidth() * 0.5f
+        || object.getX()
+            > main.gameScreen.getStage().getCamera().position.x + Gdx.graphics.getWidth() * 0.5f
+        || object.getY() + object.getHeight()
+            < main.gameScreen.getStage().getCamera().position.y - Gdx.graphics.getHeight() * 0.5f
+        || object.getY()
+            > main.gameScreen.getStage().getCamera().position.y + Gdx.graphics.getHeight() * 0.5f;
   }
 
   public int getCol() {

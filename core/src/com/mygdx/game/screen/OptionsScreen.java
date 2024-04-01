@@ -10,16 +10,17 @@ public class OptionsScreen extends BaseScreen {
 
   public OptionsScreen(Main m) {
     super(m);
+    init();
   }
 
   @Override
   void init() {
-    TextButton exitButton = new TextButton("Exit", main.skin);
-    table.add(exitButton);
+    TextButton backButton = new TextButton("Back", main.skin);
+    table.add(backButton);
     table.setPosition(
-        (Gdx.graphics.getWidth() - table.getWidth()) / 2f,
-        (Gdx.graphics.getHeight() - table.getHeight()) / 2f);
-    exitButton.addListener(
+        (Gdx.graphics.getWidth() - table.getWidth()) * 0.5f,
+        (Gdx.graphics.getHeight() - table.getHeight()) * 0.5f);
+    backButton.addListener(
         new ClickListener() {
           @Override
           public void clicked(InputEvent event, float x, float y) {
@@ -30,6 +31,7 @@ public class OptionsScreen extends BaseScreen {
 
   @Override
   public void render(float delta) {
+    stage.act();
     stage.draw();
   }
 }

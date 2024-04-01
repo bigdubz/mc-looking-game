@@ -10,8 +10,7 @@ public class Human extends Player {
     super(m, "Player/down1.png");
 
     // The middle of the map, temporarily
-    setBounds(
-        3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE, rectangle.getWidth(), rectangle.getHeight());
+    setPosition(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE);
     halfWidth = getWidth() * 0.5f;
     halfHeight = getHeight() * 0.5f;
   }
