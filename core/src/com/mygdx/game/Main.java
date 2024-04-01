@@ -29,8 +29,8 @@ public class Main extends Game {
   public final float INVERSE_SQRT_2 = 1 / (float) Math.sqrt(2); // pixels
 
   // might be pointless
-  public final int MAP_WIDTH = 200; // blocks
-  public final int MAP_HEIGHT = 200;
+  //  public final int MAP_WIDTH = 200; // blocks
+  //  public final int MAP_HEIGHT = 200;
 
   public SpriteBatch batch;
   public ShapeRenderer sr;

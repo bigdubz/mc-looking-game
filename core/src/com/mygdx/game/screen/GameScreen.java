@@ -1,5 +1,6 @@
 package com.mygdx.game.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -39,6 +40,7 @@ public class GameScreen extends BaseScreen {
     stage.act(delta);
     main.mapRenderer.render(layers2);
 
+    //    Gdx.app.log("Actor Count", ""+stage.getActors().size);
     // For debugging
     //    main.sr.setProjectionMatrix(stage.getCamera().combined);
     //    main.sr.begin();

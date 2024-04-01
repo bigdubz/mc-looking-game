@@ -1,6 +1,7 @@
 package com.mygdx.game.collidable;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -10,7 +11,7 @@ import com.mygdx.game.Main;
 public abstract class Collidable extends Actor {
 
   protected Main main;
-  protected Sprite image;
+  protected Sprite sprite;
   protected Rectangle tempRect;
   public Rectangle rectangle;
   public float halfWidth;
@@ -18,11 +19,18 @@ public abstract class Collidable extends Actor {
 
   protected Collidable(Main m, String imagePath) {
     main = m;
-    image = new Sprite(main.assets.get(imagePath, Texture.class));
-    rectangle = image.getBoundingRectangle();
+    sprite = new Sprite(main.assets.get(imagePath, Texture.class));
+    rectangle = sprite.getBoundingRectangle();
     tempRect = rectangle;
     setTouchable(Touchable.enabled);
     main.gameScreen.stage.addActor(this);
+  }
+
+  @Override
+  public void draw(Batch batch, float parentAlpha) {
+//    sprite
+//    batch.draw(sprite, getX(), getY());
+    sprite.draw(batch);
   }
 
   protected void checkCollisionAndMove(float dx, float dy) {
@@ -48,10 +56,12 @@ public abstract class Collidable extends Actor {
     if (!collidedX) {
       setX(getX() + dx);
       rectangle.setX(getX());
+      sprite.setX(getX());
     }
     if (!collidedY) {
       setY(getY() + dy);
       rectangle.setY(getY());
+      sprite.setY(getY());
     }
   }
 
@@ -106,6 +116,6 @@ public abstract class Collidable extends Actor {
   }
 
   public void dispose() {
-    image.getTexture().dispose();
+    sprite.getTexture().dispose();
   }
 }

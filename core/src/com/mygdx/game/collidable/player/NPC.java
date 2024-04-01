@@ -1,6 +1,5 @@
 package com.mygdx.game.collidable.player;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Main;
 
 public class NPC extends Player {
@@ -13,11 +12,6 @@ public class NPC extends Player {
         3100 * main.MAP_SCALE, 3100 * main.MAP_SCALE, rectangle.getWidth(), rectangle.getHeight());
     halfWidth = getWidth() * 0.5f;
     halfHeight = getHeight() * 0.5f;
-  }
-
-  @Override
-  public void draw(Batch batch, float parentAlpha) {
-    batch.draw(image, getX(), getY());
   }
 
   @Override
