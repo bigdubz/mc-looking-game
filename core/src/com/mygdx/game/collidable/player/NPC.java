@@ -1,6 +1,5 @@
 package com.mygdx.game.collidable.player;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Main;
 
 public class NPC extends GameMember {

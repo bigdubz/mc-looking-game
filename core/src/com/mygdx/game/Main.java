@@ -59,7 +59,7 @@ public class Main extends Game {
 
     // Queue loading then show loading screen
     load();
-    setScreen(new LoadingScreen(this, skin));
+    setScreen(new LoadingScreen(this));
   }
 
   void load() {
