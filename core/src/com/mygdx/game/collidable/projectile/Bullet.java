@@ -5,8 +5,9 @@ import com.mygdx.game.collidable.Collidable;
 
 public class Bullet extends Projectile {
 
-  public Bullet(Main m, Collidable owner, float rotation, float speed, float x, float y) {
-    super(m, owner, "Items/bullet.png", rotation, speed, x, y);
+  public Bullet(
+      Main m, Collidable owner, float rotation, float speed, float x, float y, int damage) {
+    super(m, owner, "Items/bullet.png", rotation, speed, x, y, damage);
   }
 
   @Override

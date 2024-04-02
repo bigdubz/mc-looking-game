@@ -1,26 +1,40 @@
 package com.mygdx.game.collidable.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.mygdx.game.Main;
-import com.mygdx.game.collidable.Collidable;
-import com.mygdx.game.collidable.projectile.Bullet;
 
-public abstract class Player extends Collidable {
+public class Player extends GameMember {
 
-  public Player(Main m, String imagePath) {
-    super(m, imagePath);
+  public Player(Main m) {
+    super(m, "Player/down1.png");
+
+    // The middle of the map, temporarily
+    setPosition(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE);
+    halfWidth = getWidth() * 0.5f;
+    halfHeight = getHeight() * 0.5f;
   }
 
-  protected void shootProjectile() {
-    new Bullet(
-        main,
-        this,
-        (float)
-            Math.atan2(
-                Gdx.graphics.getHeight() * 0.5f - Gdx.input.getY(),
-                Gdx.graphics.getWidth() * -0.5f + Gdx.input.getX()),
-        500,
-        getX(),
-        getY());
+  @Override
+  public void act(float delta) {
+    move(delta);
+    if (Gdx.input.isButtonJustPressed(0)) shootProjectile();
+  }
+
+  private void move(float delta) {
+    float vert = 0;
+    float horz = 0;
+    float speed = 300 * delta;
+    if (Gdx.input.isKeyPressed(Input.Keys.W)) vert += speed;
+    if (Gdx.input.isKeyPressed(Input.Keys.S)) vert -= speed;
+    if (Gdx.input.isKeyPressed(Input.Keys.D)) horz += speed;
+    if (Gdx.input.isKeyPressed(Input.Keys.A)) horz -= speed;
+
+    if (horz * vert != 0) {
+      horz *= main.INVERSE_SQRT_2;
+      vert *= main.INVERSE_SQRT_2;
+    }
+
+    checkCollisionAndMove(horz, vert);
   }
 }

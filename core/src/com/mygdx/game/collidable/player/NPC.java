@@ -1,8 +1,9 @@
 package com.mygdx.game.collidable.player;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Main;
 
-public class NPC extends Player {
+public class NPC extends GameMember {
 
   public NPC(Main m) {
     super(m, "Player/Skeleton/npcWalk1.png");
@@ -15,12 +16,13 @@ public class NPC extends Player {
 
   @Override
   public void act(float delta) {
+    if (!checkAlive()) this.remove();
     followHuman(delta);
   }
 
   void followHuman(float delta) {
     // TEMPORARY
-    Human p = main.gameScreen.human;
+    Player p = main.gameScreen.player;
     float speed = 300 * delta;
     float dx = p.getX() - getX() > 0 ? speed : -speed;
     float dy = p.getY() - getY() > 0 ? speed : -speed;

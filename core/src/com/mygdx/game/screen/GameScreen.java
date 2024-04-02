@@ -4,12 +4,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Main;
-import com.mygdx.game.collidable.player.Human;
+import com.mygdx.game.collidable.player.Player;
 import com.mygdx.game.collidable.player.NPC;
 
 public class GameScreen extends BaseScreen {
 
-  public Human human;
+  public Player player;
   public NPC npc;
   public Array<Rectangle> nearbyBlocks;
 
@@ -24,14 +24,14 @@ public class GameScreen extends BaseScreen {
   @Override
   public void init() {
     nearbyBlocks = new Array<>();
-    human = new Human(main);
+    player = new Player(main);
     npc = new NPC(main);
   }
 
   @Override
   public void render(float delta) {
-    stage.getCamera().position.x = human.getX() + human.getHalfWidth();
-    stage.getCamera().position.y = human.getY() + human.getHalfHeight();
+    stage.getCamera().position.x = player.getX() + player.getHalfWidth();
+    stage.getCamera().position.y = player.getY() + player.getHalfHeight();
 
     main.mapRenderer.setView((OrthographicCamera) stage.getCamera());
     main.mapRenderer.render(layers);
@@ -43,7 +43,7 @@ public class GameScreen extends BaseScreen {
   @Override
   public void dispose() {
     stage.dispose();
-    human.dispose();
+    player.dispose();
     nearbyBlocks.clear();
   }
 }
