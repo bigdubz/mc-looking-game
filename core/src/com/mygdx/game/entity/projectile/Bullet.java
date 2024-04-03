@@ -1,12 +1,12 @@
-package com.mygdx.game.collidable.projectile;
+package com.mygdx.game.entity.projectile;
 
 import com.mygdx.game.Main;
-import com.mygdx.game.collidable.Collidable;
+import com.mygdx.game.entity.Entity;
 
 public class Bullet extends Projectile {
 
   public Bullet(
-      Main m, Collidable owner, float rotation, float speed, float x, float y, int damage) {
+          Main m, Entity owner, float rotation, float speed, float x, float y, int damage) {
     super(m, owner, "Items/bullet.png", rotation, speed, x, y, damage);
   }
 

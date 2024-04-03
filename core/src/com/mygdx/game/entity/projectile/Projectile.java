@@ -1,15 +1,15 @@
-package com.mygdx.game.collidable.projectile;
+package com.mygdx.game.entity.projectile;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.Main;
-import com.mygdx.game.collidable.Collidable;
-import com.mygdx.game.collidable.player.GameMember;
+import com.mygdx.game.entity.Entity;
+import com.mygdx.game.entity.player.GameMember;
 
-public abstract class Projectile extends Collidable {
+public abstract class Projectile extends Entity {
 
-  Collidable owner;
-  Collidable memberHit = null;
+  Entity owner;
+  Entity memberHit = null;
   int damage;
   float rotation;
   float speed;
@@ -19,7 +19,7 @@ public abstract class Projectile extends Collidable {
 
   protected Projectile(
       Main m,
-      Collidable owner,
+      Entity owner,
       String imagePath,
       float rotation,
       float speed,
@@ -63,8 +63,8 @@ public abstract class Projectile extends Collidable {
   boolean checkCollisionWithActors(float dx, float dy) {
     for (Actor actor : main.gameScreen.stage.getActors()) {
       if (!(!(actor instanceof GameMember) || actor == owner)) {
-        if (collideX(dx, ((Collidable) actor).getRectangle())
-            || collideY(dy, ((Collidable) actor).getRectangle())) {
+        if (collideX(dx, ((Entity) actor).getRectangle())
+            || collideY(dy, ((Entity) actor).getRectangle())) {
           dealDamage((GameMember) actor);
           return true;
         }
@@ -73,11 +73,11 @@ public abstract class Projectile extends Collidable {
     return false;
   }
 
-  public Collidable getOwner() {
+  public Entity getOwner() {
     return this.owner;
   }
 
-  public Collidable getMemberHit() {
+  public Entity getMemberHit() {
     return this.memberHit;
   }
 

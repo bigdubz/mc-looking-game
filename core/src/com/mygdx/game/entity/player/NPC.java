@@ -1,4 +1,4 @@
-package com.mygdx.game.collidable.player;
+package com.mygdx.game.entity.player;
 
 import com.mygdx.game.Main;
 
@@ -16,7 +16,7 @@ public class NPC extends GameMember {
   @Override
   public void act(float delta) {
     if (!checkAlive()) this.remove();
-    followHuman(delta);
+//    followHuman(delta);
   }
 
   void followHuman(float delta) {

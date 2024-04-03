@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Main;
-import com.mygdx.game.collidable.player.Player;
-import com.mygdx.game.collidable.player.NPC;
+import com.mygdx.game.entity.player.Player;
+import com.mygdx.game.entity.player.NPC;
 
 public class GameScreen extends BaseScreen {
 

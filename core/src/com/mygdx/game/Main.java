@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.screen.GameScreen;
@@ -43,6 +44,7 @@ public class Main extends Game {
   public Array<Rectangle> solidBlocks;
   public OrthogonalTiledMapRenderer mapRenderer;
   boolean loaded = false;
+  public ProgressBar.ProgressBarStyle barStyle;
 
   @Override
   public void create() {
@@ -51,6 +53,11 @@ public class Main extends Game {
     skin = new Skin();
     skin.addRegions(new TextureAtlas("Skin/pixthulhu-ui.atlas"));
     skin.load(Gdx.files.internal("Skin/pixthulhu-ui.json"));
+    barStyle =
+        new ProgressBar.ProgressBarStyle(
+            skin.getDrawable("progress-bar-horizontal"),
+            skin.getDrawable("progress-bar-horizontal-knob"));
+    barStyle.knobBefore = barStyle.knob;
     batch = new SpriteBatch();
 
     // Load asset manager

@@ -1,4 +1,4 @@
-package com.mygdx.game.collidable.player;
+package com.mygdx.game.entity.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

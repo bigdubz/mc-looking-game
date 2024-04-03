@@ -1,4 +1,4 @@
-package com.mygdx.game.collidable;
+package com.mygdx.game.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.Main;
 
-public abstract class Collidable extends Actor {
+public abstract class Entity extends Actor {
 
   protected Main main;
   protected Sprite sprite;
@@ -18,7 +18,7 @@ public abstract class Collidable extends Actor {
   public float halfWidth;
   public float halfHeight;
 
-  protected Collidable(Main m, String imagePath) {
+  protected Entity(Main m, String imagePath) {
     main = m;
     sprite = new Sprite(main.assets.get(imagePath, Texture.class));
     rectangle = sprite.getBoundingRectangle();
@@ -84,7 +84,7 @@ public abstract class Collidable extends Actor {
     return collided;
   }
 
-  public boolean getOutOfBounds(Collidable object) {
+  public boolean getOutOfBounds(Entity object) {
     return object.getX() + object.getWidth()
             < main.gameScreen.getStage().getCamera().position.x - Gdx.graphics.getWidth() * 0.5f
         || object.getX()
@@ -111,11 +111,11 @@ public abstract class Collidable extends Actor {
     return (int) (rect.getY() * main.INVERSE_BLOCK_SIZE);
   }
 
-  public int getCol(Collidable object) {
+  public int getCol(Entity object) {
     return (int) (object.getX() * main.INVERSE_BLOCK_SIZE);
   }
 
-  public int getRow(Collidable object) {
+  public int getRow(Entity object) {
     return (int) (object.getY() * main.INVERSE_BLOCK_SIZE);
   }
 
