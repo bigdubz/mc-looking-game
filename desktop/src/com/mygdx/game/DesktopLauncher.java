@@ -10,7 +10,7 @@ public class DesktopLauncher {
     Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
     config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
     config.setForegroundFPS(60);
-    config.setTitle("TheSurvivor");
+    config.setTitle("Minecraft Looking Game");
     new Lwjgl3Application(new Main(), config);
   }
 }

@@ -8,8 +8,8 @@ import com.mygdx.game.entity.player.GameMember;
 
 public abstract class Projectile extends Entity {
 
-  Entity owner;
-  Entity memberHit = null;
+  final Entity owner;
+  GameMember memberHit = null;
   int damage;
   float rotation;
   float speed;
@@ -31,41 +31,51 @@ public abstract class Projectile extends Entity {
     this.owner = owner;
     this.speedX = speed * (float) Math.cos(rotation);
     this.speedY = speed * (float) Math.sin(rotation);
-    setX(x);
-    setY(y);
+    this.damage = damage;
     float deg = (float) Math.toDegrees(rotation);
     this.rotation = deg;
-    this.damage = damage;
+    this.sprite.setRotation(deg);
     this.setRotation(deg);
-    sprite.setRotation(deg);
+    this.setPosition(x, y);
   }
 
   @Override
   protected void checkCollisionAndMove(float dx, float dy) {
     for (Rectangle rect : main.solidBlocks) {
-      if (Math.abs(rect.getY() - getY()) <= rect.getHeight() + main.BLOCK_SIZE
-          && Math.abs(rect.getX() - getX()) <= rect.getWidth() + main.BLOCK_SIZE) {
-        if (collideX(dx, rect) || collideY(dy, rect)) {
+      if (!(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE
+          || Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)) {
+        if (collideX(dx, rect)) {
+          this.moveOffsetX(rect, dx);
+          this.collided = true;
+          break;
+        }
+        else if (collideY(dy, rect)) {
+          this.moveOffsetY(rect, dy);
           this.collided = true;
           break;
         }
       }
     }
     this.collided = this.collided || checkCollisionWithActors(dx, dy);
-    setX(getX() + dx);
-    rectangle.setX(getX());
-    sprite.setX(getX());
-    setY(getY() + dy);
-    rectangle.setY(getY());
-    sprite.setY(getY());
+    if (!this.collided) {
+      setXProps(getX() + dx);
+      setYProps(getY() + dy);
+    }
   }
 
   boolean checkCollisionWithActors(float dx, float dy) {
     for (Actor actor : main.gameScreen.stage.getActors()) {
       if (!(!(actor instanceof GameMember) || actor == owner)) {
-        if (collideX(dx, ((Entity) actor).getRectangle())
-            || collideY(dy, ((Entity) actor).getRectangle())) {
-          dealDamage((GameMember) actor);
+        if (collideX(dx, ((Entity) actor).getRectangle())) {
+          moveOffsetX(((Entity) actor).getRectangle(), dx);
+          this.memberHit = (GameMember) actor;
+          dealDamage(this.memberHit);
+          return true;
+        }
+        else if (collideY(dy, ((Entity) actor).getRectangle())) {
+          moveOffsetY(((Entity) actor).getRectangle(), dy);
+          this.memberHit = (GameMember) actor;
+          dealDamage(this.memberHit);
           return true;
         }
       }

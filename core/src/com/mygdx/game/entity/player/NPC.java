@@ -8,15 +8,13 @@ public class NPC extends GameMember {
     super(m, "Player/Skeleton/npcWalk1.png");
 
     // The middle of the map, temporarily
-    setPosition(3100 * main.MAP_SCALE, 3100 * main.MAP_SCALE);
-    halfWidth = getWidth() * 0.5f;
-    halfHeight = getHeight() * 0.5f;
+    this.setPosition(3100 * main.MAP_SCALE, 3100 * main.MAP_SCALE);
   }
 
   @Override
   public void act(float delta) {
-    if (!checkAlive()) this.remove();
-//    followHuman(delta);
+    super.act(delta);
+    followHuman(delta);
   }
 
   void followHuman(float delta) {
@@ -36,5 +34,6 @@ public class NPC extends GameMember {
       dy *= main.INVERSE_SQRT_2;
     }
     checkCollisionAndMove(dx, dy);
+//    shootProjectile(getAngle(getX(), getY(), p.getX(), p.getY()));
   }
 }

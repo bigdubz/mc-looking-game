@@ -9,7 +9,8 @@ import com.mygdx.game.Main;
 public class LoadingScreen extends BaseScreen {
 
   Label label;
-  ProgressBar progressBar;
+
+  //  ProgressBar progressBar;
 
   public LoadingScreen(Main m) {
     super(m);
@@ -19,7 +20,7 @@ public class LoadingScreen extends BaseScreen {
   @Override
   void init() {
     label = new Label("Loading...", main.skin);
-    progressBar = new ProgressBar(0, 100, 1, false, main.barStyle);
+    //    progressBar = new ProgressBar(0, 100, 1, false, main.barStyle);
 
     label.setFontScale(2);
     table.add(label);

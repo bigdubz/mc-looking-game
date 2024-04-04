@@ -44,7 +44,7 @@ public class Main extends Game {
   public Array<Rectangle> solidBlocks;
   public OrthogonalTiledMapRenderer mapRenderer;
   boolean loaded = false;
-  public ProgressBar.ProgressBarStyle barStyle;
+//  public ProgressBar.ProgressBarStyle barStyle;
 
   @Override
   public void create() {
@@ -53,11 +53,11 @@ public class Main extends Game {
     skin = new Skin();
     skin.addRegions(new TextureAtlas("Skin/pixthulhu-ui.atlas"));
     skin.load(Gdx.files.internal("Skin/pixthulhu-ui.json"));
-    barStyle =
-        new ProgressBar.ProgressBarStyle(
-            skin.getDrawable("progress-bar-horizontal"),
-            skin.getDrawable("progress-bar-horizontal-knob"));
-    barStyle.knobBefore = barStyle.knob;
+//    barStyle =
+//        new ProgressBar.ProgressBarStyle(
+//            skin.getDrawable("progress-bar-horizontal"),
+//            skin.getDrawable("progress-bar-horizontal-knob"));
+//    barStyle.knobBefore = barStyle.knob;
     batch = new SpriteBatch();
 
     // Load asset manager

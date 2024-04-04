@@ -13,25 +13,25 @@ public abstract class Entity extends Actor {
 
   protected Main main;
   protected Sprite sprite;
-  protected Rectangle tempRect;
   public Rectangle rectangle;
   public float halfWidth;
   public float halfHeight;
 
   protected Entity(Main m, String imagePath) {
-    main = m;
-    sprite = new Sprite(main.assets.get(imagePath, Texture.class));
-    rectangle = sprite.getBoundingRectangle();
-    tempRect = rectangle;
-    setWidth(rectangle.getWidth());
-    setHeight(rectangle.getHeight());
-    setTouchable(Touchable.enabled);
-    main.gameScreen.stage.addActor(this);
+    this.main = m;
+    this.sprite = new Sprite(main.assets.get(imagePath, Texture.class));
+    this.rectangle = sprite.getBoundingRectangle();
+    this.setWidth(rectangle.getWidth());
+    this.setHeight(rectangle.getHeight());
+    this.halfWidth = getWidth() * 0.5f;
+    this.halfHeight = getHeight() * 0.5f;
+    this.setTouchable(Touchable.enabled);
+    this.main.gameScreen.stage.addActor(this);
   }
 
   @Override
   public void draw(Batch batch, float parentAlpha) {
-    if (!getOutOfBounds(this)) {
+    if (!outOfBounds(this)) {
       sprite.draw(batch);
     }
   }
@@ -39,52 +39,73 @@ public abstract class Entity extends Actor {
   protected void checkCollisionAndMove(float dx, float dy) {
     boolean collidedX = false;
     boolean collidedY = false;
-    //    int count = 0;
     for (Rectangle rect : main.solidBlocks) {
       if (!(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE
           || Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)) {
-        //        count++;
         if (!(collidedX || !collideX(dx, rect))) {
           collidedX = true;
+          moveOffsetX(rect, dx);
         }
         if (!(collidedY || !collideY(dy, rect))) {
           collidedY = true;
+          moveOffsetY(rect, dy);
         }
       }
       if (!(!collidedX || !collidedY)) {
         break;
       }
     }
-    //    Gdx.app.log("count", "" + count);
     if (!collidedX) {
-      setX(getX() + dx);
-      rectangle.setX(getX());
-      sprite.setX(getX());
+      setXProps(getX() + dx);
     }
     if (!collidedY) {
-      setY(getY() + dy);
-      rectangle.setY(getY());
-      sprite.setY(getY());
+      setYProps(getY() + dy);
     }
   }
 
-  // what in the fuck is going on here?
+  public void setXProps(float x) {
+    setX(x);
+    rectangle.setX(getX());
+    sprite.setX(getX());
+  }
+
+  public void setYProps(float y) {
+    setY(y);
+    rectangle.setY(getY());
+    sprite.setY(getY());
+  }
+
+  protected void moveOffsetX(Rectangle block, float dx) {
+    if (dx > 0) {
+      setXProps(block.getX() - getWidth());
+    } else {
+      setXProps(block.getX() + block.getWidth());
+    }
+  }
+
+  protected void moveOffsetY(Rectangle block, float dy) {
+    if (dy > 0) {
+      setYProps(block.getY() - getHeight());
+    } else {
+      setYProps(block.getY() + block.getHeight());
+    }
+  }
+
   protected boolean collideX(float dx, Rectangle block) {
-    tempRect.setX(getX() + dx);
-    // comparing with `rectangle` without using `tempRect` breaks shit I don't really understand
+    rectangle.setX(getX() + dx);
     boolean collided = rectangle.overlaps(block);
-    tempRect.setX(getX());
+    rectangle.setX(getX());
     return collided;
   }
 
   protected boolean collideY(float dy, Rectangle block) {
-    tempRect.setY(getY() + dy);
+    rectangle.setY(getY() + dy);
     boolean collided = rectangle.overlaps(block);
-    tempRect.setY(getY());
+    rectangle.setY(getY());
     return collided;
   }
 
-  public boolean getOutOfBounds(Entity object) {
+  public boolean outOfBounds(Entity object) {
     return object.getX() + object.getWidth()
             < main.gameScreen.getStage().getCamera().position.x - Gdx.graphics.getWidth() * 0.5f
         || object.getX()
@@ -129,6 +150,10 @@ public abstract class Entity extends Actor {
 
   public float getHalfHeight() {
     return this.halfHeight;
+  }
+
+  public float getAngle(float originX, float originY, float x, float y) {
+    return (float) Math.atan2(y - originY, x - originX);
   }
 
   public void dispose() {
