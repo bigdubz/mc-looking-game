@@ -5,7 +5,7 @@
 ### To do:
 
 - [x] Better collision checking and position offsetting
-- [ ] Add boundaries to temporary map
+- [x] Add boundaries to temporary map
 - [ ] Implement weapons
 - [ ] Animations and fix sprites
 - [ ] Implement sounds and noises
