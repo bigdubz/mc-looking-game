@@ -6,6 +6,7 @@
 
 - [x] Better collision checking and position offsetting
 - [x] Add boundaries to temporary map
+- [x] Add collision of game members with each other
 - [ ] Implement weapons
 - [ ] Animations and fix sprites
 - [ ] Implement sounds and noises
