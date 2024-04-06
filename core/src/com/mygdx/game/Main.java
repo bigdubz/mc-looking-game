@@ -25,13 +25,8 @@ public class Main extends Game {
 
   public final float MAP_SCALE = 2;
   public final float BLOCK_SIZE = 32 * MAP_SCALE; // pixels
-  public final float INVERSE_BLOCK_SIZE = 1 / BLOCK_SIZE; // pixels
-  public final float INVERSE_SQRT_2 = 1 / (float) Math.sqrt(2); // pixels
-
-  //  might be pointless
-  //  public final int MAP_WIDTH = 200; // blocks
-  //  public final int MAP_HEIGHT = 200;
-
+  public final float INVERSE_BLOCK_SIZE = 1 / BLOCK_SIZE;
+  public final float INVERSE_SQRT_2 = 1 / (float) Math.sqrt(2);
   public SpriteBatch batch;
   public ShapeRenderer sr;
   public GameScreen gameScreen;
@@ -43,7 +38,6 @@ public class Main extends Game {
   public Array<Rectangle> solidBlocks;
   public OrthogonalTiledMapRenderer mapRenderer;
   boolean loaded = false;
-//  public ProgressBar.ProgressBarStyle barStyle;
 
   @Override
   public void create() {
@@ -52,11 +46,6 @@ public class Main extends Game {
     skin = new Skin();
     skin.addRegions(new TextureAtlas("Skin/pixthulhu-ui.atlas"));
     skin.load(Gdx.files.internal("Skin/pixthulhu-ui.json"));
-//    barStyle =
-//        new ProgressBar.ProgressBarStyle(
-//            skin.getDrawable("progress-bar-horizontal"),
-//            skin.getDrawable("progress-bar-horizontal-knob"));
-//    barStyle.knobBefore = barStyle.knob;
     batch = new SpriteBatch();
 
     // Load asset manager

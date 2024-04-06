@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.Main;
-import com.mygdx.game.entity.player.GameMember;
-import com.mygdx.game.entity.projectile.Projectile;
+import com.mygdx.game.entity.player.BasePlayer;
+import com.mygdx.game.entity.projectile.BaseProjectile;
 
 public abstract class Entity extends Actor {
 
@@ -57,15 +57,19 @@ public abstract class Entity extends Actor {
         break;
       }
     }
+
     // Check collision with game members
     for (Actor actor : main.gameScreen.stage.getActors()) {
-      if (!(!(actor instanceof GameMember) || actor == this || this instanceof Projectile)) {
+      if (!(!(actor instanceof BasePlayer) || actor == this || this instanceof BaseProjectile)) {
         if (collideX(dx, ((Entity) actor).getRectangle())) {
           collidedX = true;
         }
         if (collideY(dy, ((Entity) actor).getRectangle())) {
           collidedY = true;
         }
+      }
+      if (!(!collidedX || !collidedY)) {
+        break;
       }
     }
     if (!collidedX) {

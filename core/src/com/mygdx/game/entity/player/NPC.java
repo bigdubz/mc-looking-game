@@ -2,7 +2,7 @@ package com.mygdx.game.entity.player;
 
 import com.mygdx.game.Main;
 
-public class NPC extends GameMember {
+public class NPC extends BasePlayer {
 
   public NPC(Main m) {
     super(m, "Player/Skeleton/npcWalk1.png");

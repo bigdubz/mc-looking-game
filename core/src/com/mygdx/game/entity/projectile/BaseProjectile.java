@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.Entity;
-import com.mygdx.game.entity.player.GameMember;
+import com.mygdx.game.entity.player.BasePlayer;
 
-public abstract class Projectile extends Entity {
+public abstract class BaseProjectile extends Entity {
 
   final Entity owner;
-  GameMember memberHit = null;
+  BasePlayer memberHit = null;
   int damage;
   float rotation;
   float speed;
@@ -17,7 +17,7 @@ public abstract class Projectile extends Entity {
   float speedY;
   boolean collided = false;
 
-  protected Projectile(
+  protected BaseProjectile(
       Main m,
       Entity owner,
       String imagePath,
@@ -65,16 +65,16 @@ public abstract class Projectile extends Entity {
 
   boolean checkCollisionWithActors(float dx, float dy) {
     for (Actor actor : main.gameScreen.stage.getActors()) {
-      if (!(!(actor instanceof GameMember) || actor == owner)) {
+      if (!(!(actor instanceof BasePlayer) || actor == owner)) {
         if (collideX(dx, ((Entity) actor).getRectangle())) {
           moveOffsetX(((Entity) actor).getRectangle(), dx);
-          this.memberHit = (GameMember) actor;
+          this.memberHit = (BasePlayer) actor;
           dealDamage(this.memberHit);
           return true;
         }
         else if (collideY(dy, ((Entity) actor).getRectangle())) {
           moveOffsetY(((Entity) actor).getRectangle(), dy);
-          this.memberHit = (GameMember) actor;
+          this.memberHit = (BasePlayer) actor;
           dealDamage(this.memberHit);
           return true;
         }
@@ -95,7 +95,7 @@ public abstract class Projectile extends Entity {
     return this.speed;
   }
 
-  void dealDamage(GameMember victim) {
+  void dealDamage(BasePlayer victim) {
     victim.loseHealthPoints(damage);
   }
 }
