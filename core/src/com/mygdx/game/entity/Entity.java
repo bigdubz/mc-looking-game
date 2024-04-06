@@ -59,7 +59,7 @@ public abstract class Entity extends Actor {
     }
     // Check collision with game members
     for (Actor actor : main.gameScreen.stage.getActors()) {
-      if (!(!(actor instanceof GameMember) || actor == this)) {
+      if (!(!(actor instanceof GameMember) || actor == this || this instanceof Projectile)) {
         if (collideX(dx, ((Entity) actor).getRectangle())) {
           collidedX = true;
         }
