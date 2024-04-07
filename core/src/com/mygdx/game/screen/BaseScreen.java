@@ -9,18 +9,18 @@ import com.mygdx.game.Main;
 
 public abstract class BaseScreen implements Screen {
 
-  Main main;
+  protected Main main;
   public Table table;
   public Stage stage;
 
-  BaseScreen(Main m) {
+  protected BaseScreen(Main m) {
     main = m;
     table = new Table(main.skin);
     stage = new Stage(new ScreenViewport());
     stage.addActor(table);
   }
 
-  abstract void init();
+  protected abstract void init();
 
   @Override
   public void show() {

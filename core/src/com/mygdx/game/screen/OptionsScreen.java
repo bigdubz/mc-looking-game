@@ -14,7 +14,7 @@ public class OptionsScreen extends BaseScreen {
   }
 
   @Override
-  void init() {
+  protected void init() {
     TextButton backButton = new TextButton("Back", main.skin);
     table.add(backButton);
     table.setPosition(

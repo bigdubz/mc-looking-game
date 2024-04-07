@@ -16,7 +16,7 @@ public class LoadingScreen extends BaseScreen {
   }
 
   @Override
-  void init() {
+  protected void init() {
     label = new Label("Loading...", main.skin);
     //    progressBar = new ProgressBar(0, 100, 1, false, main.barStyle);
 

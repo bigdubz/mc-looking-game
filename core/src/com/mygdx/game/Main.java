@@ -16,7 +16,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.screen.GameScreen;
+import com.mygdx.game.screen.gamescreen.GameScreen;
 import com.mygdx.game.screen.LoadingScreen;
 import com.mygdx.game.screen.MenuScreen;
 import com.mygdx.game.screen.OptionsScreen;

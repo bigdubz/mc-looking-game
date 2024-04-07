@@ -13,7 +13,7 @@ public class MenuScreen extends BaseScreen {
     init();
   }
 
-  void init() {
+  protected void init() {
     TextButton playButton = new TextButton("Play", main.skin);
     TextButton optionsButton = new TextButton("Options", main.skin);
     TextButton exitButton = new TextButton("Exit", main.skin);

@@ -1,4 +1,4 @@
-package com.mygdx.game.screen;
+package com.mygdx.game.screen.gamescreen;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.player.Player;
 import com.mygdx.game.entity.player.NPC;
+import com.mygdx.game.screen.BaseScreen;
 
 public class GameScreen extends BaseScreen {
 
