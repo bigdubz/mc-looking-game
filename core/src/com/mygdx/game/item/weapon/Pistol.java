@@ -22,15 +22,15 @@ public class Pistol extends BaseWeapon {
   }
 
   @Override
-  public void shootProjectile(float angle) {
+  public void shootProjectile() {
     if (this.getCurrentAmmo() > 0 && !this.isReloading) {
       new Bullet(
           this.main,
           holder,
-          angle,
+          getRotation(),
           getProjectileSpeed(),
-          holder.getX(),
-          holder.getY(),
+          getX() + getWidth() * (float) Math.cos(Math.toRadians(getRotation())) * 0.5f,
+          getY() + getHeight() * (float) Math.sin(Math.toRadians(getRotation())) * 0.5f,
           getMinDamage());
       setCurrentAmmo(getCurrentAmmo() - 1);
     }

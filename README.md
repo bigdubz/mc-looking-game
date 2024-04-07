@@ -16,7 +16,7 @@
   - [ ] Walking noises
   - [ ] Weapon noises
   - [ ] Hurt and death noises
-- [ ] Implement projectile types
+- [x] Implement projectile types
   - [x] Bullet
   - [ ] Rocket
   - [ ] Maybe flame?

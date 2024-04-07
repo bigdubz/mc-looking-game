@@ -41,6 +41,7 @@ public abstract class BaseProjectile extends Entity {
   @Override
   protected void checkCollisionAndMove(float dx, float dy) {
     for (Rectangle rect : main.solidBlocks) {
+      // Same as Entity check
       if (!(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE
           || Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)) {
         if (collideX(dx, rect)) {
@@ -48,7 +49,7 @@ public abstract class BaseProjectile extends Entity {
           this.collided = true;
           break;
         }
-        else if (collideY(dy, rect)) {
+        if (collideY(dy, rect)) {
           this.moveOffsetY(rect, dy);
           this.collided = true;
           break;
@@ -64,6 +65,7 @@ public abstract class BaseProjectile extends Entity {
 
   boolean checkCollisionWithActors(float dx, float dy) {
     for (Actor actor : main.gameScreen.stage.getActors()) {
+      // If (actor instanceof BasePlayer) and (actor != owner (so that we don't shoot ourselves lol))
       if (!(!(actor instanceof BasePlayer) || actor == owner)) {
         if (collideX(dx, ((Entity) actor).getRectangle())) {
           moveOffsetX(((Entity) actor).getRectangle(), dx);

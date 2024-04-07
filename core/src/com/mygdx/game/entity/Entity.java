@@ -41,7 +41,11 @@ public abstract class Entity extends Actor {
   protected void checkCollisionAndMove(float dx, float dy) {
     boolean collidedX = false;
     boolean collidedY = false;
+
+    // Check collision with solid blocks
     for (Rectangle rect : main.solidBlocks) {
+
+      // If rect is near player
       if (!(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE
           || Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)) {
         if (!(collidedX || !collideX(dx, rect))) {
@@ -60,6 +64,8 @@ public abstract class Entity extends Actor {
 
     // Check collision with game members
     for (Actor actor : main.gameScreen.stage.getActors()) {
+
+      // if (actor instanceof BasePlayer) and (actor != this) and (this is not a BaseProjectile)
       if (!(!(actor instanceof BasePlayer) || actor == this || this instanceof BaseProjectile)) {
         if (collideX(dx, ((Entity) actor).getRectangle())) {
           collidedX = true;
@@ -68,6 +74,7 @@ public abstract class Entity extends Actor {
           collidedY = true;
         }
       }
+      // Break if collided on both axes
       if (!(!collidedX || !collidedY)) {
         break;
       }

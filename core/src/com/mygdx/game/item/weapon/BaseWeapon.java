@@ -48,10 +48,12 @@ public abstract class BaseWeapon extends BaseItem {
     this.reloadTime = reloadTime;
   }
 
-  public abstract void shootProjectile(float angle);
+  public abstract void shootProjectile();
 
   @Override
   public void act(float delta) {
+    setX(holder.getX());
+    setY(holder.getY());
     if (!(getElapsedReloadTime() < reloadTime || !isReloading)) {
       reload();
     }
@@ -59,24 +61,24 @@ public abstract class BaseWeapon extends BaseItem {
 
   @Override
   public void draw(Batch batch, float parentAlpha) {
-    float rotation =
+    this.setRotation(
         holder.getAngle(
-            main.SCREEN_HALF_WIDTH, -main.SCREEN_HALF_HEIGHT, Gdx.input.getX(), -Gdx.input.getY());
-    sprite.setFlip(false, rotation > 90 || rotation < -90);
-    sprite.setRotation(rotation);
+            main.SCREEN_HALF_WIDTH, -main.SCREEN_HALF_HEIGHT, Gdx.input.getX(), -Gdx.input.getY()));
+    sprite.setFlip(false, this.getRotation() > 90 || this.getRotation() < -90);
+    sprite.setRotation(this.getRotation());
     sprite.setPosition(holder.getX(), holder.getY());
     sprite.draw(batch);
   }
 
   public void reload() {
-    this.setCurrentAmmo(this.getMagSize());
-    this.isReloading = false;
+    setCurrentAmmo(this.getMagSize());
+    isReloading = false;
   }
 
   public void startReload() {
-    if (this.isReloading) return;
-    this.setReloadStart(System.currentTimeMillis());
-    this.isReloading = true;
+    if (isReloading) return;
+    setReloadStart(System.currentTimeMillis());
+    isReloading = true;
   }
 
   public long getElapsedReloadTime() {

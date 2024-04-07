@@ -14,6 +14,7 @@ public abstract class BaseItem extends Actor {
   public BaseItem(Main m, String imagePath, String itemName) {
     this.main = m;
     this.sprite = new Sprite(this.main.assets.get(imagePath, Texture.class));
+    this.setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
     this.itemName = itemName;
     m.gameScreen.getStage().addActor(this);
   }

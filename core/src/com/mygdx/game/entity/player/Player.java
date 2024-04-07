@@ -27,13 +27,9 @@ public class Player extends BasePlayer {
         weapon.startReload();
       }
     }
-    if (Gdx.input.isButtonJustPressed(0))
-      shootProjectile(
-          getAngle(
-              main.SCREEN_HALF_WIDTH,
-              -main.SCREEN_HALF_HEIGHT,
-              Gdx.input.getX(),
-              -Gdx.input.getY()));
+    if (Gdx.input.isButtonJustPressed(0)) {
+      shootProjectile();
+    }
   }
 
   private void move(float delta) {

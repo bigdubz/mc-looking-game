@@ -30,10 +30,10 @@ public abstract class BasePlayer extends Entity {
     }
   }
 
-  protected void shootProjectile(float angle) {
+  protected void shootProjectile() {
     BaseWeapon weapon = getWeapon();
     if (weapon != null) {
-      weapon.shootProjectile(angle);
+      weapon.shootProjectile();
     }
   }
 
