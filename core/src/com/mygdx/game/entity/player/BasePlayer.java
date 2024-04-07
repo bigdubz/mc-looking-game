@@ -1,32 +1,25 @@
 package com.mygdx.game.entity.player;
 
-//import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-//import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.player.inventory.Inventory;
-import com.mygdx.game.entity.projectile.Bullet;
+import com.mygdx.game.item.BaseItem;
+import com.mygdx.game.item.weapon.BaseWeapon;
 
 public abstract class BasePlayer extends Entity {
 
   private int healthPoints = 100;
   final Inventory inventory;
-  //  private final ProgressBar healthBar;
+  BaseItem selectedItem;
 
   public BasePlayer(Main m, String imagePath) {
     super(m, imagePath);
     inventory = new Inventory(this.main);
-    //    healthBar = new ProgressBar(0, 100, 1, false, main.barStyle);
-    //    main.gameScreen.stage.addActor(healthBar);
-    //    healthBar.setHeight(100);
   }
 
   @Override
   public void draw(Batch batch, float parentAlpha) {
-    //    healthBar.setPosition(
-    //        getX() + getWidth() - healthBar.getWidth() * 0.5f, getY() + getHeight() * 1.25f);
-    //    healthBar.setValue(healthPoints);
     super.draw(batch, parentAlpha);
   }
 
@@ -38,12 +31,14 @@ public abstract class BasePlayer extends Entity {
   }
 
   protected void shootProjectile(float angle) {
-    new Bullet(main, this, angle, 750, getX(), getY(), 10);
+    BaseWeapon weapon = getWeapon();
+    if (weapon != null) {
+      weapon.shootProjectile(angle);
+    }
   }
 
   public void removeActor() {
     this.remove();
-    //    this.healthBar.remove();
   }
 
   public boolean checkAlive() {
@@ -60,5 +55,12 @@ public abstract class BasePlayer extends Entity {
 
   public int getHealthPoints() {
     return this.healthPoints;
+  }
+
+  public BaseWeapon getWeapon() {
+    if (!(selectedItem == null || !(selectedItem instanceof BaseWeapon))) {
+      return (BaseWeapon) selectedItem;
+    }
+    return null;
   }
 }

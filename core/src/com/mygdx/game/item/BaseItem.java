@@ -6,7 +6,7 @@ import com.mygdx.game.Main;
 
 public abstract class BaseItem extends Actor {
 
-  Main main;
+  protected Main main;
   public Texture image;
   String itemName;
 
@@ -14,5 +14,6 @@ public abstract class BaseItem extends Actor {
     this.main = m;
     this.image = m.assets.get(imagePath);
     this.itemName = itemName;
+    m.gameScreen.getStage().addActor(this);
   }
 }

@@ -3,6 +3,7 @@ package com.mygdx.game.entity.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.mygdx.game.Main;
+import com.mygdx.game.item.weapon.BaseWeapon;
 import com.mygdx.game.item.weapon.Pistol;
 
 public class Player extends BasePlayer {
@@ -12,13 +13,20 @@ public class Player extends BasePlayer {
 
     // The middle of the map, temporarily
     this.setPosition(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE);
-    inventory.addItem(new Pistol(this.main));
+    inventory.addItem(new Pistol(this.main, this));
+    this.selectedItem = inventory.getItem(0);
   }
 
   @Override
   public void act(float delta) {
     super.act(delta);
     move(delta);
+    if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+      BaseWeapon weapon = getWeapon();
+      if (weapon != null) {
+        weapon.startReload();
+      }
+    }
     if (Gdx.input.isButtonJustPressed(0))
       shootProjectile(
           getAngle(
