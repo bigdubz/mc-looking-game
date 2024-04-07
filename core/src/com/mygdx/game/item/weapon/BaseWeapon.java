@@ -1,5 +1,6 @@
 package com.mygdx.game.item.weapon;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.player.BasePlayer;
@@ -58,7 +59,13 @@ public abstract class BaseWeapon extends BaseItem {
 
   @Override
   public void draw(Batch batch, float parentAlpha) {
-
+    float rotation =
+        holder.getAngle(
+            main.SCREEN_HALF_WIDTH, -main.SCREEN_HALF_HEIGHT, Gdx.input.getX(), -Gdx.input.getY());
+    sprite.setFlip(false, rotation > 90 || rotation < -90);
+    sprite.setRotation(rotation);
+    sprite.setPosition(holder.getX(), holder.getY());
+    sprite.draw(batch);
   }
 
   public void reload() {

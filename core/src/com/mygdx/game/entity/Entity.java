@@ -170,7 +170,7 @@ public abstract class Entity extends Actor {
   }
 
   public float getAngle(float originX, float originY, float x, float y) {
-    return (float) Math.atan2(y - originY, x - originX);
+    return (float) Math.toDegrees(Math.atan2(y - originY, x - originX));
   }
 
   public void dispose() {

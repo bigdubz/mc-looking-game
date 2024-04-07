@@ -27,6 +27,8 @@ public class Main extends Game {
   public final float BLOCK_SIZE = 32 * MAP_SCALE; // pixels
   public final float INVERSE_BLOCK_SIZE = 1 / BLOCK_SIZE;
   public final float INVERSE_SQRT_2 = 1 / (float) Math.sqrt(2);
+  public float SCREEN_HALF_WIDTH;
+  public float SCREEN_HALF_HEIGHT;
   public SpriteBatch batch;
   public ShapeRenderer sr;
   public GameScreen gameScreen;
@@ -54,6 +56,8 @@ public class Main extends Game {
 
     // Queue loading then show loading screen
     load();
+    SCREEN_HALF_WIDTH = Gdx.graphics.getWidth() * 0.5f;
+    SCREEN_HALF_HEIGHT = Gdx.graphics.getHeight() * 0.5f;
     setScreen(new LoadingScreen(this));
   }
 

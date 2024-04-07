@@ -30,8 +30,8 @@ public class Player extends BasePlayer {
     if (Gdx.input.isButtonJustPressed(0))
       shootProjectile(
           getAngle(
-              Gdx.graphics.getWidth() * 0.5f,
-              -Gdx.graphics.getHeight() * 0.5f,
+              main.SCREEN_HALF_WIDTH,
+              -main.SCREEN_HALF_HEIGHT,
               Gdx.input.getX(),
               -Gdx.input.getY()));
   }

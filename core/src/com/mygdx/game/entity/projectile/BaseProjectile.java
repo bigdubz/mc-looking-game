@@ -29,13 +29,12 @@ public abstract class BaseProjectile extends Entity {
     super(m, imagePath);
     this.speed = speed;
     this.owner = owner;
-    this.speedX = speed * (float) Math.cos(rotation);
-    this.speedY = speed * (float) Math.sin(rotation);
+    this.speedX = speed * (float) Math.cos(Math.toRadians(rotation));
+    this.speedY = speed * (float) Math.sin(Math.toRadians(rotation));
     this.damage = damage;
-    float deg = (float) Math.toDegrees(rotation);
-    this.rotation = deg;
-    this.sprite.setRotation(deg);
-    this.setRotation(deg);
+    this.rotation = rotation;
+    this.sprite.setRotation(this.rotation);
+    this.setRotation(this.rotation);
     this.setPosition(x, y);
   }
 
