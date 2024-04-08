@@ -28,11 +28,7 @@ public class Inventory {
     }
 
     public void selectPrevItem() {
-        currentIndex--;
-        if (currentIndex < 0) {
-            currentIndex = items.size - 1;
-        }
-        //        currentIndex = (currentIndex - 1) % items.size;
+        currentIndex = Math.abs((currentIndex - 1) % items.size);
         owner.setSelectedItem(items.get(currentIndex));
     }
 

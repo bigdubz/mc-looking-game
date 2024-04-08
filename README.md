@@ -9,6 +9,14 @@
 - [x] Add collision of game members with each other
 - [x] Implement weapons
   - [ ] Finish adding all weapons
+    - [x] Pistol
+    - [x] SMG
+    - [ ] Shotgun
+    - [ ] AK-47
+    - [ ] Assault Rifle
+    - [ ] Rocket Launcher
+    - [ ] Sniper Rifle
+    - [ ] Maybe Flame Thrower?
 - [ ] Implement UI
   - [ ] Inventory
     - [ ] Add a ScrollPane for inventory
