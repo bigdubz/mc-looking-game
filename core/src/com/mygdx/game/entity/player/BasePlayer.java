@@ -15,7 +15,7 @@ public abstract class BasePlayer extends Entity {
 
     public BasePlayer(Main m, String imagePath) {
         super(m, imagePath);
-        inventory = new Inventory(this.main);
+        inventory = new Inventory(this.main, this);
     }
 
     @Override
@@ -55,6 +55,14 @@ public abstract class BasePlayer extends Entity {
 
     public int getHealthPoints() {
         return this.healthPoints;
+    }
+
+    public BaseItem getSelectedItem() {
+        return this.selectedItem;
+    }
+
+    public void setSelectedItem(BaseItem selectedItem) {
+        this.selectedItem = selectedItem;
     }
 
     public BaseWeapon getWeapon() {

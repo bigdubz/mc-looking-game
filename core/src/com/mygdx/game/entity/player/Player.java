@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.mygdx.game.Main;
 import com.mygdx.game.item.weapon.BaseWeapon;
 import com.mygdx.game.item.weapon.Pistol;
+import com.mygdx.game.item.weapon.SMG;
 
 public class Player extends BasePlayer {
 
@@ -13,6 +14,7 @@ public class Player extends BasePlayer {
         // The middle of the map, temporarily
         this.setPosition(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE);
         inventory.addItem(new Pistol(this.main, this));
+        inventory.addItem(new SMG(this.main, this));
         this.selectedItem = inventory.getItem(0);
     }
 
@@ -26,8 +28,14 @@ public class Player extends BasePlayer {
                 weapon.startReload();
             }
         }
-        if (Gdx.input.isButtonJustPressed(0)) {
+        if (Gdx.input.isButtonPressed(0)) {
             shootProjectile();
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            inventory.selectNextItem();
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            inventory.selectPrevItem();
         }
     }
 

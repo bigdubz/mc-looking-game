@@ -67,6 +67,7 @@ public class Main extends Game {
         assets.load("Player/Skeleton/npcWalk1.png", Texture.class);
         assets.load("Items/bullet.png", Texture.class);
         assets.load("Items/Pistol.png", Texture.class);
+        assets.load("Items/Submachine.png", Texture.class);
     }
 
     void start() {

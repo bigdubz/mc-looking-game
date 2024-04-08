@@ -4,23 +4,23 @@ import com.mygdx.game.Main;
 import com.mygdx.game.entity.player.BasePlayer;
 import com.mygdx.game.entity.projectile.Bullet;
 
-public class Pistol extends BaseWeapon {
+public class SMG extends BaseWeapon {
 
-    public Pistol(Main m, BasePlayer holder) {
+    public SMG(Main m, BasePlayer holder) {
         super(
             m,
-            "Items/Pistol.png",
+            "Items/Submachine.png",
             holder,
-            5,
             10,
-            250,
+            15,
+            90,
             25 * 25,
-            3,
+            7,
             1,
-            9,
-            9,
-            1000,
-            "Glock"
+            30,
+            30,
+            2275,
+            "SMG"
         );
     }
 }

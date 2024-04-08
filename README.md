@@ -13,8 +13,6 @@
   - [ ] Inventory
     - [ ] Add a ScrollPane for inventory
     - [ ] Draw items inside inventory
-    - [ ] 
-  
 - [ ] Implement inventory - **_half done_**
 - [ ] Animations and fix sprites
 - [ ] Implement sounds and noises

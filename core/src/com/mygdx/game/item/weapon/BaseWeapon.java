@@ -4,21 +4,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.player.BasePlayer;
+import com.mygdx.game.entity.projectile.Bullet;
 import com.mygdx.game.item.BaseItem;
 
 public abstract class BaseWeapon extends BaseItem {
 
-    public BasePlayer holder;
-    public int minDamage;
-    public int maxDamage;
-    public int fireRate;
-    public int projectileSpeed;
-    public int spread;
-    public int shotsFired;
-    public int magSize;
-    public int currentAmmo;
-    public int reloadTime;
-    public long reloadStart;
+    BasePlayer holder;
+    int minDamage;
+    int maxDamage;
+    int fireRate;
+    long fireStart;
+    int projectileSpeed;
+    int spread;
+    int shotsFired;
+    int magSize;
+    int currentAmmo;
+    int reloadTime;
+    long reloadStart;
     boolean isReloading = false;
 
     public BaseWeapon(
@@ -38,45 +40,68 @@ public abstract class BaseWeapon extends BaseItem {
     ) {
         super(m, imagePath, itemName);
         this.holder = holder;
-        this.minDamage = minDamage;
-        this.maxDamage = maxDamage;
-        this.fireRate = fireRate;
-        this.projectileSpeed = projectileSpeed;
-        this.spread = spread;
-        this.shotsFired = shotsFired;
-        this.magSize = magSize;
-        this.currentAmmo = currentAmmo;
-        this.reloadTime = reloadTime;
+        this.setMinDamage(minDamage);
+        this.setMaxDamage(maxDamage);
+        this.setFireRate(fireRate);
+        this.setProjectileSpeed(projectileSpeed);
+        this.setSpread(spread);
+        this.setShotsFired(shotsFired);
+        this.setMagSize(magSize);
+        this.setCurrentAmmo(currentAmmo);
+        this.setReloadTime(reloadTime);
+        this.resetFireStart();
     }
 
-    public abstract void shootProjectile();
+    public void shootProjectile() {
+        if (
+            !(this.getCurrentAmmo() <= 0 ||
+                this.isReloading ||
+                System.currentTimeMillis() - fireStart < this.getFireRate())
+        ) {
+            resetFireStart();
+            new Bullet(
+                this.main,
+                holder,
+                getRotation(),
+                getProjectileSpeed(),
+                getX(),
+                getY(),
+                getMinDamage()
+            );
+            setCurrentAmmo(getCurrentAmmo() - 1);
+        }
+    }
 
     @Override
     public void act(float delta) {
-        setX(holder.getX());
-        setY(holder.getY());
-        if (!(getElapsedReloadTime() < reloadTime || !isReloading)) {
-            reload();
+        if (isSelected()) {
+            setX(holder.getX());
+            setY(holder.getY());
+            if (!(getElapsedReloadTime() < reloadTime || !isReloading)) {
+                reload();
+            }
         }
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        this.setRotation(
-                holder.getAngle(
-                    main.SCREEN_HALF_WIDTH,
-                    -main.SCREEN_HALF_HEIGHT,
-                    Gdx.input.getX(),
-                    -Gdx.input.getY()
-                )
+        if (isSelected()) {
+            this.setRotation(
+                    holder.getAngle(
+                        main.SCREEN_HALF_WIDTH,
+                        -main.SCREEN_HALF_HEIGHT,
+                        Gdx.input.getX(),
+                        -Gdx.input.getY()
+                    )
+                );
+            sprite.setFlip(
+                false,
+                this.getRotation() > 90 || this.getRotation() < -90
             );
-        sprite.setFlip(
-            false,
-            this.getRotation() > 90 || this.getRotation() < -90
-        );
-        sprite.setRotation(this.getRotation());
-        sprite.setPosition(holder.getX(), holder.getY());
-        sprite.draw(batch);
+            sprite.setRotation(this.getRotation());
+            sprite.setPosition(holder.getX(), holder.getY());
+            sprite.draw(batch);
+        }
     }
 
     public void reload() {
@@ -172,5 +197,13 @@ public abstract class BaseWeapon extends BaseItem {
 
     public void setReloadStart(long reloadStart) {
         this.reloadStart = reloadStart;
+    }
+
+    boolean isSelected() {
+        return this.holder.getSelectedItem() == this;
+    }
+
+    void resetFireStart() {
+        this.fireStart = System.currentTimeMillis();
     }
 }
