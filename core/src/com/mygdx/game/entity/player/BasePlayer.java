@@ -9,58 +9,58 @@ import com.mygdx.game.item.weapon.BaseWeapon;
 
 public abstract class BasePlayer extends Entity {
 
-  private int healthPoints = 100;
-  final Inventory inventory;
-  BaseItem selectedItem;
+    private int healthPoints = 100;
+    final Inventory inventory;
+    BaseItem selectedItem;
 
-  public BasePlayer(Main m, String imagePath) {
-    super(m, imagePath);
-    inventory = new Inventory(this.main);
-  }
-
-  @Override
-  public void draw(Batch batch, float parentAlpha) {
-    super.draw(batch, parentAlpha);
-  }
-
-  @Override
-  public void act(float delta) {
-    if (!checkAlive()) {
-      this.removeActor();
+    public BasePlayer(Main m, String imagePath) {
+        super(m, imagePath);
+        inventory = new Inventory(this.main);
     }
-  }
 
-  protected void shootProjectile() {
-    BaseWeapon weapon = getWeapon();
-    if (weapon != null) {
-      weapon.shootProjectile();
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
     }
-  }
 
-  public void removeActor() {
-    this.remove();
-  }
-
-  public boolean checkAlive() {
-    return this.healthPoints > 0;
-  }
-
-  public void loseHealthPoints(int damage) {
-    this.setHealthPoints(getHealthPoints() - damage);
-  }
-
-  public void setHealthPoints(int hp) {
-    this.healthPoints = Math.max(0, hp);
-  }
-
-  public int getHealthPoints() {
-    return this.healthPoints;
-  }
-
-  public BaseWeapon getWeapon() {
-    if (!(selectedItem == null || !(selectedItem instanceof BaseWeapon))) {
-      return (BaseWeapon) selectedItem;
+    @Override
+    public void act(float delta) {
+        if (!checkAlive()) {
+            this.removeActor();
+        }
     }
-    return null;
-  }
+
+    protected void shootProjectile() {
+        BaseWeapon weapon = getWeapon();
+        if (weapon != null) {
+            weapon.shootProjectile();
+        }
+    }
+
+    public void removeActor() {
+        this.remove();
+    }
+
+    public boolean checkAlive() {
+        return this.healthPoints > 0;
+    }
+
+    public void loseHealthPoints(int damage) {
+        this.setHealthPoints(getHealthPoints() - damage);
+    }
+
+    public void setHealthPoints(int hp) {
+        this.healthPoints = Math.max(0, hp);
+    }
+
+    public int getHealthPoints() {
+        return this.healthPoints;
+    }
+
+    public BaseWeapon getWeapon() {
+        if (!(selectedItem == null || !(selectedItem instanceof BaseWeapon))) {
+            return (BaseWeapon) selectedItem;
+        }
+        return null;
+    }
 }

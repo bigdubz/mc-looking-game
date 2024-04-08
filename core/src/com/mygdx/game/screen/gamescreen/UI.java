@@ -6,13 +6,13 @@ import com.mygdx.game.entity.player.inventory.Inventory;
 
 public class UI {
 
-  Main main;
-  Player player;
+    Main main;
+    Player player;
 
-  public UI(Main m, Player player) {
-    this.main = m;
-    this.player = player;
-  }
+    public UI(Main m, Player player) {
+        this.main = m;
+        this.player = player;
+    }
 
-  public void drawInventory(Inventory inventory) {}
+    public void drawInventory(Inventory inventory) {}
 }

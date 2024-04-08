@@ -8,166 +8,169 @@ import com.mygdx.game.item.BaseItem;
 
 public abstract class BaseWeapon extends BaseItem {
 
-  public BasePlayer holder;
-  public int minDamage;
-  public int maxDamage;
-  public int fireRate;
-  public int projectileSpeed;
-  public int spread;
-  public int shotsFired;
-  public int magSize;
-  public int currentAmmo;
-  public int reloadTime;
-  public long reloadStart;
-  boolean isReloading = false;
+    public BasePlayer holder;
+    public int minDamage;
+    public int maxDamage;
+    public int fireRate;
+    public int projectileSpeed;
+    public int spread;
+    public int shotsFired;
+    public int magSize;
+    public int currentAmmo;
+    public int reloadTime;
+    public long reloadStart;
+    boolean isReloading = false;
 
-  public BaseWeapon(
-    Main m,
-    String imagePath,
-    BasePlayer holder,
-    int minDamage,
-    int maxDamage,
-    int fireRate,
-    int projectileSpeed,
-    int spread,
-    int shotsFired,
-    int magSize,
-    int currentAmmo,
-    int reloadTime,
-    String itemName
-  ) {
-    super(m, imagePath, itemName);
-    this.holder = holder;
-    this.minDamage = minDamage;
-    this.maxDamage = maxDamage;
-    this.fireRate = fireRate;
-    this.projectileSpeed = projectileSpeed;
-    this.spread = spread;
-    this.shotsFired = shotsFired;
-    this.magSize = magSize;
-    this.currentAmmo = currentAmmo;
-    this.reloadTime = reloadTime;
-  }
-
-  public abstract void shootProjectile();
-
-  @Override
-  public void act(float delta) {
-    setX(holder.getX());
-    setY(holder.getY());
-    if (!(getElapsedReloadTime() < reloadTime || !isReloading)) {
-      reload();
+    public BaseWeapon(
+        Main m,
+        String imagePath,
+        BasePlayer holder,
+        int minDamage,
+        int maxDamage,
+        int fireRate,
+        int projectileSpeed,
+        int spread,
+        int shotsFired,
+        int magSize,
+        int currentAmmo,
+        int reloadTime,
+        String itemName
+    ) {
+        super(m, imagePath, itemName);
+        this.holder = holder;
+        this.minDamage = minDamage;
+        this.maxDamage = maxDamage;
+        this.fireRate = fireRate;
+        this.projectileSpeed = projectileSpeed;
+        this.spread = spread;
+        this.shotsFired = shotsFired;
+        this.magSize = magSize;
+        this.currentAmmo = currentAmmo;
+        this.reloadTime = reloadTime;
     }
-  }
 
-  @Override
-  public void draw(Batch batch, float parentAlpha) {
-    this.setRotation(
-        holder.getAngle(
-          main.SCREEN_HALF_WIDTH,
-          -main.SCREEN_HALF_HEIGHT,
-          Gdx.input.getX(),
-          -Gdx.input.getY()
-        )
-      );
-    sprite.setFlip(false, this.getRotation() > 90 || this.getRotation() < -90);
-    sprite.setRotation(this.getRotation());
-    sprite.setPosition(holder.getX(), holder.getY());
-    sprite.draw(batch);
-  }
+    public abstract void shootProjectile();
 
-  public void reload() {
-    setCurrentAmmo(this.getMagSize());
-    isReloading = false;
-  }
+    @Override
+    public void act(float delta) {
+        setX(holder.getX());
+        setY(holder.getY());
+        if (!(getElapsedReloadTime() < reloadTime || !isReloading)) {
+            reload();
+        }
+    }
 
-  public void startReload() {
-    if (isReloading) return;
-    setReloadStart(System.currentTimeMillis());
-    isReloading = true;
-  }
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        this.setRotation(
+                holder.getAngle(
+                    main.SCREEN_HALF_WIDTH,
+                    -main.SCREEN_HALF_HEIGHT,
+                    Gdx.input.getX(),
+                    -Gdx.input.getY()
+                )
+            );
+        sprite.setFlip(
+            false,
+            this.getRotation() > 90 || this.getRotation() < -90
+        );
+        sprite.setRotation(this.getRotation());
+        sprite.setPosition(holder.getX(), holder.getY());
+        sprite.draw(batch);
+    }
 
-  public long getElapsedReloadTime() {
-    return System.currentTimeMillis() - this.getReloadStart();
-  }
+    public void reload() {
+        setCurrentAmmo(this.getMagSize());
+        isReloading = false;
+    }
 
-  public int getMinDamage() {
-    return minDamage;
-  }
+    public void startReload() {
+        if (isReloading) return;
+        setReloadStart(System.currentTimeMillis());
+        isReloading = true;
+    }
 
-  public void setMinDamage(int minDamage) {
-    this.minDamage = minDamage;
-  }
+    public long getElapsedReloadTime() {
+        return System.currentTimeMillis() - this.getReloadStart();
+    }
 
-  public int getMaxDamage() {
-    return maxDamage;
-  }
+    public int getMinDamage() {
+        return minDamage;
+    }
 
-  public void setMaxDamage(int maxDamage) {
-    this.maxDamage = maxDamage;
-  }
+    public void setMinDamage(int minDamage) {
+        this.minDamage = minDamage;
+    }
 
-  public int getFireRate() {
-    return fireRate;
-  }
+    public int getMaxDamage() {
+        return maxDamage;
+    }
 
-  public void setFireRate(int fireRate) {
-    this.fireRate = fireRate;
-  }
+    public void setMaxDamage(int maxDamage) {
+        this.maxDamage = maxDamage;
+    }
 
-  public int getProjectileSpeed() {
-    return projectileSpeed;
-  }
+    public int getFireRate() {
+        return fireRate;
+    }
 
-  public void setProjectileSpeed(int projectileSpeed) {
-    this.projectileSpeed = projectileSpeed;
-  }
+    public void setFireRate(int fireRate) {
+        this.fireRate = fireRate;
+    }
 
-  public int getSpread() {
-    return spread;
-  }
+    public int getProjectileSpeed() {
+        return projectileSpeed;
+    }
 
-  public void setSpread(int spread) {
-    this.spread = spread;
-  }
+    public void setProjectileSpeed(int projectileSpeed) {
+        this.projectileSpeed = projectileSpeed;
+    }
 
-  public int getShotsFired() {
-    return shotsFired;
-  }
+    public int getSpread() {
+        return spread;
+    }
 
-  public void setShotsFired(int shotsFired) {
-    this.shotsFired = shotsFired;
-  }
+    public void setSpread(int spread) {
+        this.spread = spread;
+    }
 
-  public int getMagSize() {
-    return magSize;
-  }
+    public int getShotsFired() {
+        return shotsFired;
+    }
 
-  public void setMagSize(int magSize) {
-    this.magSize = magSize;
-  }
+    public void setShotsFired(int shotsFired) {
+        this.shotsFired = shotsFired;
+    }
 
-  public int getCurrentAmmo() {
-    return currentAmmo;
-  }
+    public int getMagSize() {
+        return magSize;
+    }
 
-  public void setCurrentAmmo(int currentAmmo) {
-    this.currentAmmo = currentAmmo;
-  }
+    public void setMagSize(int magSize) {
+        this.magSize = magSize;
+    }
 
-  public int getReloadTime() {
-    return reloadTime;
-  }
+    public int getCurrentAmmo() {
+        return currentAmmo;
+    }
 
-  public void setReloadTime(int reloadTime) {
-    this.reloadTime = reloadTime;
-  }
+    public void setCurrentAmmo(int currentAmmo) {
+        this.currentAmmo = currentAmmo;
+    }
 
-  public long getReloadStart() {
-    return reloadStart;
-  }
+    public int getReloadTime() {
+        return reloadTime;
+    }
 
-  public void setReloadStart(long reloadStart) {
-    this.reloadStart = reloadStart;
-  }
+    public void setReloadTime(int reloadTime) {
+        this.reloadTime = reloadTime;
+    }
+
+    public long getReloadStart() {
+        return reloadStart;
+    }
+
+    public void setReloadStart(long reloadStart) {
+        this.reloadStart = reloadStart;
+    }
 }

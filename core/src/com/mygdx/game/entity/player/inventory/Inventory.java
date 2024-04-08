@@ -8,29 +8,29 @@ import com.mygdx.game.item.BaseItem;
 
 public class Inventory {
 
-  Main main;
-  Array<BaseItem> items;
-  Rectangle rectangle;
+    Main main;
+    Array<BaseItem> items;
+    Rectangle rectangle;
 
-  public Inventory(Main m) {
-    this.main = m;
-    items = new Array<>();
-    rectangle = new Rectangle(50, Gdx.graphics.getHeight() - 50, 500, 500);
-  }
+    public Inventory(Main m) {
+        this.main = m;
+        items = new Array<>();
+        rectangle = new Rectangle(50, Gdx.graphics.getHeight() - 50, 500, 500);
+    }
 
-  public void addItem(BaseItem item) {
-    this.items.add(item);
-  }
+    public void addItem(BaseItem item) {
+        this.items.add(item);
+    }
 
-  public Array<BaseItem> getItems() {
-    return items;
-  }
+    public Array<BaseItem> getItems() {
+        return items;
+    }
 
-  public BaseItem getItem(int index) {
-    return items.get(index);
-  }
+    public BaseItem getItem(int index) {
+        return items.get(index);
+    }
 
-  public void clearInventory() {
-    items.clear();
-  }
+    public void clearInventory() {
+        items.clear();
+    }
 }
