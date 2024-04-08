@@ -6,7 +6,6 @@ public class NPC extends BasePlayer {
 
   public NPC(Main m) {
     super(m, "Player/Skeleton/npcWalk1.png");
-
     // The middle of the map, temporarily
     this.setPosition(3100 * main.MAP_SCALE, 3100 * main.MAP_SCALE);
   }
@@ -34,6 +33,6 @@ public class NPC extends BasePlayer {
       dy *= main.INVERSE_SQRT_2;
     }
     checkCollisionAndMove(dx, dy);
-//    shootProjectile(getAngle(getX(), getY(), p.getX(), p.getY()));
+    //    shootProjectile(getAngle(getX(), getY(), p.getX(), p.getY()));
   }
 }

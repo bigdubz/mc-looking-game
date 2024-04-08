@@ -18,14 +18,15 @@ public abstract class BaseProjectile extends Entity {
   boolean collided = false;
 
   protected BaseProjectile(
-      Main m,
-      Entity owner,
-      String imagePath,
-      float rotation,
-      float speed,
-      float x,
-      float y,
-      int damage) {
+    Main m,
+    Entity owner,
+    String imagePath,
+    float rotation,
+    float speed,
+    float x,
+    float y,
+    int damage
+  ) {
     super(m, imagePath);
     this.speed = speed;
     this.owner = owner;
@@ -42,8 +43,10 @@ public abstract class BaseProjectile extends Entity {
   protected void checkCollisionAndMove(float dx, float dy) {
     for (Rectangle rect : main.solidBlocks) {
       // Same as Entity check
-      if (!(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE
-          || Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)) {
+      if (
+        !(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE ||
+          Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)
+      ) {
         if (collideX(dx, rect)) {
           this.moveOffsetX(rect, dx);
           this.collided = true;
@@ -72,8 +75,7 @@ public abstract class BaseProjectile extends Entity {
           this.memberHit = (BasePlayer) actor;
           dealDamage(this.memberHit);
           return true;
-        }
-        else if (collideY(dy, ((Entity) actor).getRectangle())) {
+        } else if (collideY(dy, ((Entity) actor).getRectangle())) {
           moveOffsetY(((Entity) actor).getRectangle(), dy);
           this.memberHit = (BasePlayer) actor;
           dealDamage(this.memberHit);

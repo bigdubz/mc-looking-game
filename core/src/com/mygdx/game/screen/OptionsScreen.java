@@ -18,15 +18,17 @@ public class OptionsScreen extends BaseScreen {
     TextButton backButton = new TextButton("Back", main.skin);
     table.add(backButton);
     table.setPosition(
-        (Gdx.graphics.getWidth() - table.getWidth()) * 0.5f,
-        (Gdx.graphics.getHeight() - table.getHeight()) * 0.5f);
+      (Gdx.graphics.getWidth() - table.getWidth()) * 0.5f,
+      (Gdx.graphics.getHeight() - table.getHeight()) * 0.5f
+    );
     backButton.addListener(
-        new ClickListener() {
-          @Override
-          public void clicked(InputEvent event, float x, float y) {
-            main.setScreen(main.menuScreen);
-          }
-        });
+      new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+          main.setScreen(main.menuScreen);
+        }
+      }
+    );
   }
 
   @Override

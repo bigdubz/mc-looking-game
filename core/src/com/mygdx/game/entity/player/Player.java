@@ -10,7 +10,6 @@ public class Player extends BasePlayer {
 
   public Player(Main m) {
     super(m, "Player/down1.png");
-
     // The middle of the map, temporarily
     this.setPosition(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE);
     inventory.addItem(new Pistol(this.main, this));

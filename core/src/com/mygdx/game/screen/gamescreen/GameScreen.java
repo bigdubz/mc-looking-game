@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Main;
-import com.mygdx.game.entity.player.Player;
 import com.mygdx.game.entity.player.NPC;
+import com.mygdx.game.entity.player.Player;
 import com.mygdx.game.screen.BaseScreen;
 
 public class GameScreen extends BaseScreen {
@@ -15,8 +15,8 @@ public class GameScreen extends BaseScreen {
   public Array<Rectangle> nearbyBlocks;
 
   // Testing
-  int[] layers = new int[] {0, 1};
-  int[] layers2 = new int[] {2, 3, 4};
+  int[] layers = new int[] { 0, 1 };
+  int[] layers2 = new int[] { 2, 3, 4 };
 
   public GameScreen(Main m) {
     super(m);

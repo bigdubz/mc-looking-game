@@ -23,29 +23,33 @@ public class MenuScreen extends BaseScreen {
     table.row();
     table.add(exitButton);
     table.setPosition(
-        (Gdx.graphics.getWidth() - table.getWidth()) * 0.5f,
-        (Gdx.graphics.getHeight() - table.getHeight()) * 0.5f);
+      (Gdx.graphics.getWidth() - table.getWidth()) * 0.5f,
+      (Gdx.graphics.getHeight() - table.getHeight()) * 0.5f
+    );
     playButton.addListener(
-        new ClickListener() {
-          @Override
-          public void clicked(InputEvent event, float x, float y) {
-            main.setScreen(main.gameScreen);
-          }
-        });
+      new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+          main.setScreen(main.gameScreen);
+        }
+      }
+    );
     optionsButton.addListener(
-        new ClickListener() {
-          @Override
-          public void clicked(InputEvent event, float x, float y) {
-            main.setScreen(main.optionsScreen);
-          }
-        });
+      new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+          main.setScreen(main.optionsScreen);
+        }
+      }
+    );
     exitButton.addListener(
-        new ClickListener() {
-          @Override
-          public void clicked(InputEvent event, float x, float y) {
-            Gdx.app.exit();
-          }
-        });
+      new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+          Gdx.app.exit();
+        }
+      }
+    );
   }
 
   @Override

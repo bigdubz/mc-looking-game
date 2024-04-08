@@ -8,12 +8,11 @@ public class UI {
 
   Main main;
   Player player;
+
   public UI(Main m, Player player) {
     this.main = m;
     this.player = player;
   }
 
-  public void drawInventory(Inventory inventory) {
-
-  }
+  public void drawInventory(Inventory inventory) {}
 }

@@ -16,10 +16,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.screen.gamescreen.GameScreen;
 import com.mygdx.game.screen.LoadingScreen;
 import com.mygdx.game.screen.MenuScreen;
 import com.mygdx.game.screen.OptionsScreen;
+import com.mygdx.game.screen.gamescreen.GameScreen;
 
 public class Main extends Game {
 
@@ -43,7 +43,6 @@ public class Main extends Game {
 
   @Override
   public void create() {
-
     // Load skin (Loaded this first for the Label on loading screen)
     skin = new Skin();
     skin.addRegions(new TextureAtlas("Skin/pixthulhu-ui.atlas"));
@@ -81,14 +80,19 @@ public class Main extends Game {
     mainMap = assets.get("Map/extruded_test.tmx");
     mapRenderer = new OrthogonalTiledMapRenderer(mainMap, MAP_SCALE);
     solidBlocks = new Array<>();
-    for (RectangleMapObject rectMapObject :
-        mainMap.getLayers().get("collision").getObjects().getByType(RectangleMapObject.class)) {
+    for (RectangleMapObject rectMapObject : mainMap
+      .getLayers()
+      .get("collision")
+      .getObjects()
+      .getByType(RectangleMapObject.class)) {
       solidBlocks.add(
-          new Rectangle(
-              rectMapObject.getRectangle().x * MAP_SCALE,
-              rectMapObject.getRectangle().y * MAP_SCALE,
-              (rectMapObject.getRectangle().width + 2) * MAP_SCALE,
-              (rectMapObject.getRectangle().height + 2) * MAP_SCALE));
+        new Rectangle(
+          rectMapObject.getRectangle().x * MAP_SCALE,
+          rectMapObject.getRectangle().y * MAP_SCALE,
+          (rectMapObject.getRectangle().width + 2) * MAP_SCALE,
+          (rectMapObject.getRectangle().height + 2) * MAP_SCALE
+        )
+      );
     }
     gameScreen.init();
     setScreen(menuScreen);

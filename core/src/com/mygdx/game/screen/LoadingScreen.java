@@ -24,13 +24,16 @@ public class LoadingScreen extends BaseScreen {
     table.add(label);
     table.row();
     table.setPosition(
-        (Gdx.graphics.getWidth() - table.getWidth()) / 2f,
-        (Gdx.graphics.getHeight() - table.getHeight()) / 2f);
+      (Gdx.graphics.getWidth() - table.getWidth()) / 2f,
+      (Gdx.graphics.getHeight() - table.getHeight()) / 2f
+    );
   }
 
   @Override
   public void render(float delta) {
-    label.setText("Loading... " + (int) (main.assets.getProgress() * 100) + "%");
+    label.setText(
+      "Loading... " + (int) (main.assets.getProgress() * 100) + "%"
+    );
     stage.draw();
   }
 }

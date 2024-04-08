@@ -44,10 +44,11 @@ public abstract class Entity extends Actor {
 
     // Check collision with solid blocks
     for (Rectangle rect : main.solidBlocks) {
-
       // If rect is near player
-      if (!(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE
-          || Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)) {
+      if (
+        !(Math.abs(rect.getY() - getY()) > rect.getHeight() + main.BLOCK_SIZE ||
+          Math.abs(rect.getX() - getX()) > rect.getWidth() + main.BLOCK_SIZE)
+      ) {
         if (!(collidedX || !collideX(dx, rect))) {
           collidedX = true;
           moveOffsetX(rect, dx);
@@ -64,9 +65,12 @@ public abstract class Entity extends Actor {
 
     // Check collision with game members
     for (Actor actor : main.gameScreen.stage.getActors()) {
-
       // if (actor instanceof BasePlayer) and (actor != this) and (this is not a BaseProjectile)
-      if (!(!(actor instanceof BasePlayer) || actor == this || this instanceof BaseProjectile)) {
+      if (
+        !(!(actor instanceof BasePlayer) ||
+          actor == this ||
+          this instanceof BaseProjectile)
+      ) {
         if (collideX(dx, ((Entity) actor).getRectangle())) {
           collidedX = true;
         }
@@ -130,14 +134,20 @@ public abstract class Entity extends Actor {
   }
 
   public boolean outOfBounds(Entity object) {
-    return object.getX() + object.getWidth()
-            < main.gameScreen.getStage().getCamera().position.x - Gdx.graphics.getWidth() * 0.5f
-        || object.getX()
-            > main.gameScreen.getStage().getCamera().position.x + Gdx.graphics.getWidth() * 0.5f
-        || object.getY() + object.getHeight()
-            < main.gameScreen.getStage().getCamera().position.y - Gdx.graphics.getHeight() * 0.5f
-        || object.getY()
-            > main.gameScreen.getStage().getCamera().position.y + Gdx.graphics.getHeight() * 0.5f;
+    return (
+      object.getX() + object.getWidth() <
+        main.gameScreen.getStage().getCamera().position.x -
+          Gdx.graphics.getWidth() * 0.5f ||
+      object.getX() >
+        main.gameScreen.getStage().getCamera().position.x +
+          Gdx.graphics.getWidth() * 0.5f ||
+      object.getY() + object.getHeight() <
+        main.gameScreen.getStage().getCamera().position.y -
+          Gdx.graphics.getHeight() * 0.5f ||
+      object.getY() >
+        main.gameScreen.getStage().getCamera().position.y +
+          Gdx.graphics.getHeight() * 0.5f
+    );
   }
 
   public int getCol() {

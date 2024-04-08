@@ -22,19 +22,20 @@ public abstract class BaseWeapon extends BaseItem {
   boolean isReloading = false;
 
   public BaseWeapon(
-      Main m,
-      String imagePath,
-      BasePlayer holder,
-      int minDamage,
-      int maxDamage,
-      int fireRate,
-      int projectileSpeed,
-      int spread,
-      int shotsFired,
-      int magSize,
-      int currentAmmo,
-      int reloadTime,
-      String itemName) {
+    Main m,
+    String imagePath,
+    BasePlayer holder,
+    int minDamage,
+    int maxDamage,
+    int fireRate,
+    int projectileSpeed,
+    int spread,
+    int shotsFired,
+    int magSize,
+    int currentAmmo,
+    int reloadTime,
+    String itemName
+  ) {
     super(m, imagePath, itemName);
     this.holder = holder;
     this.minDamage = minDamage;
@@ -63,7 +64,12 @@ public abstract class BaseWeapon extends BaseItem {
   public void draw(Batch batch, float parentAlpha) {
     this.setRotation(
         holder.getAngle(
-            main.SCREEN_HALF_WIDTH, -main.SCREEN_HALF_HEIGHT, Gdx.input.getX(), -Gdx.input.getY()));
+          main.SCREEN_HALF_WIDTH,
+          -main.SCREEN_HALF_HEIGHT,
+          Gdx.input.getX(),
+          -Gdx.input.getY()
+        )
+      );
     sprite.setFlip(false, this.getRotation() > 90 || this.getRotation() < -90);
     sprite.setRotation(this.getRotation());
     sprite.setPosition(holder.getX(), holder.getY());
