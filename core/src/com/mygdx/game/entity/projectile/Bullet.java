@@ -9,12 +9,23 @@ public class Bullet extends BaseProjectile {
         Main m,
         Entity owner,
         float rotation,
+        int spread,
         float speed,
         float x,
         float y,
         int damage
     ) {
-        super(m, owner, "Items/bullet.png", rotation, speed, x, y, damage);
+        super(
+            m,
+            owner,
+            "Items/bullet.png",
+            rotation,
+            spread,
+            speed,
+            x,
+            y,
+            damage
+        );
     }
 
     @Override

@@ -59,15 +59,21 @@ public abstract class BaseWeapon extends BaseItem {
                 System.currentTimeMillis() - fireStart < this.getFireRate())
         ) {
             resetFireStart();
-            new Bullet(
-                this.main,
-                holder,
-                getRotation(),
-                getProjectileSpeed(),
-                getX(),
-                getY(),
-                getMinDamage()
-            );
+            for (int i = 0; i < getShotsFired(); i++) {
+                new Bullet(
+                    this.main,
+                    holder,
+                    getRotation(),
+                    getSpread(),
+                    getProjectileSpeed(), // removed implementation below because idw use trig, another solution is to:
+                    // TODO somehow draw projectiles below the weapon
+                    getX() + getWidth() * 0.5f,
+                    // + getWidth() * 0.5f * (float) (1 + Math.cos(Math.toRadians(getRotation()))),
+                    getY() + getHeight() * 0.5f,
+                    // + getWidth() * 0.5f * (float) Math.sin(Math.toRadians(getRotation())),
+                    getMinDamage()
+                );
+            }
             setCurrentAmmo(getCurrentAmmo() - 1);
         }
     }
@@ -75,8 +81,6 @@ public abstract class BaseWeapon extends BaseItem {
     @Override
     public void act(float delta) {
         if (isSelected()) {
-            setX(holder.getX());
-            setY(holder.getY());
             if (!(getElapsedReloadTime() < reloadTime || !isReloading)) {
                 reload();
             }
@@ -99,7 +103,9 @@ public abstract class BaseWeapon extends BaseItem {
                 this.getRotation() > 90 || this.getRotation() < -90
             );
             sprite.setRotation(this.getRotation());
-            sprite.setPosition(holder.getX(), holder.getY());
+            setX(holder.getX() + holder.getWidth() * 0.5f - getWidth() * 0.5f);
+            setY(holder.getY() + holder.getHeight() * 0.5f - getHeight());
+            sprite.setPosition(getX(), getY());
             sprite.draw(batch);
         }
     }

@@ -11,17 +11,22 @@
   - [ ] Finish adding all weapons
     - [x] Pistol
     - [x] SMG
-    - [ ] Shotgun
+    - [x] Shotgun
     - [ ] AK-47
     - [ ] Assault Rifle
     - [ ] Rocket Launcher
     - [ ] Sniper Rifle
     - [ ] Maybe Flame Thrower?
+  - [x] Finish weapon functionality
+    - [x] Shot spread
+    - [x] Multiple shots per click
+- [ ] Implement inventory - **_half done_**
 - [ ] Implement UI
   - [ ] Inventory
     - [ ] Add a ScrollPane for inventory
     - [ ] Draw items inside inventory
-- [ ] Implement inventory - **_half done_**
+  - [ ] Health bars
+  - [ ] Maybe leveling system?
 - [ ] Animations and fix sprites
 - [ ] Implement sounds and noises
   - [ ] Projectile noises

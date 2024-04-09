@@ -6,6 +6,7 @@ import com.mygdx.game.Main;
 import com.mygdx.game.item.weapon.BaseWeapon;
 import com.mygdx.game.item.weapon.Pistol;
 import com.mygdx.game.item.weapon.SMG;
+import com.mygdx.game.item.weapon.Shotgun;
 
 public class Player extends BasePlayer {
 
@@ -15,6 +16,7 @@ public class Player extends BasePlayer {
         this.setPosition(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE);
         inventory.addItem(new Pistol(this.main, this));
         inventory.addItem(new SMG(this.main, this));
+        inventory.addItem(new Shotgun(this.main, this));
         this.selectedItem = inventory.getItem(0);
     }
 

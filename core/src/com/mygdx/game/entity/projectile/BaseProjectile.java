@@ -2,6 +2,7 @@ package com.mygdx.game.entity.projectile;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.Helper;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.player.BasePlayer;
@@ -11,7 +12,6 @@ public abstract class BaseProjectile extends Entity {
     final Entity owner;
     BasePlayer memberHit = null;
     int damage;
-    float rotation;
     float speed;
     float speedX;
     float speedY;
@@ -22,6 +22,7 @@ public abstract class BaseProjectile extends Entity {
         Entity owner,
         String imagePath,
         float rotation,
+        int spread,
         float speed,
         float x,
         float y,
@@ -30,12 +31,11 @@ public abstract class BaseProjectile extends Entity {
         super(m, imagePath);
         this.speed = speed;
         this.owner = owner;
-        this.speedX = speed * (float) Math.cos(Math.toRadians(rotation));
-        this.speedY = speed * (float) Math.sin(Math.toRadians(rotation));
+        this.setRotation(rotation + Helper.randomInt(-spread, spread));
+        this.sprite.setRotation(getRotation());
+        this.speedX = speed * (float) Math.cos(Math.toRadians(getRotation()));
+        this.speedY = speed * (float) Math.sin(Math.toRadians(getRotation()));
         this.damage = damage;
-        this.rotation = rotation;
-        this.sprite.setRotation(this.rotation);
-        this.setRotation(this.rotation);
         this.setPosition(x, y);
     }
 

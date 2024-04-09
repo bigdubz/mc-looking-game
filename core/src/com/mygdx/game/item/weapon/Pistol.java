@@ -2,7 +2,6 @@ package com.mygdx.game.item.weapon;
 
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.player.BasePlayer;
-import com.mygdx.game.entity.projectile.Bullet;
 
 public class Pistol extends BaseWeapon {
 

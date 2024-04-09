@@ -1,4 +1,4 @@
-package com.mygdx.game.entity.player.inventory;
+package com.mygdx.game.item.inventory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
@@ -28,7 +28,10 @@ public class Inventory {
     }
 
     public void selectPrevItem() {
-        currentIndex = Math.abs((currentIndex - 1) % items.size);
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = items.size - 1;
+        }
         owner.setSelectedItem(items.get(currentIndex));
     }
 

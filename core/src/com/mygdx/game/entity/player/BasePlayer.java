@@ -3,7 +3,7 @@ package com.mygdx.game.entity.player;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.Entity;
-import com.mygdx.game.entity.player.inventory.Inventory;
+import com.mygdx.game.item.inventory.Inventory;
 import com.mygdx.game.item.BaseItem;
 import com.mygdx.game.item.weapon.BaseWeapon;
 

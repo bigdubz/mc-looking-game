@@ -2,7 +2,7 @@ package com.mygdx.game.screen.gamescreen;
 
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.player.Player;
-import com.mygdx.game.entity.player.inventory.Inventory;
+import com.mygdx.game.item.inventory.Inventory;
 
 public class UI {
 
