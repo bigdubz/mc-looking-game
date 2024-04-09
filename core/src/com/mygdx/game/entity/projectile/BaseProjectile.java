@@ -26,7 +26,8 @@ public abstract class BaseProjectile extends Entity {
         float speed,
         float x,
         float y,
-        int damage
+        int minDamage,
+        int maxDamage
     ) {
         super(m, imagePath);
         this.speed = speed;
@@ -35,7 +36,7 @@ public abstract class BaseProjectile extends Entity {
         this.sprite.setRotation(getRotation());
         this.speedX = speed * (float) Math.cos(Math.toRadians(getRotation()));
         this.speedY = speed * (float) Math.sin(Math.toRadians(getRotation()));
-        this.damage = damage;
+        this.damage = Helper.randomInt(minDamage, maxDamage);
         this.setPosition(x, y);
     }
 
@@ -86,18 +87,6 @@ public abstract class BaseProjectile extends Entity {
             }
         }
         return false;
-    }
-
-    public Entity getOwner() {
-        return this.owner;
-    }
-
-    public Entity getMemberHit() {
-        return this.memberHit;
-    }
-
-    public float getSpeed() {
-        return this.speed;
     }
 
     void dealDamage(BasePlayer victim) {

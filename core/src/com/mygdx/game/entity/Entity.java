@@ -152,30 +152,6 @@ public abstract class Entity extends Actor {
         );
     }
 
-    public int getCol() {
-        return (int) (getX() * main.INVERSE_BLOCK_SIZE);
-    }
-
-    public int getRow() {
-        return (int) (getY() * main.INVERSE_BLOCK_SIZE);
-    }
-
-    public int getCol(Rectangle rect) {
-        return (int) (rect.getX() * main.INVERSE_BLOCK_SIZE);
-    }
-
-    public int getRow(Rectangle rect) {
-        return (int) (rect.getY() * main.INVERSE_BLOCK_SIZE);
-    }
-
-    public int getCol(Entity object) {
-        return (int) (object.getX() * main.INVERSE_BLOCK_SIZE);
-    }
-
-    public int getRow(Entity object) {
-        return (int) (object.getY() * main.INVERSE_BLOCK_SIZE);
-    }
-
     public Rectangle getRectangle() {
         return this.rectangle;
     }
@@ -188,11 +164,30 @@ public abstract class Entity extends Actor {
         return this.halfHeight;
     }
 
-    public float getAngle(float originX, float originY, float x, float y) {
-        return (float) Math.toDegrees(Math.atan2(y - originY, x - originX));
-    }
-
     public void dispose() {
         sprite.getTexture().dispose();
     }
+    //        public int getCol() {
+    //            return (int) (getX() * main.INVERSE_BLOCK_SIZE);
+    //        }
+    //
+    //        public int getRow() {
+    //            return (int) (getY() * main.INVERSE_BLOCK_SIZE);
+    //        }
+    //
+    //        public int getCol(Rectangle rect) {
+    //            return (int) (rect.getX() * main.INVERSE_BLOCK_SIZE);
+    //        }
+    //
+    //        public int getRow(Rectangle rect) {
+    //            return (int) (rect.getY() * main.INVERSE_BLOCK_SIZE);
+    //        }
+    //
+    //        public int getCol(Entity object) {
+    //            return (int) (object.getX() * main.INVERSE_BLOCK_SIZE);
+    //        }
+    //
+    //        public int getRow(Entity object) {
+    //            return (int) (object.getY() * main.INVERSE_BLOCK_SIZE);
+    //        }
 }

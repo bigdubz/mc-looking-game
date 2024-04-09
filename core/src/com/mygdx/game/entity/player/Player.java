@@ -2,6 +2,7 @@ package com.mygdx.game.entity.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.mygdx.game.Helper;
 import com.mygdx.game.Main;
 import com.mygdx.game.item.weapon.BaseWeapon;
 import com.mygdx.game.item.weapon.Pistol;
@@ -11,19 +12,27 @@ import com.mygdx.game.item.weapon.Shotgun;
 public class Player extends BasePlayer {
 
     public Player(Main m) {
-        super(m, "Player/down1.png");
+        super(m, "Player/down1.png", 300);
         // The middle of the map, temporarily
-        this.setPosition(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE);
+        setPosition(3200 * main.MAP_SCALE, 3200 * main.MAP_SCALE);
         inventory.addItem(new Pistol(this.main, this));
         inventory.addItem(new SMG(this.main, this));
         inventory.addItem(new Shotgun(this.main, this));
-        this.selectedItem = inventory.getItem(0);
+        selectedItem = inventory.getItem(0);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
         move(delta);
+        setSelectedItemRotation(
+            Helper.getAngle(
+                main.SCREEN_HALF_WIDTH,
+                -main.SCREEN_HALF_HEIGHT,
+                Gdx.input.getX(),
+                -Gdx.input.getY()
+            )
+        );
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             BaseWeapon weapon = getWeapon();
             if (weapon != null) {
@@ -42,27 +51,27 @@ public class Player extends BasePlayer {
     }
 
     private void move(float delta) {
-        float vert = 0;
-        float horz = 0;
-        float speed = 300 * delta;
+        float dx = 0;
+        float dy = 0;
+        float speedWithDelta = speed * delta;
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            vert += speed;
+            dy += speedWithDelta;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            vert -= speed;
+            dy -= speedWithDelta;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            horz += speed;
+            dx += speedWithDelta;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            horz -= speed;
+            dx -= speedWithDelta;
         }
 
-        if (horz * vert != 0) {
-            horz *= main.INVERSE_SQRT_2;
-            vert *= main.INVERSE_SQRT_2;
+        if (dx * dy != 0) {
+            dx *= Helper.INVERSE_SQRT_2;
+            dy *= Helper.INVERSE_SQRT_2;
         }
 
-        checkCollisionAndMove(horz, vert);
+        checkCollisionAndMove(dx, dy);
     }
 }

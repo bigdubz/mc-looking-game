@@ -23,24 +23,24 @@ public class Inventory {
     }
 
     public void selectNextItem() {
+        items.get(currentIndex).itemDeselected();
         currentIndex = (currentIndex + 1) % items.size;
         owner.setSelectedItem(items.get(currentIndex));
+        items.get(currentIndex).itemSelected();
     }
 
     public void selectPrevItem() {
+        items.get(currentIndex).itemDeselected();
         currentIndex--;
         if (currentIndex < 0) {
             currentIndex = items.size - 1;
         }
         owner.setSelectedItem(items.get(currentIndex));
+        items.get(currentIndex).itemSelected();
     }
 
     public void addItem(BaseItem item) {
         this.items.add(item);
-    }
-
-    public Array<BaseItem> getItems() {
-        return items;
     }
 
     public BaseItem getItem(int index) {

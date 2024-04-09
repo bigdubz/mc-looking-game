@@ -13,7 +13,8 @@ public class Bullet extends BaseProjectile {
         float speed,
         float x,
         float y,
-        int damage
+        int minDamage,
+        int maxDamage
     ) {
         super(
             m,
@@ -24,7 +25,8 @@ public class Bullet extends BaseProjectile {
             speed,
             x,
             y,
-            damage
+            minDamage,
+            maxDamage
         );
     }
 

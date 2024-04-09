@@ -49,8 +49,4 @@ public abstract class BaseScreen implements Screen {
     public Stage getStage() {
         return this.stage;
     }
-
-    public Table getTable() {
-        return this.table;
-    }
 }

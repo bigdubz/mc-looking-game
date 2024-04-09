@@ -1,6 +1,5 @@
 package com.mygdx.game.item.weapon;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.player.BasePlayer;
@@ -9,7 +8,6 @@ import com.mygdx.game.item.BaseItem;
 
 public abstract class BaseWeapon extends BaseItem {
 
-    BasePlayer holder;
     int minDamage;
     int maxDamage;
     int fireRate;
@@ -38,50 +36,50 @@ public abstract class BaseWeapon extends BaseItem {
         int reloadTime,
         String itemName
     ) {
-        super(m, imagePath, itemName);
-        this.holder = holder;
-        this.setMinDamage(minDamage);
-        this.setMaxDamage(maxDamage);
-        this.setFireRate(fireRate);
-        this.setProjectileSpeed(projectileSpeed);
-        this.setSpread(spread);
-        this.setShotsFired(shotsFired);
-        this.setMagSize(magSize);
-        this.setCurrentAmmo(currentAmmo);
-        this.setReloadTime(reloadTime);
-        this.resetFireStart();
+        super(m, holder, imagePath, itemName);
+        this.minDamage = minDamage;
+        this.maxDamage = maxDamage;
+        this.fireRate = fireRate;
+        this.projectileSpeed = projectileSpeed;
+        this.spread = spread;
+        this.shotsFired = shotsFired;
+        this.magSize = magSize;
+        this.currentAmmo = currentAmmo;
+        this.reloadTime = reloadTime;
+        resetFireStart();
     }
 
     public void shootProjectile() {
         if (
-            !(this.getCurrentAmmo() <= 0 ||
-                this.isReloading ||
-                System.currentTimeMillis() - fireStart < this.getFireRate())
+            !(currentAmmo <= 0 ||
+                isReloading ||
+                elapsedLastShotTime() < fireRate)
         ) {
             resetFireStart();
-            for (int i = 0; i < getShotsFired(); i++) {
+            for (int i = 0; i < shotsFired; i++) {
                 new Bullet(
-                    this.main,
+                    main,
                     holder,
                     getRotation(),
-                    getSpread(),
-                    getProjectileSpeed(), // removed implementation below because idw use trig, another solution is to:
+                    spread,
+                    projectileSpeed, // removed implementation below because idw use trig, another solution is to:
                     // TODO somehow draw projectiles below the weapon
                     getX() + getWidth() * 0.5f,
                     // + getWidth() * 0.5f * (float) (1 + Math.cos(Math.toRadians(getRotation()))),
                     getY() + getHeight() * 0.5f,
                     // + getWidth() * 0.5f * (float) Math.sin(Math.toRadians(getRotation())),
-                    getMinDamage()
+                    minDamage,
+                    maxDamage
                 );
             }
-            setCurrentAmmo(getCurrentAmmo() - 1);
+            currentAmmo--;
         }
     }
 
     @Override
     public void act(float delta) {
         if (isSelected()) {
-            if (!(getElapsedReloadTime() < reloadTime || !isReloading)) {
+            if (!(elapsedReloadTime() < reloadTime || !isReloading)) {
                 reload();
             }
         }
@@ -90,19 +88,11 @@ public abstract class BaseWeapon extends BaseItem {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (isSelected()) {
-            this.setRotation(
-                    holder.getAngle(
-                        main.SCREEN_HALF_WIDTH,
-                        -main.SCREEN_HALF_HEIGHT,
-                        Gdx.input.getX(),
-                        -Gdx.input.getY()
-                    )
-                );
             sprite.setFlip(
                 false,
                 this.getRotation() > 90 || this.getRotation() < -90
             );
-            sprite.setRotation(this.getRotation());
+            sprite.setRotation(getRotation());
             setX(holder.getX() + holder.getWidth() * 0.5f - getWidth() * 0.5f);
             setY(holder.getY() + holder.getHeight() * 0.5f - getHeight());
             sprite.setPosition(getX(), getY());
@@ -111,105 +101,40 @@ public abstract class BaseWeapon extends BaseItem {
     }
 
     public void reload() {
-        setCurrentAmmo(this.getMagSize());
+        currentAmmo = magSize;
         isReloading = false;
     }
 
     public void startReload() {
-        if (isReloading) return;
-        setReloadStart(System.currentTimeMillis());
+        if (isReloading || currentAmmo == magSize) return;
+        resetReloadStart();
         isReloading = true;
     }
 
-    public long getElapsedReloadTime() {
-        return System.currentTimeMillis() - this.getReloadStart();
+    public long elapsedReloadTime() {
+        return System.currentTimeMillis() - reloadStart;
     }
 
-    public int getMinDamage() {
-        return minDamage;
+    public long elapsedLastShotTime() {
+        return System.currentTimeMillis() - fireStart;
     }
 
-    public void setMinDamage(int minDamage) {
-        this.minDamage = minDamage;
+    public void resetReloadStart() {
+        this.reloadStart = System.currentTimeMillis();
     }
 
-    public int getMaxDamage() {
-        return maxDamage;
-    }
-
-    public void setMaxDamage(int maxDamage) {
-        this.maxDamage = maxDamage;
-    }
-
-    public int getFireRate() {
-        return fireRate;
-    }
-
-    public void setFireRate(int fireRate) {
-        this.fireRate = fireRate;
-    }
-
-    public int getProjectileSpeed() {
-        return projectileSpeed;
-    }
-
-    public void setProjectileSpeed(int projectileSpeed) {
-        this.projectileSpeed = projectileSpeed;
-    }
-
-    public int getSpread() {
-        return spread;
-    }
-
-    public void setSpread(int spread) {
-        this.spread = spread;
-    }
-
-    public int getShotsFired() {
-        return shotsFired;
-    }
-
-    public void setShotsFired(int shotsFired) {
-        this.shotsFired = shotsFired;
-    }
-
-    public int getMagSize() {
-        return magSize;
-    }
-
-    public void setMagSize(int magSize) {
-        this.magSize = magSize;
-    }
-
-    public int getCurrentAmmo() {
-        return currentAmmo;
-    }
-
-    public void setCurrentAmmo(int currentAmmo) {
-        this.currentAmmo = currentAmmo;
-    }
-
-    public int getReloadTime() {
-        return reloadTime;
-    }
-
-    public void setReloadTime(int reloadTime) {
-        this.reloadTime = reloadTime;
-    }
-
-    public long getReloadStart() {
-        return reloadStart;
-    }
-
-    public void setReloadStart(long reloadStart) {
-        this.reloadStart = reloadStart;
+    void resetFireStart() {
+        this.fireStart = System.currentTimeMillis();
     }
 
     boolean isSelected() {
         return this.holder.getSelectedItem() == this;
     }
 
-    void resetFireStart() {
-        this.fireStart = System.currentTimeMillis();
-    }
+    // TODO do something with the reload times to prevent reloading while weapon is not selected
+    @Override
+    public void itemDeselected() {}
+
+    @Override
+    public void itemSelected() {}
 }

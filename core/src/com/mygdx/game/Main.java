@@ -25,8 +25,7 @@ public class Main extends Game {
 
     public final float MAP_SCALE = 2;
     public final float BLOCK_SIZE = 32 * MAP_SCALE; // pixels
-    public final float INVERSE_BLOCK_SIZE = 1 / BLOCK_SIZE;
-    public final float INVERSE_SQRT_2 = 1 / (float) Math.sqrt(2);
+    //    public final float INVERSE_BLOCK_SIZE = 1 / BLOCK_SIZE;
     public float SCREEN_HALF_WIDTH;
     public float SCREEN_HALF_HEIGHT;
     public SpriteBatch batch;

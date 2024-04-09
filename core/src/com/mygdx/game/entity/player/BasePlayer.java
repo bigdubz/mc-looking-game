@@ -3,19 +3,24 @@ package com.mygdx.game.entity.player;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.Entity;
-import com.mygdx.game.item.inventory.Inventory;
 import com.mygdx.game.item.BaseItem;
+import com.mygdx.game.item.inventory.Inventory;
 import com.mygdx.game.item.weapon.BaseWeapon;
+import com.mygdx.game.item.weapon.Pistol;
 
 public abstract class BasePlayer extends Entity {
 
     private int healthPoints = 100;
     final Inventory inventory;
     BaseItem selectedItem;
+    int speed;
 
-    public BasePlayer(Main m, String imagePath) {
+    public BasePlayer(Main m, String imagePath, int speed) {
         super(m, imagePath);
+        this.speed = speed;
         inventory = new Inventory(this.main, this);
+        inventory.addItem(new Pistol(main, this));
+        selectedItem = inventory.getItem(0);
     }
 
     @Override
@@ -46,15 +51,11 @@ public abstract class BasePlayer extends Entity {
     }
 
     public void loseHealthPoints(int damage) {
-        this.setHealthPoints(getHealthPoints() - damage);
+        setHealthPoints(healthPoints - damage);
     }
 
     public void setHealthPoints(int hp) {
         this.healthPoints = Math.max(0, hp);
-    }
-
-    public int getHealthPoints() {
-        return this.healthPoints;
     }
 
     public BaseItem getSelectedItem() {
@@ -66,9 +67,14 @@ public abstract class BasePlayer extends Entity {
     }
 
     public BaseWeapon getWeapon() {
+        // If (selected item is not null) and (selected item is instance of BaseWeapon)
         if (!(selectedItem == null || !(selectedItem instanceof BaseWeapon))) {
             return (BaseWeapon) selectedItem;
         }
         return null;
+    }
+
+    protected void setSelectedItemRotation(float degrees) {
+        selectedItem.setRotation(degrees);
     }
 }
