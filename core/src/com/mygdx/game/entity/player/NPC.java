@@ -2,6 +2,7 @@ package com.mygdx.game.entity.player;
 
 import com.mygdx.game.Helper;
 import com.mygdx.game.Main;
+import com.mygdx.game.item.weapon.Pistol;
 
 public class NPC extends BasePlayer {
 
@@ -9,6 +10,8 @@ public class NPC extends BasePlayer {
         super(m, "Player/Skeleton/npcWalk1.png", 250);
         // The middle of the map, temporarily
         this.setPosition(3100 * main.MAP_SCALE, 3100 * main.MAP_SCALE);
+        inventory.addItem(new Pistol(main, this));
+        selectedItem = inventory.getItem(0);
     }
 
     @Override

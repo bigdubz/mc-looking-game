@@ -68,6 +68,9 @@ public class Main extends Game {
         assets.load("Items/Pistol.png", Texture.class);
         assets.load("Items/Submachine.png", Texture.class);
         assets.load("Items/Shotgun.png", Texture.class);
+        assets.load("Items/AK47.png", Texture.class);
+        assets.load("Items/SG553.png", Texture.class);
+        assets.load("Items/AWP.png", Texture.class);
     }
 
     void start() {

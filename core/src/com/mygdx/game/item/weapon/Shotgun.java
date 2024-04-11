@@ -17,7 +17,6 @@ public class Shotgun extends BaseWeapon {
             10,
             4,
             2,
-            2,
             1700,
             "Shotgun"
         );

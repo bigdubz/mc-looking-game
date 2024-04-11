@@ -12,10 +12,10 @@
     - [x] Pistol
     - [x] SMG
     - [x] Shotgun
-    - [ ] AK-47
-    - [ ] Assault Rifle
+    - [x] AK-47
+    - [x] Assault Rifle
+    - [x] Sniper Rifle
     - [ ] Rocket Launcher
-    - [ ] Sniper Rifle
     - [ ] Maybe Flame Thrower?
   - [x] Finish weapon functionality
     - [x] Shot spread

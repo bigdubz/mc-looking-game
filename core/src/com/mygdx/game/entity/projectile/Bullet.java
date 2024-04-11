@@ -16,6 +16,7 @@ public class Bullet extends BaseProjectile {
         int minDamage,
         int maxDamage
     ) {
+        // TODO stop making new sprites for every projectile, get preloaded sprite from Helper or something.
         super(
             m,
             owner,

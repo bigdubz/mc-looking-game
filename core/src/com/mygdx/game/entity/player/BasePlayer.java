@@ -6,7 +6,6 @@ import com.mygdx.game.entity.Entity;
 import com.mygdx.game.item.BaseItem;
 import com.mygdx.game.item.inventory.Inventory;
 import com.mygdx.game.item.weapon.BaseWeapon;
-import com.mygdx.game.item.weapon.Pistol;
 
 public abstract class BasePlayer extends Entity {
 
@@ -19,8 +18,6 @@ public abstract class BasePlayer extends Entity {
         super(m, imagePath);
         this.speed = speed;
         inventory = new Inventory(this.main, this);
-        inventory.addItem(new Pistol(main, this));
-        selectedItem = inventory.getItem(0);
     }
 
     @Override

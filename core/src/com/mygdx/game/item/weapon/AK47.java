@@ -3,22 +3,22 @@ package com.mygdx.game.item.weapon;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.player.BasePlayer;
 
-public class SMG extends BaseWeapon {
+public class AK47 extends BaseWeapon {
 
-    public SMG(Main m, BasePlayer holder) {
+    public AK47(Main m, BasePlayer holder) {
         super(
             m,
-            "Items/Submachine.png",
+            "Items/AK47.png",
             holder,
-            7,
             10,
-            90,
-            25 * 25,
-            7,
+            25,
+            100,
+            30 * 25,
+            4,
             1,
             30,
-            2275,
-            "SMG"
+            1750,
+            "AK47"
         );
     }
 }

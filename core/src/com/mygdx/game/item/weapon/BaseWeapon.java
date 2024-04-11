@@ -32,7 +32,6 @@ public abstract class BaseWeapon extends BaseItem {
         int spread,
         int shotsFired,
         int magSize,
-        int currentAmmo,
         int reloadTime,
         String itemName
     ) {
@@ -44,36 +43,9 @@ public abstract class BaseWeapon extends BaseItem {
         this.spread = spread;
         this.shotsFired = shotsFired;
         this.magSize = magSize;
-        this.currentAmmo = currentAmmo;
+        this.currentAmmo = this.magSize;
         this.reloadTime = reloadTime;
         resetFireStart();
-    }
-
-    public void shootProjectile() {
-        if (
-            !(currentAmmo <= 0 ||
-                isReloading ||
-                elapsedLastShotTime() < fireRate)
-        ) {
-            resetFireStart();
-            for (int i = 0; i < shotsFired; i++) {
-                new Bullet(
-                    main,
-                    holder,
-                    getRotation(),
-                    spread,
-                    projectileSpeed, // removed implementation below because idw use trig, another solution is to:
-                    // TODO somehow draw projectiles below the weapon
-                    getX() + getWidth() * 0.5f,
-                    // + getWidth() * 0.5f * (float) (1 + Math.cos(Math.toRadians(getRotation()))),
-                    getY() + getHeight() * 0.5f,
-                    // + getWidth() * 0.5f * (float) Math.sin(Math.toRadians(getRotation())),
-                    minDamage,
-                    maxDamage
-                );
-            }
-            currentAmmo--;
-        }
     }
 
     @Override
@@ -97,6 +69,27 @@ public abstract class BaseWeapon extends BaseItem {
             setY(holder.getY() + holder.getHeight() * 0.5f - getHeight());
             sprite.setPosition(getX(), getY());
             sprite.draw(batch);
+        }
+    }
+
+    public void shootProjectile() {
+        if (canShootProjectile()) {
+            resetFireStart();
+            for (int i = 0; i < shotsFired; i++) {
+                new Bullet(
+                    main,
+                    holder,
+                    getRotation(),
+                    spread,
+                    projectileSpeed, // removed implementation below because idw use trig, another solution is to:
+                    //  TODO somehow draw projectiles below the weapon
+                    getX() + getWidth() * 0.5f,
+                    getY() + getHeight() * 0.5f,
+                    minDamage,
+                    maxDamage
+                );
+            }
+            currentAmmo--;
         }
     }
 
@@ -129,6 +122,12 @@ public abstract class BaseWeapon extends BaseItem {
 
     boolean isSelected() {
         return this.holder.getSelectedItem() == this;
+    }
+
+    public boolean canShootProjectile() {
+        return !(
+            currentAmmo <= 0 || isReloading || elapsedLastShotTime() < fireRate
+        );
     }
 
     // TODO do something with the reload times to prevent reloading while weapon is not selected

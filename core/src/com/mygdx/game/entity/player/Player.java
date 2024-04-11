@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.mygdx.game.Helper;
 import com.mygdx.game.Main;
-import com.mygdx.game.item.weapon.BaseWeapon;
-import com.mygdx.game.item.weapon.Pistol;
-import com.mygdx.game.item.weapon.SMG;
-import com.mygdx.game.item.weapon.Shotgun;
+import com.mygdx.game.item.weapon.*;
 
 public class Player extends BasePlayer {
 
@@ -18,6 +15,9 @@ public class Player extends BasePlayer {
         inventory.addItem(new Pistol(this.main, this));
         inventory.addItem(new SMG(this.main, this));
         inventory.addItem(new Shotgun(this.main, this));
+        inventory.addItem(new AK47(this.main, this));
+        inventory.addItem(new AssaultRifle(this.main, this));
+        inventory.addItem(new SniperRifle(this.main, this));
         selectedItem = inventory.getItem(0);
     }
 

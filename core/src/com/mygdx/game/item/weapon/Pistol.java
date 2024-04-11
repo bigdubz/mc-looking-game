@@ -17,7 +17,6 @@ public class Pistol extends BaseWeapon {
             3,
             1,
             9,
-            9,
             1000,
             "Glock"
         );
