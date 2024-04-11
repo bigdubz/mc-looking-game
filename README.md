@@ -21,13 +21,13 @@
     - [x] Shot spread
     - [x] Multiple shots per click
 - [x] Implement inventory - **_half done_**
-- [ ] Implement UI
+- [ ] Implement UI - **can someone fucking do this for me im bored (1) **
   - [ ] Inventory
     - [ ] Add a ScrollPane for inventory
     - [ ] Draw items inside inventory
   - [ ] Health bars
   - [ ] Maybe leveling system?
-- [ ] Animations and fix sprites
+- [ ] Animations and fix sprites - **can someone fucking do this for me im bored (2) **
 - [ ] Implement sounds and noises
   - [ ] Projectile noises
   - [ ] Walking noises
