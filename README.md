@@ -1,4 +1,4 @@
-# Minecraft Looking Game
+# mc looking game
 ## This is an optimized rebuild of an old project.
 
 
