@@ -164,6 +164,10 @@ public abstract class Entity extends Actor {
         return this.halfHeight;
     }
 
+    public void removeActor() {
+        this.remove();
+    }
+
     public void dispose() {
         sprite.getTexture().dispose();
     }

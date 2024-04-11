@@ -20,7 +20,7 @@
   - [x] Finish weapon functionality
     - [x] Shot spread
     - [x] Multiple shots per click
-- [ ] Implement inventory - **_half done_**
+- [x] Implement inventory - **_half done_**
 - [ ] Implement UI
   - [ ] Inventory
     - [ ] Add a ScrollPane for inventory

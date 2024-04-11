@@ -10,9 +10,9 @@ import com.mygdx.game.item.weapon.BaseWeapon;
 public abstract class BasePlayer extends Entity {
 
     private int healthPoints = 100;
-    final Inventory inventory;
-    BaseItem selectedItem;
-    int speed;
+    protected final Inventory inventory;
+    protected BaseItem selectedItem;
+    protected int speed;
 
     public BasePlayer(Main m, String imagePath, int speed) {
         super(m, imagePath);
@@ -28,7 +28,7 @@ public abstract class BasePlayer extends Entity {
     @Override
     public void act(float delta) {
         if (!checkAlive()) {
-            this.removeActor();
+            removeActor();
         }
     }
 
@@ -39,8 +39,10 @@ public abstract class BasePlayer extends Entity {
         }
     }
 
+    @Override
     public void removeActor() {
-        this.remove();
+        this.inventory.clearInventory();
+        super.removeActor();
     }
 
     public boolean checkAlive() {

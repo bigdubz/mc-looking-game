@@ -47,6 +47,15 @@ public class Inventory {
         return items.get(index);
     }
 
+    public void dropItem() {
+        items.removeIndex(currentIndex);
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = items.size - 1;
+        }
+        selectPrevItem();
+    }
+
     public void clearInventory() {
         items.clear();
     }

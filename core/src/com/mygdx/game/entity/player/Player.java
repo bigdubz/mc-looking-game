@@ -39,6 +39,9 @@ public class Player extends BasePlayer {
                 weapon.startReload();
             }
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            inventory.dropItem();
+        }
         if (Gdx.input.isButtonPressed(0)) {
             shootProjectile();
         }
