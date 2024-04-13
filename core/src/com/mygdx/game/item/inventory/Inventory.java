@@ -59,4 +59,8 @@ public class Inventory {
     public void clearInventory() {
         items.clear();
     }
+
+    public Array<BaseItem> getItems() {
+        return this.items;
+    }
 }

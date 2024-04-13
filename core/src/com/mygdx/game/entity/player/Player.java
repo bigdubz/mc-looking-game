@@ -8,6 +8,8 @@ import com.mygdx.game.item.weapon.*;
 
 public class Player extends BasePlayer {
 
+    private boolean invOpen = false;
+
     public Player(Main m) {
         super(m, "Player/down1.png", 300);
         // The middle of the map, temporarily
@@ -38,6 +40,9 @@ public class Player extends BasePlayer {
             if (weapon != null) {
                 weapon.startReload();
             }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            invOpen = !invOpen;
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
             inventory.dropItem();
@@ -76,5 +81,9 @@ public class Player extends BasePlayer {
         }
 
         checkCollisionAndMove(dx, dy);
+    }
+
+    public boolean getInvOpen() {
+        return this.invOpen;
     }
 }

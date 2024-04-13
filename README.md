@@ -23,7 +23,7 @@
 - [x] Implement inventory - **_half done_**
 - [ ] Implement UI - **can someone fucking do this for me im bored (1) **
   - [ ] Inventory
-    - [ ] Add a ScrollPane for inventory
+    - [x] Add a ScrollPane for inventory
     - [ ] Draw items inside inventory
   - [ ] Health bars
   - [ ] Maybe leveling system?

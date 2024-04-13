@@ -13,6 +13,7 @@ public class GameScreen extends BaseScreen {
     public Player player;
     public NPC npc;
     public Array<Rectangle> nearbyBlocks;
+    public UI ui;
 
     // Testing
     int[] layers = new int[] { 0, 1 };
@@ -27,6 +28,7 @@ public class GameScreen extends BaseScreen {
         nearbyBlocks = new Array<>();
         player = new Player(main);
         npc = new NPC(main);
+        ui = new UI(main, player);
     }
 
     @Override
@@ -39,6 +41,14 @@ public class GameScreen extends BaseScreen {
         stage.draw();
         stage.act(delta);
         main.mapRenderer.render(layers2);
+
+        ui.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height);
+        ui.getStage().getViewport().update(width, height);
     }
 
     @Override

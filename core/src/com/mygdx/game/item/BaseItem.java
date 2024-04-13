@@ -37,4 +37,9 @@ public abstract class BaseItem extends Actor {
     public abstract void itemDeselected();
 
     public abstract void itemSelected();
+
+    @Override
+    public String getName() {
+        return itemName;
+    }
 }
