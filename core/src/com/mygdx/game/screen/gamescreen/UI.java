@@ -1,12 +1,14 @@
 package com.mygdx.game.screen.gamescreen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Main;
+import com.mygdx.game.entity.player.BasePlayer;
 import com.mygdx.game.entity.player.Player;
 
 public class UI {
@@ -36,6 +38,11 @@ public class UI {
 
     public void draw() {
         drawInventory();
+        for (Actor player : main.gameScreen.stage.getActors()) {
+            if (player instanceof BasePlayer) {
+                ((BasePlayer) player).drawHealthBar(main.sr);
+            }
+        }
     }
 
     public void drawInventory() {

@@ -37,6 +37,12 @@ public abstract class BaseItem extends Actor {
     public abstract void itemDeselected();
 
     public abstract void itemSelected();
+    public void itemDropped() {
+        remove();
+    }
+    public void itemPickedUp() {
+
+    }
 
     @Override
     public String getName() {

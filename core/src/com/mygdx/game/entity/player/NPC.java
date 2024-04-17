@@ -1,5 +1,6 @@
 package com.mygdx.game.entity.player;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Helper;
 import com.mygdx.game.Main;
 import com.mygdx.game.item.weapon.Pistol;
@@ -26,6 +27,21 @@ public class NPC extends BasePlayer {
             )
         );
         followHuman(delta);
+    }
+
+    @Override
+    public void drawHealthBar(ShapeRenderer sr) {
+        int w = 50;
+        int h = 10;
+        main.sr.setProjectionMatrix(main.gameScreen.stage.getCamera().combined);
+        sr.setColor(1,0,0,1);
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.rect(getX() + (getWidth() - w)*0.5f, getY() + getHeight() + 10, w*(getHealthPoints()/100f), h);
+        sr.end();
+        sr.begin();
+        sr.setColor(0.2f,0.2f,0.2f,1);
+        sr.rect(getX() + (getWidth() - w)*0.5f, getY() + getHeight() + 10, w, h);
+        sr.end();
     }
 
     void followHuman(float delta) {

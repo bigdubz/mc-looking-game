@@ -2,6 +2,7 @@ package com.mygdx.game.entity.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Helper;
 import com.mygdx.game.Main;
 import com.mygdx.game.item.weapon.*;
@@ -56,6 +57,24 @@ public class Player extends BasePlayer {
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             inventory.selectPrevItem();
         }
+    }
+
+    @Override
+    public void drawHealthBar(ShapeRenderer sr) {
+        int w = 500;
+        int h = 75;
+        int x = 25;
+        int y = Gdx.graphics.getHeight() - h - 50;
+        float health = getHealthPoints()*0.01f;
+        sr.setProjectionMatrix(main.gameScreen.ui.getStage().getCamera().combined);
+        sr.setColor(1-health,health,health*0.5f,1);
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.rect(x, y, w*health, h);
+        sr.end();
+        sr.begin();
+        sr.setColor(0.2f,0.2f,0.2f,1);
+        sr.rect(x, y, w, h);
+        sr.end();
     }
 
     private void move(float delta) {

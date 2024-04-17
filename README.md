@@ -25,7 +25,7 @@
   - [ ] Inventory
     - [x] Add a ScrollPane for inventory
     - [ ] Draw items inside inventory
-  - [ ] Health bars
+  - [x] Health bars - Ugly, needs redoing.
   - [ ] Maybe leveling system?
 - [ ] Animations and fix sprites - **can someone fucking do this for me im bored (2) **
 - [ ] Implement sounds and noises

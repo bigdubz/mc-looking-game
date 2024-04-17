@@ -41,8 +41,8 @@ public class GameScreen extends BaseScreen {
         stage.draw();
         stage.act(delta);
         main.mapRenderer.render(layers2);
-
         ui.draw();
+
     }
 
     @Override

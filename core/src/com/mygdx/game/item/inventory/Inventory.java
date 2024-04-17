@@ -23,6 +23,10 @@ public class Inventory {
     }
 
     public void selectNextItem() {
+        if (items.isEmpty()) {
+            owner.setSelectedItem(null);
+            return;
+        }
         items.get(currentIndex).itemDeselected();
         currentIndex = (currentIndex + 1) % items.size;
         owner.setSelectedItem(items.get(currentIndex));
@@ -30,6 +34,10 @@ public class Inventory {
     }
 
     public void selectPrevItem() {
+        if (items.isEmpty()) {
+            owner.setSelectedItem(null);
+            return;
+        }
         items.get(currentIndex).itemDeselected();
         currentIndex--;
         if (currentIndex < 0) {
@@ -48,6 +56,10 @@ public class Inventory {
     }
 
     public void dropItem() {
+        if (items.isEmpty()) {
+            return;
+        }
+        items.get(currentIndex).itemDropped();
         items.removeIndex(currentIndex);
         currentIndex--;
         if (currentIndex < 0) {

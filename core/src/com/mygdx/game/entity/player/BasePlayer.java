@@ -1,6 +1,7 @@
 package com.mygdx.game.entity.player;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Main;
 import com.mygdx.game.entity.Entity;
@@ -40,9 +41,12 @@ public abstract class BasePlayer extends Entity {
         }
     }
 
+    public abstract void drawHealthBar(ShapeRenderer sr);
+
     @Override
     public void removeActor() {
-        this.inventory.clearInventory();
+        inventory.clearInventory();
+        selectedItem.itemDropped();
         super.removeActor();
     }
 
@@ -56,6 +60,10 @@ public abstract class BasePlayer extends Entity {
 
     public void setHealthPoints(int hp) {
         this.healthPoints = Math.max(0, hp);
+    }
+
+    public int getHealthPoints() {
+        return this.healthPoints;
     }
 
     public BaseItem getSelectedItem() {
@@ -79,6 +87,8 @@ public abstract class BasePlayer extends Entity {
     }
 
     protected void setSelectedItemRotation(float degrees) {
-        selectedItem.setRotation(degrees);
+        if (selectedItem != null) {
+            selectedItem.setRotation(degrees);
+        }
     }
 }
